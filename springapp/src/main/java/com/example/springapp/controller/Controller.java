@@ -80,7 +80,7 @@ public class Controller {
 		}
 		filename = name + timestamp.getTime() + ext;// creating the unique file name by adding the current timestamp
 		poster.transferTo(new File(
-				"D:\\tiu\\virtusa training\\java-web\\springBoot\\MovieReviewAggregator\\src\\main\\resources\\static\\"
+				"\\home\\coder\\project\\workspace\\springapp\\src\\main\\resources\\static\\"
 						+ filename));// storing the image to the public folder
 		return filename;
 	}

@@ -114,4 +114,10 @@ public class User {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
+	
+	public User hideDetails() {
+		this.setEmail(null);
+		this.setPassword(null);
+		return this;
+	}
 }

@@ -12,11 +12,12 @@ import com.example.springapp.entities.User;
 public class UserService {
     
 
+	//User Data access object from Dao layer
     @Autowired
 	private UserDao userDao;
 	
 	
-	
+	//checks if email exists and that user has given password and if exists returns the user data
 	public User AuthenticateUser(String email, String password) {
 		List<User> users = userDao.findByEmail(email);
 		if(users.size() > 0) {
@@ -28,6 +29,7 @@ public class UserService {
 
 
 
+	//creates a user and saves the data in the database
 	public boolean createUser(String email, String password, String name, boolean isAdmin) {
 		
 		if(isEmailExist(email)) return false;
@@ -44,6 +46,7 @@ public class UserService {
 
 
 
+	//checks if given email is present in the database
 	public boolean isEmailExist(String email) {
 		List<User> users = userDao.findByEmail(email);
 		
@@ -54,6 +57,7 @@ public class UserService {
 
 
 
+	//checks if the user with given email is an admin or not
 	public boolean isUserAdmin(String email) {
 		List<User> users = userDao.findByEmail(email);
 		if(users.size() > 0) {
@@ -66,6 +70,7 @@ public class UserService {
 
     
 
+	//returns the data of the user by the email
 	public User getUserByEmail(String email) {
 		List<User> users = userDao.findByEmail(email);
 		if(users.size() > 0) {
@@ -76,9 +81,9 @@ public class UserService {
 	
 
 
+	//returns the data of the user by the userId
 	public User getUserByUserId(long userId) {
-		User user = userDao.findById(userId).get();
-		return user;
+		return userDao.findById(userId).get();
 	}
 
 

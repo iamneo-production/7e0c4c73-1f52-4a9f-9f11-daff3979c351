@@ -1,30 +1,36 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import './SignIn.css'
+import './index.css'
 
-const baseURL = 'http://localhost:8080/signin';
+const baseURL = 'http://localhost:8080/api/signin';
 
 
 export const SignIn = (props) => {
 
-    const [userName, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
 
+
     const handleSubmit = (e) =>{
-        // console.log(userName,password);
         const formdata = new FormData();
-        formdata.append("email",userName);
+        formdata.append("email",email);
         formdata.append("password",password);
         axios.post(baseURL,formdata,{
             validateStatus: function (status) {
                 return status < 500; // Resolve only if the status code is less than 500
               }
         }).then((response)=>{
-            // console.log(response.data);
             if(response.status == 200) {
-                window.localStorage.setItem("token" , response.data);
-                // window.open("/");
+                window.localStorage.setItem("token" , response.data.token);
+                const user = {
+                    "email" : email,
+                    "userId" : response.data.userId,
+                    "isAdmin" : response.data.isAdmin
+                }
+                window.localStorage.setItem("user" , JSON.stringify(user));
+                console.log(JSON.parse(window.localStorage.getItem("user")));
+                window.location.href='/';
             }
             else{
                 document.getElementById("unauthorizedBlock").style.setProperty("display","block");
@@ -55,7 +61,7 @@ export const SignIn = (props) => {
 
                             <div className="mb-3">
                                 <input type="text" className="form-control" id="Username" required aria-describedby="emailHelp"
-                                    placeholder="User Name" value={userName} onChange={(e)=>{setUsername(e.target.value)}} />
+                                    placeholder="User Name" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
                             </div>
                             <div className="mb-3">
                                 <input type="password" className="form-control" id="password" required placeholder="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>

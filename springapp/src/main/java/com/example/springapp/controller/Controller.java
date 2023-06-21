@@ -108,7 +108,6 @@ public class Controller {
 	@PostMapping("/signin")
 	public ResponseEntity<Map<String, Object>> signIn(@RequestParam("email") String email,
 			@RequestParam("password") String password) {
-		// userDetail = {"email":"abc@xyz.com","password":"pass"}
 		try {
 			User user = this.userService.AuthenticateUser(email, password);
 			if (user != null) {
@@ -124,6 +123,30 @@ public class Controller {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+
+	//check if a token is valid for a particular user
+	@PostMapping("/authenticate")
+	public ResponseEntity<HttpStatus> authenticate(@RequestHeader(name = "Authorization") String token,
+			@RequestParam("email") String email) {
+		try {
+			if (token != null && token.startsWith("Bearer ")) {
+				token = token.substring(7);
+				if (!jwtTokenUtil.isTokenExpired(token)) {
+					if (email.equals(jwtTokenUtil.getUsernameFromToken(token)) && userService.isEmailExist(email)) {
+						if (userService.isUserAdmin(email)) {
+							return new ResponseEntity<>(HttpStatus.ACCEPTED);
+						}
+						return new ResponseEntity<>(HttpStatus.OK);
+					}
+				}
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (ExpiredJwtException e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	// tasks related to movie Service starts
@@ -169,7 +192,6 @@ public class Controller {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
-				System.out.println(token);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
@@ -395,8 +417,7 @@ public class Controller {
 
 	}
 
-	// retrieves all the rewiews posted under the movie with the movieId as primary
-	// key
+	// retrieves all the rewiews posted under the movie with the movieId as primary key
 	@GetMapping("/movies/reviews/{movieId}")
 	public ResponseEntity<List<Review>> getReviewByMovie(@PathVariable String movieId) {
 		try {
@@ -420,6 +441,16 @@ public class Controller {
 
 	// tasks related to Cast Service starts
 
+	//search casts using name key 
+	@GetMapping("/search/cast/{key}")
+	public List<Cast> getCasts(@PathVariable String key) {
+		try {
+			return castService.searchByCastName(key);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	// creates a cast object with provided data and stores it in the database
 	@PostMapping("/cast")
 	public ResponseEntity<HttpStatus> addCast(@RequestHeader(name = "Authorization") String token,
@@ -428,7 +459,6 @@ public class Controller {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
-				// System.out.println(token);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
@@ -450,15 +480,13 @@ public class Controller {
 		}
 	}
 
-	// creates a worked on relation between the cast with castId and the movie with
-	// the movieId
+	// creates a worked on relation between the cast with castId and the movie with the movieId
 	@PostMapping("/movies/cast")
 	public ResponseEntity<HttpStatus> addCastToMovie(@RequestHeader(name = "Authorization") String token,
 			@RequestParam("castId") Long castId, @RequestParam("movieId") Long movieId) {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
-				// System.out.println(token);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
@@ -491,7 +519,6 @@ public class Controller {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
-				// System.out.println(token);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
@@ -522,7 +549,6 @@ public class Controller {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
-				// System.out.println(token);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {

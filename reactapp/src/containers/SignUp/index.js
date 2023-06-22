@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 
-const baseURL = 'http://localhost:8080/api/signup'
+const baseURL = process.env.REACT_APP_BACKEND_URL+'signup'
 
 export const SignUp = (props) => {
 

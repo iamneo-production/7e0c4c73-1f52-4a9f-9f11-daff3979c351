@@ -22,25 +22,25 @@ export const AddCast = (props) => {
         if (token && user && user['email']) {
             const formdata = new FormData();
             formdata.append('email', user['email']);
-            axios.post('http://localhost:8080/api/authenticate', formdata, {
+            axios.post(process.env.REACT_APP_BACKEND_URL+'authenticate', formdata, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             }).then((response) => {
                 if (response.status != 202) {
-                    window.location.href = 'http://localhost:8081/signin'
+                    window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin'
                 }
                 if (movieId) {
-                    axios.get('http://localhost:8080/api/movies/' + movieId).then((response) => {
+                    axios.get(process.env.REACT_APP_BACKEND_URL+'movies/' + movieId).then((response) => {
                         setMovie(response.data);
                     })
                 }
             }).catch((err) => {
-                window.location.href = 'http://localhost:8081/signin';
+                window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
             })
         }
         else {
-            window.location.href = 'http://localhost:8081/signin';
+            window.location.href = process.env.REACT_APP_FRONTEND_URL+'ignin';
         }
     }, []);
 
@@ -48,7 +48,7 @@ export const AddCast = (props) => {
     const handleSearch = (e) => { 
         searchWord1 = e.target.value;
         if (searchWord1 && searchWord1.trim() != '') {
-            axios.get('http://localhost:8080/api/search/cast/' + searchWord1).then((response) => {
+            axios.get(process.env.REACT_APP_BACKEND_URL+'search/cast/' + searchWord1).then((response) => {
                 setCasts([...response.data]);
             }).catch((err) => {
                 setCasts([]);
@@ -65,12 +65,12 @@ export const AddCast = (props) => {
                 formdata.append('castId', castId);
                 formdata.append('movieId', movieId);
                 const token = window.localStorage.getItem('token');
-                axios.post('http://localhost:8080/api/movies/cast', formdata, {
+                axios.post(process.env.REACT_APP_BACKEND_URL+'movies/cast', formdata, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 }).then((e) => {
-                    window.location.href = 'http://localhost:8081/movie/' + movieId;
+                    window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/' + movieId;
                 }).catch((err) => {
                     if(err.response.status == 400){
                         alert(err + ' : Cast already added to movie!')

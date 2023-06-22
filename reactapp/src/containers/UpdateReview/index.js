@@ -2,7 +2,7 @@ import axios from 'axios';
 import React,{ useEffect,useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const url = 'http://localhost:8080/api/reviews/'
+const url = process.env.REACT_APP_BACKEND_URL+'reviews/'
 
 export const UpdateReview = (props) => {
 
@@ -32,14 +32,14 @@ export const UpdateReview = (props) => {
       }).then((response) => {
         if (response.status == 200) {
           alert("Successfully Deleted the Post");
-          window.location.href = 'http://localhost:8081/movie/' + review.movieId.movieId;
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/' + review.movieId.movieId;
         } else {
           alert("unable to Successfully delete the Post");
         }
       }).catch((err) => {
         alert(err + " unable to Successfully delete the Post");
         if (err.response.status == 401) {
-          window.location.href = 'http://localhost:8081/signin';
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
         }
       })
     }
@@ -61,11 +61,11 @@ export const UpdateReview = (props) => {
           }
         }).then((response) => {
           alert("Review post updated successfully");
-          window.location.href = 'http://localhost:8081/movie/' + review.movieId.movieId;
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/' + review.movieId.movieId;
         }).catch((err) => {
           alert("Unable to Update the Review Post")
           if (err.response.status == 401) {
-            window.location.href = 'http://localhost:8081/signin';
+            window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
           }
         })
       }

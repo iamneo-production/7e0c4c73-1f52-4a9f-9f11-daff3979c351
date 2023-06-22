@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 
-const url = 'http://localhost:8080/api/movies/'
+const url = process.env.REACT_APP_BACKEND_URL+'movies/'
 
 export const UpdateMovie = (props) => {
 
@@ -50,14 +50,14 @@ export const UpdateMovie = (props) => {
       }).then((response)=>{
         if(response.status == 200){
           alert('Successfully Updated Movie');
-          window.location.href = 'http://localhost:8081/movie/'+movieId;
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/'+movieId;
         }
         else{
           alert('Unable to update the Movie')
         }
       }).catch((err)=>{
         if(err.response.status == 401){
-          window.location.href = 'http://localhost:8081/signin';
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
         }
         else alert(err + " Unable to update Movie");
       })

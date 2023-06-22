@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { CastCard } from '../../Components/CastCard'
-import { Modals } from '../../Components/Modal';
+import { Modals } from '../../Components/Modals';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-const url = 'http://localhost:8080/api/movies/'
+const url = process.env.REACT_APP_BACKEND_URL+'movies/'
 
 export const Movie = (props) => {
   var { movieId } = useParams();
@@ -27,7 +27,7 @@ export const Movie = (props) => {
       formData.append("rating", rating);
       formData.append("movieId", movieId);
       const token = window.localStorage.getItem('token');
-      axios.post('http://localhost:8080/api/reviews', formData, {
+      axios.post(process.env.REACT_APP_BACKEND_URL+'reviews', formData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -36,7 +36,7 @@ export const Movie = (props) => {
           window.location.reload();
         }
         if (response.status == 401) {
-          window.location.href = 'http://localhost:8081/signin';
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
         }
       })
 
@@ -60,32 +60,32 @@ export const Movie = (props) => {
       <div>
         {(movie) ? (
           <div>
-            <img src={'http://localhost:8080/image/' + movie.poster} />
+            <img src={process.env.REACT_APP_BACKEND_URL+'image/' + movie.poster} />
             <h2>{movie.title}</h2> <button onClick={(e) => {
               var token = window.localStorage.getItem('token');
               user = JSON.parse(window.localStorage.getItem('user'));
               if (token && user && user['email']) {
                 const formdata = new FormData();
                 formdata.append('email', user['email']);
-                axios.post('http://localhost:8080/api/authenticate', formdata, {
+                axios.post(process.env.REACT_APP_BACKEND_URL+'authenticate', formdata, {
                   headers: {
                     'Authorization': `Bearer ${token}`
                   }
                 }).then((response) => {
                   setPostReviewShow(true);
                 }).catch((err) => {
-                  window.location.href = 'http://localhost:8081/signin';
+                  window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
                 })
               }
               else {
-                window.location.href = 'http://localhost:8081/signin';
+                window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
               }
             }} >Review</button>
             {
               user && user['isAdmin'] && (
                 <>
                   <button onClick={(e) => {
-                    window.location.href = 'http://localhost:8081/updateMovie/' + movieId;
+                    window.location.href = process.env.REACT_APP_FRONTEND_URL+'updateMovie/' + movieId;
                   }} >Update Movie</button>
                   <button onClick={(e) => {
                     if (window.confirm('Are you sure you want to delete' + movie.title) == true) {
@@ -95,10 +95,10 @@ export const Movie = (props) => {
                           'Authorization': `Bearer ${token}`
                         }
                       }).then((response) => {
-                        window.location.href = 'http://localhost:8081/';
+                        window.location.href = process.env.REACT_APP_FRONTEND_URL;
                       }).catch((err) => {
                         if (err.status >= 400 && err.status <= 405) {
-                          window.location.href = 'http://localhost:8081/signin';
+                          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
                         }
                         else {
                           console.log('Unable to delete Movie');
@@ -116,7 +116,7 @@ export const Movie = (props) => {
                 {
                   user && user['isAdmin'] && (
                     <button onClick={(e) => {
-                      window.location.href = 'http://localhost:8081/addCast/' + movieId;
+                      window.location.href = process.env.REACT_APP_FRONTEND_URL+'addCast/' + movieId;
                     }}>Add Cast</button>
                   )
                 }
@@ -135,7 +135,7 @@ export const Movie = (props) => {
                       {
                         user && user['isAdmin'] && (
                           <button onClick={(e)=>{
-                            window.location.href = 'http://localhost:8081/updateReview/'+review.reviewId;
+                            window.location.href = process.env.REACT_APP_FRONTEND_URL+'updateReview/'+review.reviewId;
                           }} >Update Review</button>
                         )
                       }

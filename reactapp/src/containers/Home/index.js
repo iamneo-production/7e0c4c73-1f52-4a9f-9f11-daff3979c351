@@ -9,7 +9,7 @@ export const Home = (props) => {
   const handleSearch = (e) => {
     e.preventDefault();
     if(key && (key.trim() != '')){
-      window.location.href =  ('http://localhost:8081/search/'+key);
+      window.location.href =  process.env.REACT_APP_FRONTEND_URL+'search/'+key;
     }
   }
 

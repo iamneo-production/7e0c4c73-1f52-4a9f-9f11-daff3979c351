@@ -5,7 +5,7 @@ import { MovieCard } from '../../Components/MovieCard';
 import './index.css';
 
 
-const url = 'http://localhost:8080/api/search/movies/'
+const url = process.env.REACT_APP_BACKEND_URL+'search/movies/'
 
 export const MovieList = (props) => {
     var { key } = useParams();
@@ -13,7 +13,7 @@ export const MovieList = (props) => {
     useEffect(()=>{
         key = key.trim();
         if(key && key != ''){
-            axios.get(url+key).then((response)=>{
+            axios.get(process.env.REACT_APP_BACKEND_URL+'search/movies/'+key).then((response)=>{
                 setMovies([...response.data]);
             })
         }

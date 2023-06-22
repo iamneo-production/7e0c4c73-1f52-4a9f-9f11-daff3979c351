@@ -1,7 +1,7 @@
 .card-container {
     width: 18rem;
     background-color: var(--card-bg-color);
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.8);
+    /* box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, .8); */
     border-radius: 4px;
 }
 
@@ -21,7 +21,7 @@
     color: var(--primary-text-color);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 8px; 
     padding: 8px;
 }
 
@@ -29,7 +29,7 @@
     font-size: 1.25rem;
 }
 
-.ratings{
+.rating {
     display: flex;
     justify-content: space-between;
 }

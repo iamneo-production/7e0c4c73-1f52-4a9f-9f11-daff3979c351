@@ -40,7 +40,7 @@ export const AddCast = (props) => {
             })
         }
         else {
-            window.location.href = process.env.REACT_APP_FRONTEND_URL+'ignin';
+            window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
         }
     }, []);
 

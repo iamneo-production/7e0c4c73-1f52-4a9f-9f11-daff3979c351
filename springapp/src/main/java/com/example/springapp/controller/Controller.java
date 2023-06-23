@@ -38,9 +38,9 @@ import com.example.springapp.services.WorkedOnService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
+
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class Controller {
 
 	// Service layer objects

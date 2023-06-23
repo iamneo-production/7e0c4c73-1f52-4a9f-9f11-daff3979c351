@@ -1,0 +1,10 @@
+
+.cardContainer{
+    margin: 3em;
+    padding: 2px;
+}
+
+.movieImage{
+    max-width: 12em;
+    max-height: 12em;
+}

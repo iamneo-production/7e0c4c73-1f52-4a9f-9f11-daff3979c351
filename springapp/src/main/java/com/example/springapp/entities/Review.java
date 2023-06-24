@@ -2,19 +2,35 @@ package com.example.springapp.entities;
 
 import java.sql.Timestamp;
 
+<<<<<<< HEAD
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+=======
+import javax.persistence.Column;
+import javax.persistence.Entity;
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+<<<<<<< HEAD
 @Entity
 public class Review {
 
 	@Id
+=======
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+@Entity
+public class Review {
+    
+
+    @Id
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 	@GeneratedValue
 	private long reviewId;
 	@ManyToOne
@@ -47,7 +63,10 @@ public class Review {
 
 	public Review() {
 		super();
+<<<<<<< HEAD
 		// TODO Auto-generated constructor stub
+=======
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 	}
 
 
@@ -120,4 +139,8 @@ public class Review {
 		this.updateDate = updateDate;
 	}
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 }

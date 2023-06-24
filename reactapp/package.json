@@ -7,15 +7,29 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+<<<<<<< HEAD
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.11.2",
     "react-router-dom": "^6.11.2",
+=======
+    "bootstrap": "^5.3.0",
+    "dayjs": "^1.11.8",
+    "dotenv": "^16.3.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.13.0",
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+<<<<<<< HEAD
     "start": "PORT=8081 react-scripts start",
+=======
+    "start": "react-scripts start",
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

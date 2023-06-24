@@ -28,11 +28,23 @@ public class Movie {
 	private String genre;//stores the different genres separated by space
 	private String description;
 	private String poster;//stores the url of the poster of the movie
+<<<<<<< HEAD
+=======
+	
+	
+
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 	@CreationTimestamp
 	private Timestamp createDate;
 	@UpdateTimestamp
 	private Timestamp updateDate;
 	
+<<<<<<< HEAD
+=======
+	
+	
+
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 
 	public Movie(long movieId, String title, Date releaseDate, float rating, String genre, String description,
 			String poster,Timestamp createDate, Timestamp updateDate) {
@@ -154,4 +166,8 @@ public class Movie {
 	}
 	
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032

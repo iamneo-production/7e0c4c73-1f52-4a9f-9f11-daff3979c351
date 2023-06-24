@@ -2,6 +2,7 @@ package com.example.springapp.entities;
 
 import java.util.Date;
 
+<<<<<<< HEAD
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,6 +16,19 @@ import javax.persistence.Id;
 public class User {
 
 	@Id
+=======
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+@Entity
+public class User {
+    @Id
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 	@GeneratedValue
 	private long userId;
 	
@@ -45,7 +59,10 @@ public class User {
 	
 	public User() {
 		super();
+<<<<<<< HEAD
 		// TODO Auto-generated constructor stub
+=======
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 	}
 
 
@@ -123,6 +140,9 @@ public class User {
 		this.setPassword(null);
 		return this;
 	}
+<<<<<<< HEAD
 	
 	
+=======
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 }

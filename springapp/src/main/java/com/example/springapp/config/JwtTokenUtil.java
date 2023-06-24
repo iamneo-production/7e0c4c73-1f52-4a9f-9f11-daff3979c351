@@ -16,6 +16,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
+<<<<<<< HEAD
 public class JwtTokenUtil implements Serializable {
 
 	private static final long serialVersionUID = -2550185165626007488L;
@@ -24,6 +25,18 @@ public class JwtTokenUtil implements Serializable {
 
 	@Value("${jwt.secret}")
 	private String secret;
+=======
+public class JwtTokenUtil implements Serializable  {
+    
+
+    private static final long serialVersionUID = -2550185165626007488L;
+
+	//token valadity in seconds
+	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+
+	@Value("${jwt.secret}")
+	private String secret;//jwt secret key in application.properties
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 
 	//retrieve username from jwt token
 	public String getUsernameFromToken(String token) {
@@ -56,11 +69,16 @@ public class JwtTokenUtil implements Serializable {
 		return doGenerateToken(claims, userDetails.getEmail());
 	}
 
+<<<<<<< HEAD
 	//while creating the token -
 	//1. Define  claims of the token, like Issuer, Expiration, Subject, and the ID
 	//2. Sign the JWT using the HS512 algorithm and secret key.
 	//3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
 	//   compaction of the JWT to a URL-safe string 
+=======
+	
+	//generating the token having the email using the HS512 algorithm and secret key
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
 
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
@@ -68,9 +86,17 @@ public class JwtTokenUtil implements Serializable {
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 
+<<<<<<< HEAD
 	//validate token
+=======
+	//checking if token is valid or not
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032
 	public Boolean validateToken(String token, User userDetails) {
 		final String username = getUsernameFromToken(token);
 		return (username.equals(userDetails.getEmail()) && !isTokenExpired(token));
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 54f74e49d0d737586ab8775a47ec97a4e4abb032

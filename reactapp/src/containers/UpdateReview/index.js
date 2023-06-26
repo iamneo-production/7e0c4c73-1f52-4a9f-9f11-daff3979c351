@@ -19,6 +19,7 @@ export const UpdateReview = (props) => {
         setReview(response.data);
         setReviewText(response.data.reviewText);
         setRating(response.data.rating);
+       
       })
     }
   }, []);

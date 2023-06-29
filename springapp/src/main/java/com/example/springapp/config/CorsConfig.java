@@ -14,4 +14,11 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**");
     }
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+          .addResourceHandler("/image/**")
+          .addResourceLocations("file:/home/coder/project/workspace/springapp/src/main/resources/static/");	
+    }
 }

@@ -165,6 +165,29 @@ public class Controller {
 		}
 	}
 
+	
+	@GetMapping("/movies/highestrated")
+	public ResponseEntity<List<Movie>> getHighestRatedMovies(){
+		try{
+			List<Movie> movies = this.movieService.getHighestRatedMovies();
+			return ResponseEntity.status(HttpStatus.OK).body(movies);
+		}catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+
+	@GetMapping("/movies/recent")
+	public ResponseEntity<List<Movie>> getRecentMovies(){
+		try{
+			List<Movie> movies = this.movieService.getRecentMovies();
+			return ResponseEntity.status(HttpStatus.OK).body(movies);
+		}catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+
 	// retrieves the particular movie data that has primary key as movieId
 	@GetMapping("/movies/{movieId}")
 	public ResponseEntity<MovieModel> getMovie(@PathVariable String movieId) {

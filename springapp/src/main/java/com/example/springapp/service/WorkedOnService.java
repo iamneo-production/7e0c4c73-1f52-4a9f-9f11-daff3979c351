@@ -1,14 +1,14 @@
-package com.example.springapp.services;
+package com.example.springapp.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.springapp.dao.WorkedOnDao;
-import com.example.springapp.entities.Cast;
-import com.example.springapp.entities.Movie;
-import com.example.springapp.entities.WorkedOn;
+import com.example.springapp.repository.WorkedOnRepository;
+import com.example.springapp.model.Cast;
+import com.example.springapp.model.Movie;
+import com.example.springapp.model.WorkedOn;
 
 
 @Service
@@ -16,7 +16,7 @@ public class WorkedOnService {
     
 	//WOrked on Data access object from Dao layer
     @Autowired
-	private WorkedOnDao workedOnDao;
+	private WorkedOnRepository workedOnDao;
 	
 	
 	

@@ -1,14 +1,14 @@
-package com.example.springapp.dao;
+package com.example.springapp.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.springapp.entities.Cast;
-import com.example.springapp.entities.Movie;
-import com.example.springapp.entities.WorkedOn;
+import com.example.springapp.model.Cast;
+import com.example.springapp.model.Movie;
+import com.example.springapp.model.WorkedOn;
 
-public interface WorkedOnDao extends JpaRepository<WorkedOn, Long>  {
+public interface WorkedOnRepository extends JpaRepository<WorkedOn, Long>  {
 
 	List<WorkedOn> findByMovie(Movie movie);//returns the list of workedOn relation for the particular movie
 	List<WorkedOn> findByCast(Cast cast);//returns the list of workedOn relation on which the cast has worked on

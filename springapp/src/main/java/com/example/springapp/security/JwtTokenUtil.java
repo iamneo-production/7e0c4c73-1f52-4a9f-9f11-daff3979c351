@@ -1,4 +1,4 @@
-package com.example.springapp.config;
+package com.example.springapp.security;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.example.springapp.entities.User;
+import com.example.springapp.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,8 +24,7 @@ public class JwtTokenUtil implements Serializable  {
 	//token valadity in seconds
 	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
-	@Value("${jwt.secret}")
-	private String secret;//jwt secret key in application.properties
+	private String secret="admin";//jwt secret key in application.properties
 
 	//retrieve username from jwt token
 	public String getUsernameFromToken(String token) {

@@ -47,7 +47,7 @@ const [found,setFound] = useState(true);
 
         <div className="App">
           <header className='header'>
-          <h1 className='heading'>MovieCard</h1>
+          <h1 className='heading'>Movie Reviews</h1>
           <div className="search-container">
             <input type="text" placeholder="Search..." value={searchTerm} onChange={handleSearch} />
             <button onClick={handleSubmit} style={{ float: 'right' }}>Search</button>

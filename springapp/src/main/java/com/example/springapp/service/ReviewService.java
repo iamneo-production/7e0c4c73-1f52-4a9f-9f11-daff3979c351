@@ -28,7 +28,11 @@ public class ReviewService {
 
 	//returns the Review for the primary key reviewId
 	public Review getReviewById(long reviewId) {
-		return reviewDao.findById(reviewId).get();
+		try{
+			return reviewDao.findById(reviewId).get();
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { MovieCard } from '../../Components/MovieCard';
-import './index.css';
+import './Moviels.css';
 
 
 const url = process.env.REACT_APP_BACKEND_URL+'search/movies/'

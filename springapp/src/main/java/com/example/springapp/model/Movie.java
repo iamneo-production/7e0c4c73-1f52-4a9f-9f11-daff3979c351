@@ -4,10 +4,10 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,13 +25,14 @@ public class Movie {
 	private String title;
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
+	// @Column(columnDefinition = "FLOAT(2,1) CHECK(rating>=0 AND rating <=5)")
 	private String rating;
 	private String cast;
 	private String genre;//stores the different genres separated by space
 	private String plotSummary;
-	private String poster;//stores the Image URL for the Cast
-    @OneToMany
-    @JoinColumn(name="id",nullable = false)
+	private String poster;//stores the url of the poster of the movie
+	@OneToMany
+	// @JoinColumn(name="id",nullable = false)
     private List<Review> reviews;
 	
 	
@@ -42,7 +43,10 @@ public class Movie {
 	private Timestamp updateDate;
 	
 	
-	public Movie(Long id, String title, Date releaseDate, String rating, String cast, String genre, String plotSummary,
+	
+
+
+	public Movie(long id, String title, Date releaseDate, String rating, String cast, String genre, String plotSummary,
             String poster, List<Review> reviews, Timestamp createDate, Timestamp updateDate) {
         this.movieId = id;
         this.title = title;
@@ -62,12 +66,12 @@ public class Movie {
     }
 
 
-    public Long getMovieId() {
+    public long getMovieId() {
         return movieId;
     }
 
 
-    public void setMovieId(Long id) {
+    public void setMovieId(long id) {
         this.movieId = id;
     }
 

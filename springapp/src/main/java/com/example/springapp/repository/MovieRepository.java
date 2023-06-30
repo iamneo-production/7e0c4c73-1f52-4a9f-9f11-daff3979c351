@@ -13,8 +13,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	List<Movie> findByTitleContaining(String infix);//returns list of movies that contain the string infix in its title
 	List<Movie> findByGenreContaining(String genre);//returns list of movies that contain the string genre in its genre column
 	List<Movie> findByCastContaining(String cast);//returns list of movies that contain the string genre in its genre column
-
-	// List<Movie> findAllOrderByReleaseDateDesc();
-	// List<Movie> findAllOrderByRatingDesc();
 	
 }

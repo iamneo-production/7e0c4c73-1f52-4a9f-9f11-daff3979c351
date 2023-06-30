@@ -20,7 +20,7 @@ public class User {
 	private String email;
 	private String password;
 	private String name;
-	@Column(nullable = false)
+	// @Column(nullable = false)
 	private String role;
 	@CreationTimestamp
 	private Date createDate;
@@ -86,11 +86,6 @@ public class User {
 	}
 
 
-	public boolean isAdmin() {
-		if(role.equals("ADMIN")) return true;
-		return false;
-	}
-
 	public String getRole() {
 		return role;
 	}
@@ -118,6 +113,11 @@ public class User {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public boolean isAdmin(){
+		if(role.equals("ADMIN")) return true;
+		return false;
 	}
 	
 	public User hideDetails() {

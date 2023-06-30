@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.springapp.model.User;
 import com.example.springapp.repository.UserRepository;
+import com.example.springapp.model.User;
 
 @Service
 public class UserService {
@@ -23,9 +23,9 @@ public class UserService {
 		if(users.size() > 0) {
 			User u = users.get(0);
 			if(u.getPassword().equals(password)){
-                    u.setPassword(null);
-                    return u;
-                }
+				u.setPassword(null);
+				return u;
+			}
 		}
 		return null;
 	}
@@ -41,7 +41,7 @@ public class UserService {
 		user.setEmail(email);
 		user.setPassword(password);
 		user.setName(name);
-        if(role == "ADMIN"){
+		if(role.equals("ADMIN")){
             user.setRole("ADMIN");
         }else{
             user.setRole("USER");
@@ -67,7 +67,7 @@ public class UserService {
 	//checks if the user with given email is an admin or not
 	public boolean isUserAdmin(String email) {
 		List<User> users = userDao.findByEmail(email);
-		if(users.size() > 0 && users.get(0).getRole() == "ADMIN") {
+		if(users.size() > 0 && users.get(0).getRole().equals("ADMIN")) {
 			return true;
 		}
 		return false;

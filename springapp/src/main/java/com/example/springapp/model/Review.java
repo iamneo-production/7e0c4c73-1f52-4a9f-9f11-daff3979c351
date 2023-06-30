@@ -22,17 +22,20 @@ public class Review {
 	@ManyToOne
 	@JoinColumn(name="movieId")
 	private Movie movie;
-	private Long userId;
+	// @ManyToOne
+	// @JoinColumn(name = "userId")
+	private long userId;
+	// @Column(columnDefinition = "FLOAT(2,1) default 0.0 CHECK (rating>=0.0 AND rating <=5.0)")
 	private String rating;
-	private String source;
 	private String reviewNote;
+	private String source;
 	@CreationTimestamp
 	private Timestamp date;
 	@UpdateTimestamp
 	private Timestamp updateDate;
-
-
-    public Review(Long id, Movie movie, Long userId, String rating, String source, String reviewNote, Timestamp date,
+	
+	
+	public Review(long id, Movie movie, long userId, String rating, String source, String reviewNote, Timestamp date,
             Timestamp updateDate) {
         this.reviewId = id;
         this.movie = movie;
@@ -49,12 +52,12 @@ public class Review {
     }
 
 
-    public Long getReviewId() {
+    public long getReviewId() {
         return reviewId;
     }
 
 
-    public void setReviewId(Long id) {
+    public void setReviewId(long id) {
         this.reviewId = id;
     }
 
@@ -69,12 +72,12 @@ public class Review {
     }
 
 
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
 
-    public void setUserId(Long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

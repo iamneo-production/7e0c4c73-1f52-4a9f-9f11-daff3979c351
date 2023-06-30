@@ -35,11 +35,9 @@ export const Movie = (props) => {
         if (response.status == 200) {
           window.location.reload();
         }
-      }).catch((err)=>{
         if (response.status == 401) {
           window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
         }
-        //alert something went wrong
       })
 
     }

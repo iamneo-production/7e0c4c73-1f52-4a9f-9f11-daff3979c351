@@ -1,19 +1,19 @@
-package com.example.springapp.services;
+package com.example.springapp.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.springapp.dao.CastDao;
-import com.example.springapp.entities.Cast;
+import com.example.springapp.repository.CastRepository;
+import com.example.springapp.model.Cast;
 
 @Service
 public class CastService {
     
 	//Cast Data access object from Dao layer
     @Autowired
-	CastDao castDao;
+	CastRepository castDao;
 	
 	
 

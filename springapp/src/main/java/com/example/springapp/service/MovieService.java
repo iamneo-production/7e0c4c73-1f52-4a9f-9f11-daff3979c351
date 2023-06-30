@@ -1,4 +1,4 @@
-package com.example.springapp.services;
+package com.example.springapp.service;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,10 +7,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.springapp.dao.MovieDao;
-import com.example.springapp.entities.Cast;
-import com.example.springapp.entities.Movie;
-import com.example.springapp.entities.WorkedOn;
+import com.example.springapp.model.Movie;
+import com.example.springapp.repository.MovieRepository;
+
+
 
 
 @Service
@@ -19,17 +19,13 @@ public class MovieService {
 
 	//Movie Data access object from Dao layer
     @Autowired
-	private MovieDao movieDao;
+	private MovieRepository movieDao;
 	
 	//Other Service objects
 	@Autowired
 	private ReviewService reviewService;
 	
-	@Autowired
-	private CastService castService;
 	
-	@Autowired
-	private WorkedOnService workedOnService; 
 	
 	
 	
@@ -52,6 +48,18 @@ public class MovieService {
 		}
 	}
 
+
+	public List<Movie> getHighestRatedMovies(){//////////////////////////////////////////////////////////////////////
+		List<Movie> movies = movieDao.findAll();
+		return movies;
+	}
+
+
+	public List<Movie> getRecentMovies(){/////////////////////////////////////////////////////////////////////////////
+		List<Movie> movies = movieDao.findAll();
+		return movies;
+	}
+
 	
 	//adds the movie object received into the database
 	public Movie addMovie(Movie movie) {
@@ -69,10 +77,11 @@ public class MovieService {
 		if(movie.getGenre() == null) {
 			movie.setGenre(m.getGenre());
 		}
-		if(movie.getDescription() == null) movie.setDescription(m.getDescription());
+		if(movie.getPlotSummary() == null) movie.setPlotSummary(m.getPlotSummary());
 		if(movie.getPoster() == null) movie.setPoster(m.getPoster());
-		if(movie.getRating() == 0.0)movie.setRating(m.getRating());
+		if(movie.getRating() == null)movie.setRating(m.getRating());
 		if(movie.getReleaseDate()==null)movie.setReleaseDate(m.getReleaseDate());
+		if(movie.getCast()==null)movie.setCast(m.getCast());
 		movie.setCreateDate(m.getCreateDate());
 		
 		movieDao.save(movie);
@@ -80,12 +89,12 @@ public class MovieService {
 	}
 
 
-	//deletes the movie with the movieId an primary key from the database
+	//deletes the movie with the movieId as primary key from the database
 	public boolean deleteMovie(long movieId) {
 		boolean success=false;
 		Movie m = movieDao.findById(movieId).get();
-		reviewService.deleteReviewByMovieId(m);
-		workedOnService.deleteByMovie(m);
+		reviewService.deleteReviewByMovie(m);
+		// workedOnService.deleteByMovie(m);
 		movieDao.delete(m);
 		if(m!=null) success=true;
 		return success;
@@ -96,13 +105,14 @@ public class MovieService {
 	public List<Movie> searchMovie(String key) {
 		List<Movie> movies = movieDao.findByTitleContaining(key);
 		movies.addAll(movieDao.findByGenreContaining(key));
-		List<Cast> casts = castService.searchByCastName(key);
-		for(Cast c : casts) {
-			List<WorkedOn> wl = workedOnService.getList(c);
-			for(WorkedOn w : wl) {
-				movies.add(w.getMovie());
-			}
-		}
+		movies.addAll(movieDao.findByCastContaining(key));
+		// List<Cast> casts = castService.searchByCastName(key);
+		// for(Cast c : casts) {
+		// 	List<WorkedOn> wl = workedOnService.getList(c);
+		// 	for(WorkedOn w : wl) {
+		// 		movies.add(w.getMovie());
+		// 	}
+		// }
 		Set<Long> uniqueMovieIds = new HashSet<>();
 		for(Movie m : movies) {
 			uniqueMovieIds.add(m.getMovieId());

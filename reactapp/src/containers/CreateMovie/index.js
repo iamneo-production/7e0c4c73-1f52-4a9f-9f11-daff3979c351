@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './index.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-const MovieForm = () => {
+export const MovieForm = () => {
   const [movieTitle, setMovieTitle] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
   const [genre, setGenre] = useState('');
@@ -111,4 +111,3 @@ const MovieForm = () => {
   );
 };
 
-export default MovieForm;

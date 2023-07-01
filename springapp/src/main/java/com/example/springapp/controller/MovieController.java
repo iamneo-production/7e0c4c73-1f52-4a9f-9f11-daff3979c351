@@ -3,6 +3,7 @@ package com.example.springapp.controller;
 import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,30 +24,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.springapp.config.JwtTokenUtil;
-import com.example.springapp.entities.Cast;
-import com.example.springapp.entities.Movie;
-import com.example.springapp.entities.Review;
-import com.example.springapp.entities.User;
-import com.example.springapp.entities.WorkedOn;
-import com.example.springapp.model.MovieModel;
-import com.example.springapp.services.CastService;
-import com.example.springapp.services.MovieService;
-import com.example.springapp.services.ReviewService;
-import com.example.springapp.services.UserService;
-import com.example.springapp.services.WorkedOnService;
+import com.example.springapp.security.JwtTokenUtil;
+import com.example.springapp.model.Cast;
+import com.example.springapp.model.Movie;
+import com.example.springapp.model.Review;
+import com.example.springapp.model.User;
+import com.example.springapp.model.WorkedOn;
+import com.example.springapp.service.CastService;
+import com.example.springapp.service.MovieService;
+import com.example.springapp.service.ReviewService;
+import com.example.springapp.service.UserService;
+import com.example.springapp.service.WorkedOnService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
 
 @RestController
-@RequestMapping("/api")
-public class Controller {
+public class MovieController {
 
 	// Service layer objects
 
 	@Autowired
-	UserService userService;// Object to connect to User service of service layer
+	private UserService userService;// Object to connect to User service of service layer
 
 	@Autowired
 	private ReviewService reviewService;// Object to connect to review service of service layer
@@ -90,15 +89,15 @@ public class Controller {
 	@PostMapping("/signup")
 	public ResponseEntity<HttpStatus> signup(@RequestParam("email") String email,
 			@RequestParam("password") String password, @RequestParam("name") String name,
-			@RequestParam("type") String type) {
+			@RequestParam("role") String role) {
 		try {
-			boolean isAdmin = (type.equals("admin"));
-			if (this.userService.createUser(email, password, name, isAdmin))// create user returns true if successfully
+			if (this.userService.createUser(email, password, name, role))// create user returns true if successfully
 																			// user is created
 				return new ResponseEntity<>(HttpStatus.OK);
 			else
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -112,10 +111,12 @@ public class Controller {
 			User user = this.userService.AuthenticateUser(email, password);
 			if (user != null) {
 				String token = jwtTokenUtil.generateToken(user);
-				boolean isAdmin = user.isAdmin();
 				Map<String, Object> responseBody = new HashMap<>();
 				responseBody.put("token", token);
-				responseBody.put("isAdmin", isAdmin);
+				responseBody.put("userId", user.getUserId());
+				responseBody.put("email", user.getEmail());
+				responseBody.put("name", user.getName());
+				responseBody.put("role", user.getRole());
 				return ResponseEntity.ok(responseBody);
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -152,10 +153,16 @@ public class Controller {
 	// tasks related to movie Service starts
 
 	// retrieves all the movies that are present in the database
-	@GetMapping("/movies")
-	public ResponseEntity<List<Movie>> getMovies() {
+	@GetMapping("/movie")
+	public ResponseEntity<List<Movie>> getMovies(@RequestParam(name = "id", required = false) String movieId) {
 		try {
-			List<Movie> movies = this.movieService.getMovies();
+			List<Movie> movies = new ArrayList<>();
+			if(movieId != null && movieId != ""){
+				Movie m = this.movieService.getMovie(Long.parseLong(movieId));
+				movies.add(m);
+			}else{
+				movies = this.movieService.getMovies();
+			}
 			if (movies != null) {
 				return ResponseEntity.status(HttpStatus.OK).body(movies);
 			}
@@ -165,28 +172,52 @@ public class Controller {
 		}
 	}
 
+	
+	// @GetMapping("/movies/highestrated")
+	// public ResponseEntity<List<Movie>> getHighestRatedMovies(){
+	// 	try{
+	// 		List<Movie> movies = this.movieService.getHighestRatedMovies();
+	// 		return ResponseEntity.status(HttpStatus.OK).body(movies);
+	// 	}catch(Exception e){
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
+
+
+	// @GetMapping("/movies/recent")
+	// public ResponseEntity<List<Movie>> getRecentMovies(){
+	// 	try{
+	// 		List<Movie> movies = this.movieService.getRecentMovies();
+	// 		return ResponseEntity.status(HttpStatus.OK).body(movies);
+	// 	}catch(Exception e){
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
+	
+
 	// retrieves the particular movie data that has primary key as movieId
-	@GetMapping("/movies/{movieId}")
-	public ResponseEntity<MovieModel> getMovie(@PathVariable String movieId) {
-		try {
-			Movie m = this.movieService.getMovie(Long.parseLong(movieId));
-			if (m != null) {
-				List<WorkedOn> wl = workedOnService.getList(m);
-				return ResponseEntity.status(HttpStatus.OK).body(new MovieModel(m, wl));
-			} else {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	// @GetMapping("/movies/{movieId}")
+	// public ResponseEntity<MovieModel> getMovie(@PathVariable String movieId) {
+	// 	try {
+	// 		Movie m = this.movieService.getMovie(Long.parseLong(movieId));
+	// 		if (m != null) {
+	// 			List<WorkedOn> wl = workedOnService.getList(m);
+	// 			return ResponseEntity.status(HttpStatus.OK).body(new MovieModel(m, wl));
+	// 		} else {
+	// 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	// 		}
+	// 	} catch (Exception e) {
+	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
 
 	// creates a new movie object and stores the data in the database after
 	// authenticating the user as admin
-	@PostMapping("/movies")
-	public ResponseEntity<MovieModel> addMovie(@RequestHeader(name = "Authorization") String token,
+	@PostMapping("/movie")
+	public ResponseEntity<Movie> addMovie(@RequestHeader(name = "Authorization") String token,
 			@RequestParam("title") String title, @RequestParam("genre") String genre,
-			@RequestParam("releaseDate") String releaseDate, @RequestParam("description") String desc,
+			@RequestParam("releaseDate") String releaseDate, @RequestParam("plotSummary") String plotSummary,
+			@RequestParam(name="cast", required = false) String cast,
 			@RequestParam(name = "poster", required = false) MultipartFile poster) {
 
 		try {
@@ -200,12 +231,14 @@ public class Controller {
 						movie.setGenre(genre);
 						Date releaseDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(releaseDate);
 						movie.setReleaseDate(releaseDate1);
-						movie.setDescription(desc);
-						String filename = handleFile(poster);
-						movie.setPoster(filename);
+						movie.setPlotSummary(plotSummary);
+						if(poster != null){
+							String filename = handleFile(poster);
+							movie.setPoster(filename);
+						}
 						movie = this.movieService.addMovie(movie);
-						List<WorkedOn> wl = workedOnService.getList(movie);
-						return ResponseEntity.status(HttpStatus.OK).body(new MovieModel(movie, wl));
+						// List<WorkedOn> wl = workedOnService.getList(movie);
+						return ResponseEntity.status(HttpStatus.OK).body(movie);
 					}
 				}
 			}
@@ -213,19 +246,21 @@ public class Controller {
 		} catch (ExpiredJwtException e) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	// updates the movie having movieId as the primary key in the database after
 	// authenticating the user as admin
-	@PutMapping("/movies/{movieId}")
-	public ResponseEntity<MovieModel> updateMovie(@PathVariable String movieId,
-			@RequestHeader(name = "Authorization") String token,
+	@PutMapping("/movie")
+	public ResponseEntity<Movie> updateMovie( @RequestHeader(name = "Authorization") String token,
+			@RequestParam(name = "movieId") String movieId,
 			@RequestParam(name = "title", required = false) String title,
 			@RequestParam(name = "genre", required = false) String genre,
 			@RequestParam(name = "releaseDate", required = false) String releaseDate,
-			@RequestParam(name = "description", required = false) String desc,
+			@RequestParam(name="cast", required = false) String cast,
+			@RequestParam(name = "plotSummary", required = false) String plotSummary,
 			@RequestParam(name = "poster", required = false) MultipartFile poster) throws Exception {
 
 		try {
@@ -241,12 +276,12 @@ public class Controller {
 						Date releaseDate1 = releaseDate != null ? new SimpleDateFormat("dd/MM/yyyy").parse(releaseDate)
 								: null;
 						movie.setReleaseDate(releaseDate1);
-						movie.setDescription(desc);
+						movie.setPlotSummary(plotSummary);
 						String filename = (poster != null) ? handleFile(poster) : null;
 						movie.setPoster(filename);
 						movie = this.movieService.updateMovie(Long.parseLong(movieId), movie);
-						List<WorkedOn> wl = workedOnService.getList(movie);
-						return ResponseEntity.status(HttpStatus.OK).body(new MovieModel(movie, wl));
+						// List<WorkedOn> wl = workedOnService.getList(movie);
+						return ResponseEntity.status(HttpStatus.OK).body(movie);
 					}
 				}
 			}
@@ -260,9 +295,9 @@ public class Controller {
 
 	// deletes the movie having movieId as the primary key from the database after
 	// authenticating the user as admin
-	@DeleteMapping("/movies/{movieId}")
-	public ResponseEntity<HttpStatus> deleteMovie(@PathVariable String movieId,
-			@RequestHeader(name = "Authorization") String token) {
+	@DeleteMapping("/movie")
+	public ResponseEntity<HttpStatus> deleteMovie( @RequestHeader(name = "Authorization") String token,
+			@RequestParam("movieId") String movieId) {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
@@ -286,7 +321,7 @@ public class Controller {
 
 	// retrieves all the movies that are associated with the key like key present in
 	// the movie title, movie genre and in the cast name
-	@GetMapping("/search/movies/{key}")
+	@GetMapping("/search/movie/{key}")
 	public ResponseEntity<List<Movie>> searchMovie(@PathVariable String key) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(movieService.searchMovie(key));
@@ -298,12 +333,19 @@ public class Controller {
 
 	// tasks related to review Service starts
 
+
+
 	// retrieves the particular review data that has primary key as reviewId
-	@GetMapping("/reviews/{reviewId}")
-	public ResponseEntity<Review> getReview(@PathVariable String reviewId) {
+	@GetMapping("/review")
+	public ResponseEntity<List<Review>> getReview(@RequestParam(name = "id", required = false) String reviewId) {
 		try {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(this.reviewService.getReviewById(Long.parseLong(reviewId)));
+			List<Review> reviews = new ArrayList<>();
+			if(reviewId != null && reviewId != "") {
+				reviews.add(this.reviewService.getReviewById(Long.parseLong(reviewId)));
+			}else{
+				reviews = this.reviewService.getAllReviews();
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(reviews);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
@@ -311,10 +353,11 @@ public class Controller {
 
 	// posts a review and rating for a user in the review table of the database
 	// after authenticating the user
-	@PostMapping("/reviews")
+	@PostMapping("/review")
 	public ResponseEntity<HttpStatus> postReview(@RequestHeader(name = "Authorization") String token,
-			@RequestParam("reviewText") String reviewText, @RequestParam("rating") float rating,
-			@RequestParam("movieId") long movieId) {
+			@RequestParam("reviewNote") String reviewNote, @RequestParam("rating") String rating,
+			@RequestParam("movieId") long movieId,
+			@RequestParam(name="source",required = false) String source) {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
@@ -322,11 +365,14 @@ public class Controller {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email)) {
 						Review review = new Review();
-						review.setReviewText(reviewText);
+						review.setReviewNote(reviewNote);
 						review.setRating(rating);
+						if(source != null){
+							review.setSource(source);
+						}
 						Movie movie = this.movieService.getMovie(movieId);
-						review.setMovieId(movie);
-						review.setUserId(userService.getUserByEmail(email));
+						review.setMovie(movie);
+						review.setUserId(userService.getUserByEmail(email).getUserId());
 						review = this.reviewService.postReview(review);
 						if (review != null) {
 							rating = reviewService.getRating(movie);
@@ -351,20 +397,21 @@ public class Controller {
 
 	// updates or changes the review with reviewId as the primary key after
 	// authenticating the user as admin
-	@PutMapping("/reviews/{reviewId}")
-	public ResponseEntity<HttpStatus> updateReview(@PathVariable String reviewId,
-			@RequestHeader(name = "Authorization") String token,
+	@PutMapping("/review")
+	public ResponseEntity<HttpStatus> updateReview(@RequestHeader(name = "Authorization") String token,
+			@RequestParam("reviewId") String reviewId,
 			@RequestParam(name = "reviewText", required = false) String reviewText,
-			@RequestParam(name = "rating", required = false) float rating) throws Exception {
+			@RequestParam(name = "rating", required = false) String rating,
+			@RequestParam(name="source",required = false) String source) throws Exception {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
-						Review review = reviewService.updateReview(Long.parseLong(reviewId), reviewText, rating);
+						Review review = reviewService.updateReview(Long.parseLong(reviewId), reviewText, rating, source);
 						if (review != null) {
-							Movie movie = review.getMovieId();
+							Movie movie = review.getMovie();
 							rating = reviewService.getRating(movie);
 							movie.setRating(rating);
 							movieService.updateMovie(movie);
@@ -387,8 +434,8 @@ public class Controller {
 
 	// deletes the review with reviewId as the primary key from the database after
 	// authenticating the user as the admin
-	@DeleteMapping("/reviews/{reviewId}")
-	public ResponseEntity<HttpStatus> deleteReview(@PathVariable String reviewId,
+	@DeleteMapping("/review")
+	public ResponseEntity<HttpStatus> deleteReview(@RequestParam(name = "id") String reviewId,
 			@RequestHeader(name = "Authorization") String token) {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
@@ -398,7 +445,7 @@ public class Controller {
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
 						Movie movie = reviewService.deleteReview(Long.parseLong(reviewId));
 						if (movie != null) {
-							float rating = reviewService.getRating(movie);
+							String rating = reviewService.getRating(movie);
 							movie.setRating(rating);
 							movieService.updateMovie(movie);
 							return new ResponseEntity<>(HttpStatus.OK);
@@ -418,8 +465,8 @@ public class Controller {
 	}
 
 	// retrieves all the rewiews posted under the movie with the movieId as primary key
-	@GetMapping("/movies/reviews/{movieId}")
-	public ResponseEntity<List<Review>> getReviewByMovie(@PathVariable String movieId) {
+	@GetMapping("/review/movie")
+	public ResponseEntity<List<Review>> getReviewByMovie(@RequestParam(name="id") String movieId) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(reviewService.getReviewByMovieId(movieService.getMovie(Long.parseLong(movieId))));
@@ -429,11 +476,11 @@ public class Controller {
 	}
 
 	// retrieves all the rewiews posted by a user with userId as the primary key
-	@GetMapping("/user/reviews/{userId}")
-	public ResponseEntity<List<Review>> getReviewByUser(@PathVariable String userId) {
+	@GetMapping("/review/user")
+	public ResponseEntity<List<Review>> getReviewByUser(@RequestParam(name = "id") String userId) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK)
-					.body(reviewService.getReviewByUserId(userService.getUserByUserId(Long.parseLong(userId))));
+					.body(reviewService.getReviewByUserId(Long.parseLong(userId)));
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -481,7 +528,7 @@ public class Controller {
 	}
 
 	// creates a worked on relation between the cast with castId and the movie with the movieId
-	@PostMapping("/movies/cast")
+	@PostMapping("/movie/cast")
 	public ResponseEntity<HttpStatus> addCastToMovie(@RequestHeader(name = "Authorization") String token,
 			@RequestParam("castId") Long castId, @RequestParam("movieId") Long movieId) {
 		try {
@@ -513,16 +560,16 @@ public class Controller {
 
 	// deletes the cast from the database with the castId as the primary key along
 	// with all the WorkedOn relation that the cast had Worked on
-	@DeleteMapping("/cast/{castId}")
+	@DeleteMapping("/cast")
 	public ResponseEntity<HttpStatus> deleteCast(@RequestHeader(name = "Authorization") String token,
-			@PathVariable long castId) {
+			@RequestParam(name = "id") String castId) {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
-						Cast cast = castService.getCast(castId);
+						Cast cast = castService.getCast(Long.parseLong(castId));
 						if (cast != null) {
 							workedOnService.deleteByCast(cast);
 							castService.deleteCast(cast);
@@ -543,17 +590,17 @@ public class Controller {
 
 	// removes the WorkedOn relation between the cast with castId and the movie with
 	// movieId
-	@PostMapping("/movies/remove/cast")
+	@DeleteMapping("/movie/cast")
 	public ResponseEntity<HttpStatus> removeCastToMovie(@RequestHeader(name = "Authorization") String token,
-			@RequestParam("castId") Long castId, @RequestParam("movieId") Long movieId) {
+			@RequestParam("castId") String castId, @RequestParam("movieId") String movieId) {
 		try {
 			if (token != null && token.startsWith("Bearer ")) {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
-						Cast cast = castService.getCast(castId);
-						Movie movie = movieService.getMovie(movieId);
+						Cast cast = castService.getCast(Long.parseLong(castId));
+						Movie movie = movieService.getMovie(Long.parseLong(movieId));
 						if (cast != null && movie != null) {
 							workedOnService.deleteWorkedOn(movie, cast);
 							return new ResponseEntity<>(HttpStatus.OK);

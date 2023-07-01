@@ -1,4 +1,4 @@
-package com.example.springapp.entities;
+package com.example.springapp.model;
 
 <<<<<<< HEAD
 import java.util.*;

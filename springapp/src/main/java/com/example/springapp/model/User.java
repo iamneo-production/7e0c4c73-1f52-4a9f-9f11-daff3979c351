@@ -1,4 +1,4 @@
-package com.example.springapp.entities;
+package com.example.springapp.model;
 
 import java.util.Date;
 
@@ -36,22 +36,22 @@ public class User {
 	private String email;
 	private String password;
 	private String name;
-	@Column(nullable = false)
-	private boolean isAdmin;
+	// @Column(nullable = false)
+	private String role;
 	@CreationTimestamp
 	private Date createDate;
 	@UpdateTimestamp
 	private Date updateDate;
 	
 	
-	public User(long userId, String email, String password, String name, boolean isAdmin, Date createDate,
+	public User(long userId, String email, String password, String name, String role, Date createDate,
 			Date updateDate) {
 		super();
 		this.userId = userId;
 		this.email = email;
 		this.password = password;
 		this.name = name;
-		this.isAdmin = isAdmin;
+		this.role = role;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
@@ -106,13 +106,13 @@ public class User {
 	}
 
 
-	public boolean isAdmin() {
-		return isAdmin;
+	public String getRole() {
+		return role;
 	}
 
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 
@@ -133,6 +133,11 @@ public class User {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public boolean isAdmin(){
+		if(role == "ADMIN") return true;
+		return false;
 	}
 	
 	public User hideDetails() {

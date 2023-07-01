@@ -1,4 +1,4 @@
-package com.example.springapp.services;
+package com.example.springapp.service;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,10 +7,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.springapp.dao.MovieDao;
-import com.example.springapp.entities.Cast;
-import com.example.springapp.entities.Movie;
-import com.example.springapp.entities.WorkedOn;
+import com.example.springapp.repository.MovieRepository;
+import com.example.springapp.model.Cast;
+import com.example.springapp.model.Movie;
+import com.example.springapp.model.WorkedOn;
 
 
 @Service
@@ -19,7 +19,7 @@ public class MovieService {
 
 	//Movie Data access object from Dao layer
     @Autowired
-	private MovieDao movieDao;
+	private MovieRepository movieDao;
 	
 	//Other Service objects
 	@Autowired
@@ -69,10 +69,11 @@ public class MovieService {
 		if(movie.getGenre() == null) {
 			movie.setGenre(m.getGenre());
 		}
-		if(movie.getDescription() == null) movie.setDescription(m.getDescription());
+		if(movie.getPlotSummary() == null) movie.setPlotSummary(m.getPlotSummary());
 		if(movie.getPoster() == null) movie.setPoster(m.getPoster());
-		if(movie.getRating() == 0.0)movie.setRating(m.getRating());
+		if(Float.parseFloat(movie.getRating()) == 0.0)movie.setRating(m.getRating());
 		if(movie.getReleaseDate()==null)movie.setReleaseDate(m.getReleaseDate());
+		if(movie.getCast()==null)movie.setCast(m.getCast());
 		movie.setCreateDate(m.getCreateDate());
 		
 		movieDao.save(movie);
@@ -84,7 +85,7 @@ public class MovieService {
 	public boolean deleteMovie(long movieId) {
 		boolean success=false;
 		Movie m = movieDao.findById(movieId).get();
-		reviewService.deleteReviewByMovieId(m);
+		reviewService.deleteReviewByMovie(m);
 		workedOnService.deleteByMovie(m);
 		movieDao.delete(m);
 		if(m!=null) success=true;

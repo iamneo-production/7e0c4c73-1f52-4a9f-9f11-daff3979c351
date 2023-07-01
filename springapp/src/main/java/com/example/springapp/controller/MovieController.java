@@ -79,7 +79,7 @@ public class MovieController {
 		}
 		filename = name + timestamp.getTime() + ext;// creating the unique file name by adding the current timestamp
 		poster.transferTo(new File(
-				"\\home\\coder\\project\\workspace\\springapp\\src\\main\\resources\\static\\"
+				"/home/coder/project/workspace/springapp/src/main/resources/static/"
 						+ filename));// storing the image to the public folder
 		return filename;
 	}
@@ -400,7 +400,7 @@ public class MovieController {
 	@PutMapping("/review")
 	public ResponseEntity<HttpStatus> updateReview(@RequestHeader(name = "Authorization") String token,
 			@RequestParam("reviewId") String reviewId,
-			@RequestParam(name = "reviewText", required = false) String reviewText,
+			@RequestParam(name = "reviewNote", required = false) String reviewNote,
 			@RequestParam(name = "rating", required = false) String rating,
 			@RequestParam(name="source",required = false) String source) throws Exception {
 		try {
@@ -409,7 +409,7 @@ public class MovieController {
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
 					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
-						Review review = reviewService.updateReview(Long.parseLong(reviewId), reviewText, rating, source);
+						Review review = reviewService.updateReview(Long.parseLong(reviewId), reviewNote, rating, source);
 						if (review != null) {
 							Movie movie = review.getMovie();
 							rating = reviewService.getRating(movie);

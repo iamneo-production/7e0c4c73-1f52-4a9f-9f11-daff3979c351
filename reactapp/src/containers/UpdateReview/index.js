@@ -74,21 +74,48 @@ export const UpdateReview = (props) => {
 
   }
 
-  return (
-    <div>
-      <h3>Update Review Of {review && review.userId && review.userId.name}</h3>
-      <button onClick={handleDelete} >Delete Post</button>
-      <form onSubmit={handleSubmit}>
-        <input type='text' value={reviewText} onChange={(e) => {
-          setReviewText(e.target.value);
-        }} />
 
-        <input type='range' min={0} max={5} value={rating} onChange={(e) => {
-          setRating(e.target.value);
-        }} />
-        <button type='submit' >Submit</button>
-      </form>
+
+  return (
+    <div className="container">
+    <h3 className="title">Update Review Of{review && review.userId&&review.userId.name}</h3>
+      <div key={review.userId} className="review-item">
+        <h2 className="movie-title">{review.userId.movieName}</h2>
+        <p className="username">Username:{review.userId.name}</p>
+        <textarea 
+        className="review-text"
+        value={review.reviewText}
+        onChange={(e) => { setReviewText(e.target.value);}}
+        style={{
+	          height: `${Math.max(2, Math.ceil(review.reviewText.length / 50))}em`,
+              width: '700px',
+              resize: 'none',
+            }}
+        />
+        <div className="rating-container">
+          <p className="rating-label">Rating:</p>
+          <div className="star-rating">
+          {[...Array(5)].map((_,index) =>(
+          <span 
+            key={index}
+            className={`star ${index<rating ? 'filled' : 'empty'}`}
+            onClick={(e) => setRating(e.target.value)}
+            style={{cursor:'pointer'}}
+          >
+          &#9733;
+          </span> 
+        ))}
+        </div>
+      </div>
+    <div className="button-container">
+        <button className="update-btn"
+        onClick={handleSubmit}> Submit </button>
+        <button className="delete-btn" onClick={handleDelete}>
+        Delete
+        </button>
     </div>
-  )
+  </div>
+</div>
+)
 
 }

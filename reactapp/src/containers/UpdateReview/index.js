@@ -80,6 +80,9 @@ export const UpdateReview = (props) => {
     <div className="container">
     <h3 className="title">Update Review Of{review && review.userId&&review.userId.name}</h3>
       <div key={review.userId} className="review-item">
+        <div className='image-container'>
+          <img src={process.env.REACT_APP_BACKEND_URL+'image/'} />
+        </div>
         <h2 className="movie-title">{review.userId.movieName}</h2>
         <p className="username">Username:{review.userId.name}</p>
         <textarea 

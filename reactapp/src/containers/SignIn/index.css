@@ -1,0 +1,47 @@
+
+.container{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.row{
+    height: 80%;
+    width: 50%;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+.btn-color{
+    background-color: #0e1c36;
+    color: #fff;
+    
+  }
+  
+  .profile-image-pic{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+  }
+  
+  
+  
+  .cardbody-color{
+    background-color: #ebf2fa;
+  }
+  
+  a{
+    text-decoration: none;
+  }
+
+.unauthorized{
+    background-color: red;
+    color: #ebf2fa;
+    display: none;
+}

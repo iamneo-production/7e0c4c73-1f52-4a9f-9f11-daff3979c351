@@ -1,0 +1,49 @@
+<<<<<<< HEAD
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>iamneo-production_7e0c4c73-1f52-4a9f-9f11-daff3979c351</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.m2e.core.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+	</natures>
+	<filteredResources>
+		<filter>
+<<<<<<< HEAD
+			<id>1688277826638</id>
+=======
+<<<<<<< HEAD
+			<id>1683215682948</id>
+=======
+<<<<<<< HEAD
+			<id>1682936983265</id>
+=======
+			<id>1683003215273</id>
+>>>>>>> 8dcb582fc6e1b7a42d0bdc19157e1fb01787879c
+>>>>>>> caa8a50280520e1c5246afcd5d28f23c34e3702b
+>>>>>>> 61cb0066a60be99c13fa3aa33b0a56c60a7e880f
+			<name></name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.core.resources.regexFilterMatcher</id>
+				<arguments>node_modules|.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
+</projectDescription>
+>>>>>>> fbda2b38da210547dd81d0516a3f4f18c9f7cc7e

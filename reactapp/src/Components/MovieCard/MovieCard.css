@@ -135,3 +135,37 @@
     display: flex;
     justify-content: space-between;
 }
+
+
+
+/* committed */
+/* updated */
+
+
+
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: center center;
+}
+
+.card-details {
+  color: var(--primary-text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+}
+
+.title {
+  font-size: 1.25rem;
+}
+
+
+
+.ratings{
+  display: flex;
+  justify-content: space-between;
+}

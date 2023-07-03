@@ -71,7 +71,7 @@ public class MovieService {
 		}
 		if(movie.getPlotSummary() == null) movie.setPlotSummary(m.getPlotSummary());
 		if(movie.getPoster() == null) movie.setPoster(m.getPoster());
-		if(Float.parseFloat(movie.getRating()) == 0.0)movie.setRating(m.getRating());
+		if(movie.getRating() == null || Float.parseFloat(movie.getRating()) == 0.0)movie.setRating(m.getRating());
 		if(movie.getReleaseDate()==null)movie.setReleaseDate(m.getReleaseDate());
 		if(movie.getCast()==null)movie.setCast(m.getCast());
 		movie.setCreateDate(m.getCreateDate());

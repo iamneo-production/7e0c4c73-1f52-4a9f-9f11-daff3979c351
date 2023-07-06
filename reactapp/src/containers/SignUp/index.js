@@ -12,7 +12,7 @@ export const SignUp = (props) => {
   const [password, setPassword] = useState('');
   const [type, setType] = useState('user');
   const [signupResult,setSignupResult] = useState(null);
-  const user='';
+  const a='';
   
 
   const handleSubmit = (e) => {

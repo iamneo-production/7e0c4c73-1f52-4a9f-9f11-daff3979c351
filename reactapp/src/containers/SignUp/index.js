@@ -12,9 +12,7 @@ export const SignUp = (props) => {
   const [password, setPassword] = useState('');
   const [type, setType] = useState('user');
   const [signupResult,setSignupResult] = useState(null);
-  const a='';
   
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name == null || name == '' || email == null || email == '' || password == null || password == '' || type == null || type == '') {

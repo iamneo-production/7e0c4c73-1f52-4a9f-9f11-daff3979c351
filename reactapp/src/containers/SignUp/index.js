@@ -10,7 +10,7 @@ export const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [signupStatus, setSignupStatus] = useState('');
-  const [role,setRole] = useState('user');
+  const [role,setRole] = useState('USER');
   const navigate = useNavigate ();
 
 
@@ -53,7 +53,7 @@ export const SignUp = () => {
             'Content-Type': 'multipart/form-data',
           },
           validateStatus: function (status) {
-            return status >= 200 && status <= 400; // Consider all status codes between 200 and 399 as successful
+            return status >= 200 && status <= 400; // Consider all status codes between 200 and 400 as successful
           },
         }
       );
@@ -63,7 +63,7 @@ export const SignUp = () => {
         console.log(role);
         setSignupStatus('Signup successful, Please click on Login');
       } 
-      if(response.status === 400) {
+      else if(response.status === 400) {
         console.log('Email is already registered');
         setSignupStatus('Email is already registered');
       }
@@ -100,8 +100,8 @@ export const SignUp = () => {
           <label htmlFor="Role">
             Role:
             <select value={role} onChange={(e) => setRole(e.target.value)} required >
-              <option value='user' >User</option>
-              <option value='admin' >Admin</option>
+              <option value='USER' >User</option>
+              <option value='ADMIN' >Admin</option>
             </select>
           </label>
         </div>

@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './createmovie.css';
 
-const CreateMovie = () => {
+export const CreateMovie = () => {
   const [movieTitle, setMovieTitle] = useState('');
   const [releaseDate, setReleaseDate] = useState(new Date());
   const [genre, setGenre] = useState('');
@@ -122,4 +122,3 @@ const CreateMovie = () => {
   );
 };
 
-export default CreateMovie;

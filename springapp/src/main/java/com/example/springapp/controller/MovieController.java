@@ -59,8 +59,6 @@ public class MovieController {
 	@Autowired
 	private WorkedOnService workedOnService;// Object to connect to workedOn service of service layer
 
-	// @Autowired
-	// private MovieRepository movieRepository;
 	
 	// object to connect to JWT configuration
 	@Autowired
@@ -103,6 +101,7 @@ public class MovieController {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
 	}
 
 	// Signin takes email and password as form data and returns a String token for

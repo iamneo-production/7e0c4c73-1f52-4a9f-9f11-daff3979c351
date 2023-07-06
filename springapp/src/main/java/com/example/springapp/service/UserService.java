@@ -41,7 +41,7 @@ public class UserService {
 		user.setEmail(email);
 		user.setPassword(password);
 		user.setName(name);
-		if(role.equals("ADMIN")){
+		if(role.equals("admin")){
             user.setRole("ADMIN");
         }else{
             user.setRole("USER");

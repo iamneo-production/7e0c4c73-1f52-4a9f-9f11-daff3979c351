@@ -59,6 +59,9 @@ public class MovieController {
 	@Autowired
 	private WorkedOnService workedOnService;// Object to connect to workedOn service of service layer
 
+	// @Autowired
+	// private MovieRepository movieRepository;
+	
 	// object to connect to JWT configuration
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;

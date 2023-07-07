@@ -2,12 +2,12 @@ import axios from 'axios';
 import React,{ useEffect,useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const url = process.env.REACT_APP_BACKEND_URL+'reviews/'
+const url = process.env.REACT_APP_BACKEND_URL+'review/'
 
 export const UpdateReview = (props) => {
 
   var { reviewId } = useParams();
-
+  const [movie,setMovie]=useState(null);
   const [review, setReview] = useState(null);
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState('');

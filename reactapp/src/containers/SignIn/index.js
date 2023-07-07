@@ -1,85 +1,126 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import axios from 'axios';
-import './index.css'
-
-const baseURL = process.env.REACT_APP_BACKEND_URL+'signin';
-
-
-export const SignIn = (props) => {
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+import { useNavigate } from 'react-router-dom';
+import './index.css';
 
 
+export function SignIn() {
+  const [emailId, setEmailId] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [type,setType]=useState('User');
 
-    const handleSubmit = (e) =>{
-        const formdata = new FormData();
-        formdata.append("email",email);
-        formdata.append("password",password);
-        axios.post(baseURL,formdata,{
-            validateStatus: function (status) {
-                return status < 500; // Resolve only if the status code is less than 500
-              }
-        }).then((response)=>{
-            if(response.status == 200) {
-                window.localStorage.setItem("token" , response.data.token);
-                const user = {
-                    "email" : email,
-                    "userId" : response.data.userId,
-                    "isAdmin" : response.data.isAdmin
-                }
-                window.localStorage.setItem("user" , JSON.stringify(user));
-                console.log(JSON.parse(window.localStorage.getItem("user")));
-                window.location.href='/';
-            }
-            else{
-                document.getElementById("unauthorizedBlock").style.setProperty("display","block");
-            }
-        });
-        e.preventDefault();
+
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('email', emailId);
+    formData.append('password', password);
+    try {
+      const response = await axios.post('https://8080-cffceecfebadebddaccdaedadeeaffeddeafeaeaadbdbabf.project.examly.io/signin', formData);
+      const { token, userId,email,name,role } = response.data;
+    
+      if (response.status === 200) {
+        if (type==='Admin' && role==='ADMIN' ) {
+        //Admin user login--setting adminIn value as true and loggedIn value as false 
+        //If any value required please use this format localStorage.setItem('Token',token) to store it in local storage and can access throughout the project
+          console.log('Admin login successful');
+          console.log('Role:'+role);
+          console.log('userId:'+userId);
+          console.log('email:'+email);
+          console.log('name:'+name);
+          localStorage.setItem('Token',token);
+          console.log('token: ' +localStorage.getItem('Token'));
+          localStorage.setItem('adminIn', true);
+          localStorage.setItem('loggedIn', false);
+          console.log('adminIn: ' + localStorage.getItem('adminIn'));
+          console.log('loggedIn: ' + localStorage.getItem('loggedIn'));
+          navigate('/');
+        } else if(type==='Admin' && role!='ADMIN'){
+          setError('You don\'t have admin access');
+        }
+        else if(type==='User' && role==='ADMIN'){
+          setError('You don\'t have user access');
+        }
+        else {
+        //Normal user login--setting adminIn value as fasle and loggedIn value as true
+        //If any values are required please use this format localStorage.setItem('Token',token) to store it in local storage and can access those values from any folder in this project
+          console.log('User login successful');
+          console.log('Role:'+role);
+          console.log('userId:'+userId);
+          console.log('email:'+email);
+          console.log('name:'+name);
+          localStorage.setItem('Token',token);
+          console.log('token: ' +localStorage.getItem('Token'));
+          localStorage.setItem('loggedIn', true);
+          localStorage.setItem('adminIn', false);
+          console.log('adminIn: ' + localStorage.getItem('adminIn'));
+          console.log('loggedIn: ' + localStorage.getItem('loggedIn'));
+          navigate('/');
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError('Invalid email or password');
+      } else {
+        setError('Something went wrong. Please try again later.');
+      }
     }
+  };
 
 
+  // Redirect to register page
+  const handleRegister = () => {
+    navigate('/signup');
+  };
 
 
-
-
-
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6 offset-md-3">
-                    <h2 className="text-center text-dark mt-5">Login Form</h2>
-                    <div className="card my-5">
-
-                        <form className="card-body cardbody-color p-lg-5">
-
-                            {/* <div className="text-center">
-                                <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" className="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                                    width="200px" alt="profile"/>
-                            </div> */}
-
-                            <div className="mb-3">
-                                <input type="text" className="form-control" id="Username" required aria-describedby="emailHelp"
-                                    placeholder="User Name" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
-                            </div>
-                            <div className="mb-3">
-                                <input type="password" className="form-control" id="password" required placeholder="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
-                            </div>
-                            <div className="text-center"><button type="submit" className="btn btn-color px-5 mb-5 w-100" onClick={handleSubmit}>Login</button></div>
-                            <div id="emailHelp" className="form-text text-center mb-5 text-dark">Not
-                                Registered? <a href="/signup" className="text-dark fw-bold"> Create an
-                                    Account</a>
-                            </div>
-                        </form>
-                    </div>
-                    <div className='unauthorized' id='unauthorizedBlock'>
-                            <h3>Email or Password Incorrect</h3>
-                    </div>
-
-                </div>
-            </div>
+  return (
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <div className="form-group">
+          <label>Email:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={emailId}
+            onChange={(event) => setEmailId(event.target.value)}
+          />
         </div>
-    )
-
+        <div className="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            className="form-control"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Role:</label>
+          <select 
+            className="form-control"
+            value={type}
+            onChange={(event)=>setType(event.target.value)}
+          >
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Login
+        </button>
+        <br />
+        <button type="button" className="btn btn-primary" onClick={handleRegister}>
+          Register
+        </button>
+        {error && <p className="error-message">{error}</p>}
+      </form>
+    </div>
+  );
 }
+

@@ -81,7 +81,7 @@ public class UserService {
 		List<User> users = userDao.findByEmail(email);
 		if(users.size() > 0) {
 			User user =  users.get(0);
-            user.setPassword(null);
+            // user.setPassword(null);
             return user;
 		}
 		return null;

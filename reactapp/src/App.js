@@ -8,6 +8,7 @@ import { Movie } from './containers/Movie';
 import { UpdateMovie } from './containers/UpdateMovie';
 import { AddCast } from './containers/AddCast';
 import { UpdateReview } from './containers/UpdateReview';
+import { CreateMovie } from './containers/CreateMovie';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/updateMovie/:movieId' element={<UpdateMovie/>} />
           <Route path='/addCast/:movieId' element={<AddCast/>} />
           <Route path='/updateReview/:reviewId' element={<UpdateReview/>} />
+          <Route path='/createmovie' exact element={<CreateMovie/>}/>
         </Routes>
       </Router>
     </div>

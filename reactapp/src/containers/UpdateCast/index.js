@@ -7,7 +7,7 @@ const UpdateCast = () => {
       const [role,setRole] = useState('user')
       const submit = async (e) => {
         e.preventDefault();
-        
+        const response = await axios,post()
       }
     return (
       <div>

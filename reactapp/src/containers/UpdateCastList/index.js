@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { CastCard } from '../../Components/CastCard';
 
 
-export const AddCast = (props) => {
+export const UpdateCastList = (props) => {
 
     var { movieId } = useParams();
     var searchWord1='';

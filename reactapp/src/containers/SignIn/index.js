@@ -8,7 +8,6 @@ export function SignIn() {
   const [emailId, setEmailId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const [type,setType]=useState('User');
 
 
   const navigate = useNavigate();
@@ -31,15 +30,16 @@ export function SignIn() {
           localStorage.setItem('token',token);
           localStorage.setItem('loggedIn', false);
           localStorage.setItem('adminIn', true);
-          localStorage.setItem('userId', userId);
-          localStorage.setItem('email', email);
-          localStorage.setItem('role', role);
-          localStorage.setItem('name', name);
+          localStorage.setItem('user',JSON.stringify({
+            'userId':userId,
+            'email': email,
+            'role': role,
+            'name': name
+          }));
           console.log('token: ' +localStorage.getItem('Token'));
-          console.log('Role: ' +localStorage.getItem('role'));
-          console.log('userId: '+localStorage.getItem('userId'));
-          console.log('email: '+localStorage.getItem('email'));
-          console.log('name: '+localStorage.getItem('name'));
+          const userData = localStorage.getItem('user');
+          console.log(JSON.parse(userData));
+
           console.log('adminIn: ' + localStorage.getItem('adminIn'));
           console.log('loggedIn: ' + localStorage.getItem('loggedIn'));
           navigate('/');
@@ -52,15 +52,16 @@ export function SignIn() {
           localStorage.setItem('Token',token);
           localStorage.setItem('loggedIn', true);
           localStorage.setItem('adminIn', false);
-          localStorage.setItem('userId', userId);
-          localStorage.setItem('email', email);
-          localStorage.setItem('role', role);
-          localStorage.setItem('name', name);
+          localStorage.setItem('user',JSON.stringify({
+            'userId':userId,
+            'email': email,
+            'role': role,
+            'name': name
+          }));
           console.log('token: ' +localStorage.getItem('Token'));
-          console.log('Role: ' +localStorage.getItem('role'));
-          console.log('userId: '+localStorage.getItem('userId'));
-          console.log('email: '+localStorage.getItem('email'));
-          console.log('name: '+localStorage.getItem('name'));
+          const userData = localStorage.getItem('user');
+          console.log(JSON.parse(userData));
+
           console.log('adminIn: ' + localStorage.getItem('adminIn'));
           console.log('loggedIn: ' + localStorage.getItem('loggedIn'));
           navigate('/');

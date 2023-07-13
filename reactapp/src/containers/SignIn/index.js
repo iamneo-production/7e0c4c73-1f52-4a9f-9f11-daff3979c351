@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 
-
+const url = process.env.REACT_APP_BACKEND_URL+'signin'
 export function SignIn() {
   const [emailId, setEmailId] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +20,7 @@ export function SignIn() {
     formData.append('email', emailId);
     formData.append('password', password);
     try {
-      const response = await axios.post('https://8080-cffceecfebadebddaccdaedadeeaffeddeafeaeaadbdbabf.project.examly.io/signin', formData);
+      const response = await axios.post(url, formData);
       const { token, userId,email,name,role } = response.data;
     
       if (response.status === 200) {

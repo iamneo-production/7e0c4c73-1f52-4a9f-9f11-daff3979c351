@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 
-const url = process.env.REACT_APP_BACKEND_URL+'movies/'
+const url = process.env.REACT_APP_BACKEND_URL+'movie/'
 
 export const UpdateMovie = (props) => {
 
@@ -67,28 +67,32 @@ export const UpdateMovie = (props) => {
 
   return (
     <div>
-      <h3>Update Movie details of {movie.title}</h3>
+      <h2>Update Movie Page {movie.title}</h2>
       <form onSubmit={handleSubmit}>
-        <input type='text' value={title} onChange={(e) => {
+      
+
+        <label htmlFor="title">Movie Title:</label>
+        <input type='text' placeholder='Title' value={title} onChange={(e) => {
           setTitle(e.target.value);
         }} />
-
-        <input type='text' value={genre} onChange={(e) => {
+<label htmlFor="Genre">Genre:</label>
+        <input type='text'placeholder='genre' value={genre} onChange={(e) => {
           setGenre(e.target.value);
         }} />
-
-        <input type='date' value={releaseDate} onChange={(e) => {
+<label htmlFor="Releasedate">Release Date:</label>
+        <input type='date'placeholder='releasedate' value={releaseDate} onChange={(e) => {
           setReleaseDate(e.target.value);
         }} />
-
-        <input type='text' value={description} onChange={(e) => {
+<label htmlFor="Description">Description:</label>
+        <input type='text'placeholder='decsription' value={description} onChange={(e) => {
           setDescription(e.target.value);
         }} />
-
-        <input type='file' onChange={(e) => {
+<label htmlFor="Setposter:">Set Poster:</label>
+        <input type='file'  onChange={(e) => {
           setPoster(e.target.files[0]);
         }} />
-        <button type='submit'>Submit</button>
+        <br />
+        <button className='link-btn' type='submit'>Submit</button>
       </form>
     </div>
   )

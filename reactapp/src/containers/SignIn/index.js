@@ -24,39 +24,43 @@ export function SignIn() {
       const { token, userId,email,name,role } = response.data;
     
       if (response.status === 200) {
-        if (type==='Admin' && role==='ADMIN' ) {
+        if (role==='ADMIN' ) {
         //Admin user login--setting adminIn value as true and loggedIn value as false 
         //If any value required please use this format localStorage.setItem('Token',token) to store it in local storage and can access throughout the project
           console.log('Admin login successful');
-          console.log('Role:'+role);
-          console.log('userId:'+userId);
-          console.log('email:'+email);
-          console.log('name:'+name);
-          localStorage.setItem('Token',token);
-          console.log('token: ' +localStorage.getItem('Token'));
-          localStorage.setItem('adminIn', true);
+          localStorage.setItem('token',token);
           localStorage.setItem('loggedIn', false);
+          localStorage.setItem('adminIn', true);
+          localStorage.setItem('userId', userId);
+          localStorage.setItem('email', email);
+          localStorage.setItem('role', role);
+          localStorage.setItem('name', name);
+          console.log('token: ' +localStorage.getItem('Token'));
+          console.log('Role: ' +localStorage.getItem('role'));
+          console.log('userId: '+localStorage.getItem('userId'));
+          console.log('email: '+localStorage.getItem('email'));
+          console.log('name: '+localStorage.getItem('name'));
           console.log('adminIn: ' + localStorage.getItem('adminIn'));
           console.log('loggedIn: ' + localStorage.getItem('loggedIn'));
           navigate('/');
-        } else if(type==='Admin' && role!='ADMIN'){
-          setError('You don\'t have admin access');
-        }
-        else if(type==='User' && role==='ADMIN'){
-          setError('You don\'t have user access');
-        }
+        } 
         else {
         //Normal user login--setting adminIn value as fasle and loggedIn value as true
         //If any values are required please use this format localStorage.setItem('Token',token) to store it in local storage and can access those values from any folder in this project
           console.log('User login successful');
-          console.log('Role:'+role);
-          console.log('userId:'+userId);
-          console.log('email:'+email);
-          console.log('name:'+name);
+          
           localStorage.setItem('Token',token);
-          console.log('token: ' +localStorage.getItem('Token'));
           localStorage.setItem('loggedIn', true);
           localStorage.setItem('adminIn', false);
+          localStorage.setItem('userId', userId);
+          localStorage.setItem('email', email);
+          localStorage.setItem('role', role);
+          localStorage.setItem('name', name);
+          console.log('token: ' +localStorage.getItem('Token'));
+          console.log('Role: ' +localStorage.getItem('role'));
+          console.log('userId: '+localStorage.getItem('userId'));
+          console.log('email: '+localStorage.getItem('email'));
+          console.log('name: '+localStorage.getItem('name'));
           console.log('adminIn: ' + localStorage.getItem('adminIn'));
           console.log('loggedIn: ' + localStorage.getItem('loggedIn'));
           navigate('/');
@@ -100,17 +104,7 @@ export function SignIn() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label>Role:</label>
-          <select 
-            className="form-control"
-            value={type}
-            onChange={(event)=>setType(event.target.value)}
-          >
-            <option value="Admin">Admin</option>
-            <option value="User">User</option>
-          </select>
-        </div>
+        <br/>
         <button type="submit" className="btn btn-primary">
           Login
         </button>

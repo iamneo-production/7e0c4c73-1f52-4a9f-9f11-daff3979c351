@@ -157,13 +157,13 @@ export const UpdateReview = () => {
     }
   }, [reviewId]);
 
-  const handleDelete =  () => {
+  const handleDelete =  async() => {
     try {
       const confirmation = window.confirm(
         `Are you sure you want to delete the Post by ${review?.userId}`
       );
       if (confirmation) {
-       axios.delete(`${url}?id=${reviewId}`, {
+       await axios.delete(`${url}?id=${reviewId}`, {
           headers: {
             'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
           },
@@ -184,35 +184,35 @@ export const UpdateReview = () => {
     e.preventDefault();
     const formdata = new FormData();
     formdata.append('reviewId',reviewId);
-    formdata.append('reviewNote','awesome');
-  //   if (reviewText && reviewText.trim() !== '') {formdata.append('reviewNote', reviewText);
-  // console.log(reviewText);}
+    if (reviewText && reviewText.trim() !== '') {formdata.append('reviewNote', reviewText);
+  console.log(reviewText);}
   
-    // if (rating && rating !== '') {formdata.append('rating', rating); console.log(rating);}
-    // if (reviewText === review?.reviewNote && rating === review?.rating) {
-    //   alert('Nothing to update');
-    // } else {
-      // try {
+    if (rating && rating !== '') {formdata.append('rating', rating); console.log(rating);}
+    if (reviewText === review?.reviewNote && rating === review?.rating) {
+      alert('Nothing to update');
+    } else {
+      try {
         const confirmation = window.confirm(
           `Are you sure you want to Update the Post by ${review?.userId}`
         );
         if (confirmation) {
-           axios.put('https://8080-caefaeafdaedadeeaffeddeafeaeaadbdbabf.project.examly.io/review', formdata, {
-            headers: {
-              'Authorization': `Bearer ${window.localStorage.getItem('token')}`
-            },
-          }).catch((err)=>{console.log(err);});
+          console.log(formdata.get('reviewNote'));
+          const response =  axios.put(process.env.REACT_APP_BACKEND_URL+'review', formdata,{
+            headers : {
+              'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
+            }
+          });
           alert('Review post updated successfully');
           //window.location.href = process.env.REACT_APP_FRONTEND_URL;
         }
-  //     } catch (error) {
-  //       console.error(error);
-  //       alert('Unable to Update the Review Post');
-  //       if (error.response && error.response.status === 401) {
-  //         window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
-  //       }
-  //     }
-  //   }
+      } catch (error) {
+        console.error(error);
+        alert('Unable to Update the Review Post');
+        if (error.response && error.response.status === 401) {
+          window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+        }
+      }
+    }
   };
 
   if (!review) {
@@ -223,9 +223,9 @@ export const UpdateReview = () => {
     <div className="container">
       <h3 className="title">Update Review Of {review?.userId}</h3>
       <div className="review-item">
-        <div className='image-container'>
+        {/* <div className='image-container'>
            <img src={process.env.REACT_APP_BACKEND_URL+'image/'+movie.poster} />
-         </div>
+         </div> */}
         <h2 className="movie-title">{review?.movie?.title}</h2>
         <p className="username">Username: {review?.userId}</p>
         <textarea

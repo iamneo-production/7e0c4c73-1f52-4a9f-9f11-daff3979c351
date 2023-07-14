@@ -97,7 +97,7 @@ export const UpdateMovie = (props) => {
           setPoster(e.target.files[0]);
         }} />
         <br />
-        <button className='link-btn' type='submit'>Submit</button>
+        <button  type='submit'>Submit</button>
       </form>
     </div>
   )

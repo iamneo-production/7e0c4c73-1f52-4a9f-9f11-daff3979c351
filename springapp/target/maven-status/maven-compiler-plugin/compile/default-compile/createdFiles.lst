@@ -1,4 +1,3 @@
-com/example/springapp/SpringappApplication.class
 com/example/springapp/repository/MovieRepository.class
 com/example/springapp/service/UserService.class
 com/example/springapp/repository/CastRepository.class

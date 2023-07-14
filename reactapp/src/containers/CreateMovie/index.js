@@ -31,7 +31,7 @@ export const CreateMovie = () => {
           'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
         }
       }).then((response)=>{
-        if(response==200){
+        if(response.status==200){
           console.log('Movie data saved successfully');
         // Reset the form fields
         setMovieTitle('');
@@ -39,6 +39,8 @@ export const CreateMovie = () => {
         setGenre('');
         setPlotSummary('');
         setPoster(null);
+        const movieId = response.data.movieId;
+        window.location.href= process.env.REACT_APP_FRONTEND_URL + 'movie/'+movieId;
       } 
       else 
       {

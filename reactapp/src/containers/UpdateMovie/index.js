@@ -91,7 +91,7 @@ export const UpdateMovie = (props) => {
           setReleaseDate(e.target.value);
         }} />
 <label htmlFor="Description">Description:</label>
-        <input type='text'placeholder='decsription' value={description} onChange={(e) => {
+        <textarea id='plotSummary' placeholder='decsription' value={description} onChange={(e) => {
           setDescription(e.target.value);
         }} />
 <label htmlFor="Setposter:">Set Poster:</label>

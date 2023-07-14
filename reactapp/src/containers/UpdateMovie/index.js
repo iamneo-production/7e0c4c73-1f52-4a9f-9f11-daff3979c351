@@ -1,14 +1,15 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, {  useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
+import './index.css';
 
 
-const url = process.env.REACT_APP_BACKEND_URL+'movie/'
+const url = process.env.REACT_APP_BACKEND_URL+'movies/'
 
 export const UpdateMovie = (props) => {
 
-  var { movieId } = useParams();
+  let { movieId } = useParams();
 
   const [movie, setMovie] = useState({ 'title': '' });
   const [title, setTitle] = useState('');
@@ -17,7 +18,7 @@ export const UpdateMovie = (props) => {
   const [description, setDescription] = useState('');
   const [poster, setPoster] = useState(null);
 
-  useEffect(() => {
+  useRef(() => {
     movieId = movieId.trim();
     if (movieId) {
       axios.get(url + movieId).then((response) => {
@@ -34,12 +35,12 @@ export const UpdateMovie = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData();
-    if(title && title.trim() != '') formdata.append('title',title);
-    if(genre && genre.trim() != '') formdata.append('genre',genre);
+    if(title && title.trim() !== '') formdata.append('title',title);
+    if(genre && genre.trim() !== '') formdata.append('genre',genre);
     if(releaseDate) formdata.append('releaseDate',dayjs(releaseDate).format('DD/MM/YYYY'));
-    if(description && description.trim() != '') formdata.append('description',description);
+    if(description && description.trim() !== '') formdata.append('description',description);
     if(poster) formdata.append('poster',poster);
-    if(title == movie.title && genre == movie.genre && releaseDate == movie.releaseDate && description == movie.description && poster == null){
+    if(title === movie.title && genre === movie.genre && releaseDate === movie.releaseDate && description === movie.description && poster === null){
       alert("Nothing to Update");
     }
     else{
@@ -48,21 +49,25 @@ export const UpdateMovie = (props) => {
           'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
         }
       }).then((response)=>{
-        if(response.status == 200){
+        if(response.status === 200){
           alert('Successfully Updated Movie');
           window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/'+movieId;
         }
         else{
           alert('Unable to update the Movie')
         }
-      }).catch((err)=>{
-        if(err.response.status == 401){
+      })
+      
+      .catch((err)=>{
+        if(err.response.status === 401){
           window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
         }
         else alert(err + " Unable to update Movie");
       })
     }
   }
+
+
 
 
   return (

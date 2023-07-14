@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import './index.css';
 
 
-const url = process.env.REACT_APP_BACKEND_URL+'movies/'
+const url = process.env.REACT_APP_BACKEND_URL+'movie/'
 
 export const UpdateMovie = (props) => {
 
@@ -21,12 +21,13 @@ export const UpdateMovie = (props) => {
   useRef(() => {
     movieId = movieId.trim();
     if (movieId) {
-      axios.get(url + movieId).then((response) => {
-        setMovie(response.data);
-        setTitle(response.data.title);
-        setGenre(response.data.genre);
-        setReleaseDate(response.data.releaseDate);
-        setDescription(response.data.description);
+      axios.get(url +'?id='+ movieId).then((response) => {
+        setMovie(response.data[0]);
+        setTitle(response.data[0].title);
+        setGenre(response.data[0].genre);
+        setReleaseDate(response.data[0].releaseDate);
+        setDescription(response.data[0].description);
+        
         
       })
     }
@@ -35,16 +36,17 @@ export const UpdateMovie = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData();
+    formdata.append('movieId',movieId);
     if(title && title.trim() !== '') formdata.append('title',title);
     if(genre && genre.trim() !== '') formdata.append('genre',genre);
     if(releaseDate) formdata.append('releaseDate',dayjs(releaseDate).format('DD/MM/YYYY'));
-    if(description && description.trim() !== '') formdata.append('description',description);
+    if(description && description.trim() !== '') formdata.append('plotSummary',description);
     if(poster) formdata.append('poster',poster);
     if(title === movie.title && genre === movie.genre && releaseDate === movie.releaseDate && description === movie.description && poster === null){
       alert("Nothing to Update");
     }
     else{
-      axios.put(url+movieId,formdata,{
+      axios.put(url,formdata,{
         headers : {
           'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
         }

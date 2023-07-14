@@ -1,13 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { MovieCard } from '../../Components/MovieCard';
+import { useParams } from 'react-router-dom';
 import './Moviels.css';
+import { NavBar } from '../../Components/Navbar';
 
 
-const url = process.env.REACT_APP_BACKEND_URL+'search/movies/'
+const url = process.env.REACT_APP_BACKEND_URL+'search/movie/'
 
 export const MovieList = (props) => {
 
+  var { key } = useParams();
 
 const [movies,setMovies] = useState([]);
 const [searchTerm,setSearchTerm] = useState('');
@@ -15,7 +18,7 @@ const [found,setFound] = useState(true);
 
     const getMovies = async () => {
       try{
-        const { data } = await axios.get(url);
+        const { data } = await axios.get(url+key);
         setMovies(data);
       }catch(err){
         console.log(err);
@@ -46,19 +49,20 @@ const [found,setFound] = useState(true);
   return(
 
         <div className="App">
-          <header className='header'>
-          <h1 className='heading'>Movie Reviews</h1>
+          {/* <header className='header'> */}
+          {/* <h1 className='heading'>Movie Reviews</h1>
           <div className="search-container">
             <input type="text" placeholder="Search..." value={searchTerm} onChange={handleSearch} />
             <button onClick={handleSubmit} style={{ float: 'right' }}>Search</button>
-          </div>
-          </header>
+          </div> */}
+          <NavBar/>
+          {/* </header> */}
 
 
         <main className='main'>
               {
                 found ? //ternary operator to conditionally render the movie cards or the not found message
-                movies && movies.length > 0 && movies.map(movie => <MovieCard key={i} movie={movie}/>)
+                movies && movies.length > 0 && movies.map((movie,i) => <MovieCard key={i} movie={movie}/>)
                 :
                 <div className="not-found"> 
                   <h2>Did not find any movie you searched</h2>

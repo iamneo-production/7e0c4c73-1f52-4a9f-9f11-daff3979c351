@@ -1,5 +1,16 @@
+.cast-item {
+    text-align: center;
+}
+.cast-item img {
+    width: 100%;
+    height: auto;
+}
+.cast-item .cast-name {
+    margin-top: 10px;
+}
 
-.cardContainer{
+
+/* .cardContainer{
     margin: 3em;
     padding: 2px;
 }
@@ -7,4 +18,4 @@
 .image{
     max-width: 12em;
     max-height: 12em;
-}
+} */

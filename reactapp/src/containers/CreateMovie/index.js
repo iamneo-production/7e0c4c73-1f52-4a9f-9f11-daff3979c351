@@ -30,11 +30,9 @@ export const CreateMovie = () => {
         headers : {
           'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
         }
-      });
-
-      if (response.status === 200) {
-        
-        console.log('Movie data saved successfully');
+      }).then((response)=>{
+        if(response==200){
+          console.log('Movie data saved successfully');
         // Reset the form fields
         setMovieTitle('');
         setReleaseDate('');
@@ -47,6 +45,11 @@ export const CreateMovie = () => {
         // Handle error
         console.log('Error saving movie data');
       }
+        }
+      );
+      console.log(response);
+        
+        
     } catch (error) {
       console.error('Error:', error);
     }

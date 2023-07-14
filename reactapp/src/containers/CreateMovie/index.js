@@ -11,14 +11,14 @@ export const CreateMovie = () => {
   const [plotSummary, setPlotSummary] = useState('');
   const [poster, setPoster] = useState(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
 
     // Convert the release date to dd/mm/yyyy format
     const formattedReleaseDate = formatDate(releaseDate);
 
     const formData = new FormData();
-    formData.append('movieTitle', movieTitle);
+    formData.append('title', movieTitle);
     formData.append('releaseDate', formattedReleaseDate);
     formData.append('genre', genre);
     formData.append('plotSummary', plotSummary);
@@ -26,7 +26,11 @@ export const CreateMovie = () => {
 
     try {
       // Sending data to backend API endpoint
-      const response = await axios.post('/movie', formData);
+      const response =  axios.post(process.env.REACT_APP_BACKEND_URL+'movie', formData,{
+        headers : {
+          'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
+        }
+      });
 
       if (response.status === 200) {
         
@@ -121,5 +125,3 @@ export const CreateMovie = () => {
     
   );
 };
-
- 

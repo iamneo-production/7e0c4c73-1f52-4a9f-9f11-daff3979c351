@@ -13,8 +13,8 @@ com/example/springapp/model/Review.class
 com/example/springapp/security/JwtTokenUtil.class
 com/example/springapp/controller/MovieController.class
 com/example/springapp/model/Movie.class
-com/example/springapp/service/MovieService.class
 com/example/springapp/repository/WorkedOnRepository.class
+com/example/springapp/service/MovieService.class
 com/example/springapp/model/Cast.class
 com/example/springapp/service/WorkedOnService.class
 com/example/springapp/security/SecurityConfig.class

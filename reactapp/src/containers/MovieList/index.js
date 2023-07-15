@@ -34,7 +34,7 @@ export const MovieList = (props) => {
                 Did not match any Search
             </div>)
         
-        }
+        }       
     </div>
    )
 

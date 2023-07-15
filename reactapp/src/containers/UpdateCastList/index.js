@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { CastCard } from '../../Components/CastCard';
 
 
-export const AddCast = (props) => {
+export const UpdateCastList = (props) => {
 
     var { movieId } = useParams();
     var searchWord1='';
@@ -31,7 +31,7 @@ export const AddCast = (props) => {
                     window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin'
                 }
                 if (movieId) {
-                    axios.get(process.env.REACT_APP_BACKEND_URL+'movies/' + movieId).then((response) => {
+                    axios.get(process.env.REACT_APP_BACKEND_URL+'movie?id=' + movieId).then((response) => {
                         setMovie(response.data);
                     })
                 }

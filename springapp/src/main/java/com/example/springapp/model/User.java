@@ -116,7 +116,7 @@ public class User {
 	}
 
 	public boolean isAdmin(){
-		if(role == "ADMIN") return true;
+		if(role.equals("ADMIN")) return true;
 		return false;
 	}
 	

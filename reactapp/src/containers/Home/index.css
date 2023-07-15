@@ -1,0 +1,12 @@
+
+.homeContainer{
+    background-color: black;
+    min-height: 93vh;
+}
+
+.searchForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20% 20%;
+}

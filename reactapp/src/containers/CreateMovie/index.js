@@ -30,23 +30,28 @@ export const CreateMovie = () => {
         headers : {
           'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
         }
-      });
-
-      if (response.status === 200) {
-        
-        console.log('Movie data saved successfully');
+      }).then((response)=>{
+        if(response.status==200){
+          console.log('Movie data saved successfully');
         // Reset the form fields
         setMovieTitle('');
         setReleaseDate('');
         setGenre('');
         setPlotSummary('');
         setPoster(null);
+        const movieId = response.data.movieId;
+        window.location.href= process.env.REACT_APP_FRONTEND_URL + 'movie/'+movieId;
       } 
       else 
       {
         // Handle error
         console.log('Error saving movie data');
       }
+        }
+      );
+      console.log(response);
+        
+        
     } catch (error) {
       console.error('Error:', error);
     }
@@ -125,5 +130,3 @@ export const CreateMovie = () => {
     
   );
 };
-
- 

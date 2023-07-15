@@ -1,33 +1,9 @@
-<<<<<<< HEAD
-import React from 'react';
-import './App.css';
-import axios from "axios"
-import { useEffect, useState } from 'react';
-// import { MovieCard } from './components/MovieCard/MovieCard';
-import { MovieCard } from './Components/MovieCard';
-import { MovieList } from './containers/MovieList2';
-
-
-function App () {
-
-    
-
-  return (
-    
-        <div className="App">
-          <MovieList />
-
-        </div>
-      
-  );
-};
-=======
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import './App.css';
 import { Home } from './containers/Home';
 import { SignIn } from './containers/SignIn';
 import { SignUp } from './containers/SignUp';
-import { MovieList } from './containers/MovieList2';
+import { MovieList } from './containers/MovieList';
 import { Movie } from './containers/Movie';
 import { UpdateMovie } from './containers/UpdateMovie';
 import { UpdateReview } from './containers/UpdateReview';
@@ -53,6 +29,5 @@ function App() {
     </div>
   );
 }
->>>>>>> 7c4aa19cfd5bdc52df6d376f582480f32d5c01ec
 
 export default App;

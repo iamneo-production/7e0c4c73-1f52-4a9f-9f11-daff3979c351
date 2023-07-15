@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #f6f6f6;
+}
+.casts{
+    display: flex;
+    flex-direction: row;
+    height: 30vh;
+    width: 100vw;
+    align-items: center;
+}
+.input-field{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: center;
+}
+input{
+    margin-top: 1em;
+    border-radius: 1.5em;
+    width: 60%;
+    height: 1em;
+    padding: 1.5em;
+    
+}
+.search{
+    margin-top: 1.1em;
+    height: 3em;
+    width: 6em;
+    margin-left: 1em;
+    border-radius: 1em;
+    cursor: pointer;
+   
+}
+::-webkit-input-placeholder{
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

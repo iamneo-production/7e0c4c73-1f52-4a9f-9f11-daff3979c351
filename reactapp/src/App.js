@@ -7,7 +7,7 @@ import { SignUp } from './containers/SignUp';
 import { MovieList } from './containers/MovieList';
 import { Movie } from './containers/Movie';
 import { UpdateMovie } from './containers/UpdateMovie';
-import { AddCast } from './containers/AddCast';
+import { UpdateCast } from './containers/UpdateCast/index';
 import { UpdateReview } from './containers/UpdateReview';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
           <Route path='/search/:key' element={<MovieList/>} />
           <Route path='/movie/:movieId' element={<Movie/>} />
           <Route path='/updateMovie/:movieId' element={<UpdateMovie/>} />
-          <Route path='/addCast/:movieId' element={<AddCast/>} />
+          <Route path='/updateCast/:movieId' element={<UpdateCast/>} />
           <Route path='/updateReview/:reviewId' element={<UpdateReview/>} />
         </Routes>
       </Router>

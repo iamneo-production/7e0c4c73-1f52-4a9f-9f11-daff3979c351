@@ -1,4 +1,3 @@
-
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import './App.css';
 import { Home } from './containers/Home';
@@ -7,9 +6,9 @@ import { SignUp } from './containers/SignUp';
 import { MovieList } from './containers/MovieList';
 import { Movie } from './containers/Movie';
 import { UpdateMovie } from './containers/UpdateMovie';
-import { AddCast } from './containers/AddCast';
 import { UpdateReview } from './containers/UpdateReview';
 import { CreateMovie } from './containers/CreateMovie';
+import { UpdateCastList } from './containers/UpdateCastList';
 
 function App() {
   return (
@@ -22,7 +21,7 @@ function App() {
           <Route path='/search/:key' element={<MovieList/>} />
           <Route path='/movie/:movieId' element={<Movie/>} />
           <Route path='/updateMovie/:movieId' element={<UpdateMovie/>} />
-          <Route path='/addCast/:movieId' element={<AddCast/>} />
+          <Route path='/updateCast/:movieId' element={<UpdateCastList/>} />
           <Route path='/updateReview/:reviewId' element={<UpdateReview/>} />
           <Route path='/createmovie' exact element={<CreateMovie/>}/>
         </Routes>

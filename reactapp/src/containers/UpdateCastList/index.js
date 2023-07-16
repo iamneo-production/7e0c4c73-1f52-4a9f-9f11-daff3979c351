@@ -31,7 +31,7 @@ export const UpdateCastList = (props) => {
                     window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin'
                 }
                 if (movieId) {
-                    axios.get(process.env.REACT_APP_BACKEND_URL+'movies/' + movieId).then((response) => {
+                    axios.get(process.env.REACT_APP_BACKEND_URL+'movie?id=' + movieId).then((response) => {
                         setMovie(response.data);
                     })
                 }

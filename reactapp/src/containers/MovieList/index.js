@@ -52,7 +52,7 @@ const [found,setFound] = useState(true);
 
   return(
 
-        <div className="App">
+        <div className="app">
           {/* <header className='header'> */}
           {/* <h1 className='heading'>Movie Reviews</h1>
           <div className="search-container">

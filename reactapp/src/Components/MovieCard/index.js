@@ -6,7 +6,7 @@ import "./MovieCard.css";
 export const MovieCard = ({ movie }) => {
 
 
-  const { title, plotSummary, genre, releaseDate, poster, rating } = movie;
+  const { title, plotSummary, genre, releaseDate, poster, rating, movieId } = movie;
   
    const [isHovered, setIsHovered] = useState(false);
 
@@ -25,6 +25,9 @@ export const MovieCard = ({ movie }) => {
        className={`card-container ${isHovered ? "hovered" : ""}`}
        onMouseEnter={handleMouseEnter}
        onMouseLeave={handleMouseLeave}
+       onClick={(e)=>{
+        window.location.href=process.env.REACT_APP_FRONTEND_URL + 'movie/'+ movieId;
+       }}
      >
 
       <div className="card-img-container">
@@ -37,7 +40,7 @@ export const MovieCard = ({ movie }) => {
           </div>
           <div>
             <span className="release-date">Release Date :</span>
-            <span className="value">{releaseDate}</span>
+            <span className="value">{new Date(releaseDate).toDateString()}</span>
           </div>
           <div>
             <span className="genre">Genre :</span>

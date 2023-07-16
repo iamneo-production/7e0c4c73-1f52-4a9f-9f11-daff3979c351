@@ -36,7 +36,7 @@ export function SignIn() {
             'role': role,
             'name': name
           }));
-          console.log('token: ' +localStorage.getItem('Token'));
+          console.log('token: ' +localStorage.getItem('token'));
           const userData = localStorage.getItem('user');
           console.log(JSON.parse(userData));
 
@@ -58,7 +58,7 @@ export function SignIn() {
             'role': role,
             'name': name
           }));
-          console.log('token: ' +localStorage.getItem('Token'));
+          console.log('token: ' +localStorage.getItem('token'));
           const userData = localStorage.getItem('user');
           console.log(JSON.parse(userData));
 

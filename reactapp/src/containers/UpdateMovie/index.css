@@ -4,28 +4,30 @@
     padding: 20px;
     border-radius: 4px;
   }
-  .App {
+  .updateMovieApp {
+    margin: auto;
     text-align: center;
-    display:flex ;
+    /* display:flex ; */
     min-height: 100vh;
-    align-items: center;
-    justify-content: center;
+    width: 70%;
+    /* align-items: center;
+    justify-content: center; */
     background-image:white;
   
   }
   
-  h2 {
+  .updateMovieH2 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
   }
   
-  form {
+  .updateMovieForm {
     display: flex;
     flex-direction: column;
   }
   
-  label {
+  .updateMovieForm>label {
     margin-bottom: 5px;
     font-weight: bold;
   }

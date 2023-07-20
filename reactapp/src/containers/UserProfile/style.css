@@ -1,5 +1,5 @@
 /* style.css */
-p {
+/* p {
     color: rgba(255, 255, 255, 0.651);
   }
   
@@ -43,18 +43,14 @@ p {
     margin-bottom: 10px;
   }
   
-  p {
-    margin: 5px 0;
-  }
-  
   hr {
     border: none;
     border-top: 5px solid #fafafa;
     margin: 5px 0;
-  }
+  } */
   
   /* Add background effect for Profile */
-  .profile {
+  /* .profile {
     background-color: #000000;
     border-radius: 4px;
     position: relative;
@@ -77,9 +73,9 @@ p {
   .profile:hover:before {
     opacity: 0.8;
   }
-  
+   */
   /* Add background effect for Review */
-  .review {
+  /* .review {
     background-color: #000000;
     padding: 5px;
     border-radius: 4px;
@@ -102,5 +98,5 @@ p {
   
   .review:hover:before {
     opacity: 0.8;
-  }
+  } */
   

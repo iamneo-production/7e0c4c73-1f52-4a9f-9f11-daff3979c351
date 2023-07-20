@@ -1,7 +1,7 @@
 import React from 'react';
-import './style.css';
+//import './style.css';
 
-const Profile = () => {
+const ProfilePage = () => {
   const name = 'John Doe';
   const email = 'johndoe@example.com';
   const filmsRated = 2;
@@ -19,6 +19,6 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
 
 

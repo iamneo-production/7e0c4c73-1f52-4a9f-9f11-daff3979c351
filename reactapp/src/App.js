@@ -9,6 +9,7 @@ import { UpdateMovie } from './containers/UpdateMovie';
 import { UpdateReview } from './containers/UpdateReview';
 import { CreateMovie } from './containers/CreateMovie';
 import { UpdateCastList } from './containers/UpdateCastList';
+import Profile  from './containers/UserProfile/index';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/updateCast/:movieId' element={<UpdateCastList/>} />
           <Route path='/updateReview/:reviewId' element={<UpdateReview/>} />
           <Route path='/createmovie' exact element={<CreateMovie/>}/>
+          <Route path='/profile' exact element={<Profile/>}/>
         </Routes>
       </Router>
     </div>

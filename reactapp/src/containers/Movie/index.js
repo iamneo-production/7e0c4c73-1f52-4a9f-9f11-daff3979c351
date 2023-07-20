@@ -162,4 +162,3 @@ export const Movie = (props) => {
   )
 
 }
-

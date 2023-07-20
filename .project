@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 7c4aa19cfd5bdc52df6d376f582480f32d5c01ec
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>iamneo-production_7e0c4c73-1f52-4a9f-9f11-daff3979c351</name>
@@ -29,6 +24,7 @@
 		<filter>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<id>1688914243891</id>
 =======
 			<id>1687496392704</id>
@@ -52,6 +48,9 @@
 =======
 >>>>>>> 7c4aa19cfd5bdc52df6d376f582480f32d5c01ec
 >>>>>>> f3d96e479f5e1d9330123001b16d3cd47da31047
+=======
+			<id>1683003215273</id>
+>>>>>>> 1eba4a7d5e93395a6c7f92a7bbd5d2da1cd4d737
 			<name></name>
 			<type>30</type>
 			<matcher>
@@ -65,7 +64,3 @@
 		</filter>
 	</filteredResources>
 </projectDescription>
-<<<<<<< HEAD
-=======
->>>>>>> fbda2b38da210547dd81d0516a3f4f18c9f7cc7e
->>>>>>> 7c4aa19cfd5bdc52df6d376f582480f32d5c01ec

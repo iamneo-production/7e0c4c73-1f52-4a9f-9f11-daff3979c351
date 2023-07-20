@@ -17,7 +17,7 @@ export const Home = (props) => {
 
 
   return (
-    <div>
+    <div className='body'>
       <NavBar removeSearchBar={true} />
       <div className='homeContainer'>
         <form onSubmit={handleSearch} className='searchForm' >

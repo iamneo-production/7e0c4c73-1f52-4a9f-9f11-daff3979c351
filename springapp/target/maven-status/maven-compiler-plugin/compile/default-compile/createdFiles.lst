@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 com/example/springapp/repository/MovieRepository.class
 com/example/springapp/service/UserService.class
@@ -21,3 +22,5 @@ com/example/springapp/controller/MovieController.class
 com/example/springapp/model/Movie.class
 com/example/springapp/service/ReviewService.class
 >>>>>>> ee9931d071830200f335dbc7de05cb5906e418a4
+=======
+>>>>>>> 1eba4a7d5e93395a6c7f92a7bbd5d2da1cd4d737

@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css';
 
 const Profile = () => {
   const name = 'John Doe';
@@ -6,11 +7,14 @@ const Profile = () => {
   const filmsRated = 2;
 
   return (
-    <div>
+    <div className="profile">
+      <hr />
       <h2>Profile</h2>
-      <p>Name: {name}</p>
+      <h4><p>Name: {name}</p>
       <p>Email: {email}</p>
       <p>No. of Films Rated: {filmsRated}</p>
+      </h4>
+      
     </div>
   );
 };

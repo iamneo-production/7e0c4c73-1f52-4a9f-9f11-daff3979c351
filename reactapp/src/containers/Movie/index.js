@@ -82,7 +82,7 @@ export const Movie = (props) => {
             {/* movie details and poster stuff display */}
             <div className="film-poster" 
               style={{
-                background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("${process.env.REACT_APP_BACKEND_URL+'image/' + movie.poster}")`,
+                background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("${process.env.REACT_APP_BACKEND_URL+'image/'+movie.poster}")`,
               }}
               >
               <h1 className="filmTitle">{movie.title}</h1>
@@ -101,7 +101,7 @@ export const Movie = (props) => {
               (<button 
                 className='large-button'
                 onClick={(e) => {
-                  window.location.href = process.env.REACT_APP_FRONTEND_URL+'updateMovie/' + movieId;
+                  window.location.href = process.env.REACT_APP_FRONTEND_URL+'updateMovie/'+movieId;
                   }
                 }
                 >Update movie</button>):(null)
@@ -123,7 +123,7 @@ export const Movie = (props) => {
                       id="upload-btn"
                       className="large-button"
                       onClick={(e) => {
-                        window.location.href = process.env.REACT_APP_FRONTEND_URL + 'addCast/' + movieId;
+                        window.location.href = process.env.REACT_APP_FRONTEND_URL+'addCast/'+movieId;
                       }}
                     >
                       Update Cast

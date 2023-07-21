@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Modal, ModalBody, ModalHeader} from 'reactstrap';
 import axios from 'axios';
 import { CastCard } from '../../Components/CastCard'
-import {ReviewCard} from '../../Components/ReviewCard/ReviewCard.js'
+import {ReviewCard} from '../../Components/ReviewCard'
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../containers/Movie/index.css';
 const url = process.env.REACT_APP_BACKEND_URL+'movie/'
@@ -18,7 +18,7 @@ export const Movie = (props) => {
   const [modal, setModal] = useState(false);
   var user = JSON.parse(window.localStorage.getItem('user'));
 
-  const isAdmin = (user && user['isAdmin']=='ADMIN')?true:false;
+  const isAdmin = (user && user.role=='ADMIN')?true:false;
 
   /* textarea height control*/
   const handleTextareaChange = (event) => {

@@ -74,7 +74,7 @@ export const Movie = (props) => {
 
   return (
 
-    <div className='App'>
+    <div className='MovieApp'>
 
       {(movie)?
         (

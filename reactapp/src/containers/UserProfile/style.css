@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 /* style.css */
 /* p {
     color: rgba(255, 255, 255, 0.651);
   }
   
   body {
+=======
+.profile-p {
+    color: rgba(255, 255, 255, 0.651);
+  }
+  
+.profile-body {
+>>>>>>> b66f4e5926c1e42496bc2ae0dc5ddcb58056e9e5
     font-family: inherit, inherit;
     background-color: #000000;
     color: #ffffff;
@@ -11,7 +19,11 @@
     padding: 0;
   }
   
+<<<<<<< HEAD
   .container {
+=======
+  .userProfileContainer {
+>>>>>>> b66f4e5926c1e42496bc2ae0dc5ddcb58056e9e5
     max-width: 600px;
     margin: 0 auto;
     padding: 60px;
@@ -20,29 +32,45 @@
     box-shadow: 0 4px 8px rgb(255, 253, 253);
   }
   
+<<<<<<< HEAD
   h1 {
+=======
+ .profile-h1 {
+>>>>>>> b66f4e5926c1e42496bc2ae0dc5ddcb58056e9e5
     text-align: center;
     margin-bottom: 20px;
     color: #ffea00;
   }
   
+<<<<<<< HEAD
   h2 {
+=======
+  .profile-h2 {
+>>>>>>> b66f4e5926c1e42496bc2ae0dc5ddcb58056e9e5
     color: #fbff00;
     padding: 5px;
     margin-top: 20px;
     margin-bottom: 10px;
   }
   
+<<<<<<< HEAD
   h3 { margin-top: 20px;
     margin-bottom: 10px;
   }
   h4 {
+=======
+  .profile-h3 { margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .profile-h4 {
+>>>>>>> b66f4e5926c1e42496bc2ae0dc5ddcb58056e9e5
     color: #fbff00;
     padding: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
   
+<<<<<<< HEAD
   hr {
     border: none;
     border-top: 5px solid #fafafa;
@@ -51,6 +79,16 @@
   
   /* Add background effect for Profile */
   /* .profile {
+=======
+  .profile-hr {
+    border: none;
+    border-top: 5px solid #fafafa;
+    margin: 5px 0;
+  }
+  
+  /* Add background effect for Profile */
+  .profile {
+>>>>>>> b66f4e5926c1e42496bc2ae0dc5ddcb58056e9e5
     background-color: #000000;
     border-radius: 4px;
     position: relative;
@@ -73,9 +111,15 @@
   .profile:hover:before {
     opacity: 0.8;
   }
+<<<<<<< HEAD
    */
   /* Add background effect for Review */
   /* .review {
+=======
+
+  /* Add background effect for Review */
+  .review {
+>>>>>>> b66f4e5926c1e42496bc2ae0dc5ddcb58056e9e5
     background-color: #000000;
     padding: 5px;
     border-radius: 4px;
@@ -98,5 +142,4 @@
   
   .review:hover:before {
     opacity: 0.8;
-  } */
-  
+  }

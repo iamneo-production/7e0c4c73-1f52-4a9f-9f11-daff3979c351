@@ -26,6 +26,7 @@ function App() {
           <Route path='/updateReview/:reviewId' element={<UpdateReview/>} />
           <Route path='/createmovie' exact element={<CreateMovie/>}/>
           <Route path='/profile' exact element={<Profile/>}/>
+          <Route path='/createCast' exact element={<CreateCast/>}/>
         </Routes>
       </Router>
     </div>

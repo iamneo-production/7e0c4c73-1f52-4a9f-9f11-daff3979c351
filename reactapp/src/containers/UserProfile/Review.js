@@ -1,16 +1,13 @@
 import React from 'react';
 //import './style.css';
 
-const Review = ({ name, stars, comment }) => {
+export const Review = ({ name, stars, comment }) => {
   return (
     <div>
-      <h3>Movie Name: {name}</h3>
-      <p>Rating: {stars}</p>
-      <p>Review: {comment}</p>
-      <hr />
+      <h3 className='profile-h3'>Movie Name: {name}</h3>
+      <p className='prifile-p'>Rating: {stars}</p>
+      <p className='prifile-p'>Review: {comment}</p>
+      <hr className='prifile-hr' />
     </div>
   );
 };
-
-export default Review;
-

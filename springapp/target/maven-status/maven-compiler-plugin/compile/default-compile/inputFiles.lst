@@ -9,13 +9,10 @@
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/CastService.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/UserRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/WorkedOn.java
-/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/ReviewService.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/JwtTokenUtil.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/ReviewRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Cast.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/CorsConfig.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/controller/MovieController.java
-/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/models/MovieModel.java
-/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/MovieService.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Movie.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/SecurityConfig.java

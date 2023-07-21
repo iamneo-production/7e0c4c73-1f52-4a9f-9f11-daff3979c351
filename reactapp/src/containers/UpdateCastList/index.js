@@ -9,7 +9,7 @@ export const UpdateCastList = (props) => {
     var { movieId } = useParams();
 
     const [movie, setMovie] = useState({'title':''});
-    const [cast, setCast] = useState(null);
+    const [cast, setCast] = useState('');
     const [movieCasts, setMovieCasts] = useState([]);
     const [searchWord, setSearchWord] = useState('');
     const [casts, setCasts] = useState([]);
@@ -90,7 +90,7 @@ export const UpdateCastList = (props) => {
                     setMessage("Cast Added successfully");
                     setInterval(()=>{
                         window.location.reload();
-                    },2000);
+                    },1000);
                 }).catch((err) => {
                     if(err.response.status == 400){
                         alert(err + ' : Cast already added to movie!')
@@ -117,7 +117,7 @@ export const UpdateCastList = (props) => {
                 setMessage("Cast removed from movie Successsfully");
                 setInterval(()=>{
                     window.location.reload();
-                },2000);
+                },1000);
             }
             else if(response.status == 401){
                 setMessage("Authentication Failed Please Sign in again");

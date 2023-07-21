@@ -9,8 +9,8 @@ import { UpdateMovie } from './containers/UpdateMovie';
 import { UpdateReview } from './containers/UpdateReview';
 import { CreateMovie } from './containers/CreateMovie';
 import { UpdateCastList } from './containers/UpdateCastList';
-// import { Profile } from './containers/UserProfile';
-// import {CreateCast} from './containers/CreateCast'
+import { Profile } from './containers/UserProfile';
+import {CreateCast} from './containers/CreateCast'
 
 function App() {
   return (
@@ -26,8 +26,8 @@ function App() {
           <Route path='/updateCast/:movieId' element={<UpdateCastList/>} />
           <Route path='/updateReview/:reviewId' element={<UpdateReview/>} />
           <Route path='/createmovie' exact element={<CreateMovie/>}/>
-          {/* <Route path='/profile' exact element={<Profile/>}/> */}
-          {/* <Route path='/createCast' exact element={<CreateCast/>}/> */}
+          <Route path='/profile' exact element={<Profile/>}/>
+          <Route path='/createCast' exact element={<CreateCast/>}/>
         </Routes>
       </Router>
     </div>

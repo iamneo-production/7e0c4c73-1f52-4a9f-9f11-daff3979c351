@@ -1,17 +1,12 @@
-
-.homeContainer{
-    background-color: black;
-    min-height: 93vh;
-}
-
-.searchForm{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20% 20%;
-}
+  .navbar  label 
+  {
+    margin-right: 8px;
+    min-width: 80px;
+    font-weight: bold;
+    color: #333;
+  }
   
-  .home-body  input
+  .navbar  input
   {
     padding: 8px;
     border: 1px solid #ddd;
@@ -21,17 +16,18 @@
     width: 100%;
   }
   
-  .home-body  input:focus{
+  .navbar  input:focus{
     outline: none;
     border-color: #007bff;
   }
   
-  .home-body input[type="file"] 
+  
+  .navbar  input[type="file"] 
   {
     cursor: pointer;
   }
   
-  .home-body button 
+  .navbar  button 
   {
     padding: 8px 16px;
     background-color: #007bff;
@@ -44,7 +40,7 @@
     cursor: pointer;
   }
   
-  .home-body button:hover 
+  .navbar button:hover 
   {
     background-color: #0056b3;
     transform: scale(1.05);

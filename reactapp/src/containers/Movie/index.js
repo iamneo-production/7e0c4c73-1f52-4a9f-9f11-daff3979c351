@@ -206,7 +206,7 @@ export const Movie = (props) => {
       formData.append("reviewNote", review);
       formData.append("rating", rating);
       formData.append("movieId", movieId);
-      const token = window.localStorage.getItem('token');
+      const token = window.localStorage.getItem('Token');
       axios.post(process.env.REACT_APP_BACKEND_URL+'review', formData, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -343,9 +343,10 @@ export const Movie = (props) => {
                 <button
                     className="large-button" 
                     onClick={(e) => {
-                      const token = window.localStorage.getItem('token');
-                      // user = JSON.parse(window.localStorage.getItem('user'));
-                      if (token && user && user['email']) {
+                      const token = window.localStorage.getItem('Token');
+                      // const user = JSON.parse(window.localStorage.getItem('user'));
+                      // console.log(token,user);
+                      if (token && user && user.email) {
                         const formdata = new FormData();
                         formdata.append('email', user['email']);
                         axios.post(process.env.REACT_APP_BACKEND_URL+'authenticate', formdata, {
@@ -360,7 +361,7 @@ export const Movie = (props) => {
                         })
                       }
                       else {
-                        window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
+                        // window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
                       }
                     }} 
                   >Add your Review</button>

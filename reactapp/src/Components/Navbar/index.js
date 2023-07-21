@@ -19,7 +19,7 @@ export const NavBar = (props) => {
 
   
   return (
-    <div>
+    <div className='navbar'>
       <Navbar className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="/">MovieReviewAggregator</Navbar.Brand>

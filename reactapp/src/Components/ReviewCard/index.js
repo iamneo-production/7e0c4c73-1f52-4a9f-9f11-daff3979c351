@@ -39,7 +39,7 @@ export const ReviewCard = ({eachReview,isAdmin}) => {
                     }
                 </div>
             </div>
-            <p className="review">{eachReview.review}</p>
+            <p className="review">{eachReview.reviewNote}</p>
         </div>
     );
 }

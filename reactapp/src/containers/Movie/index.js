@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import { Modal, ModalBody, ModalHeader} from 'reactstrap';
 import axios from 'axios';
 import { CastCard } from '../../Components/CastCard'
-import {ReviewCard} from '../../Components/ReviewCard'
+import {ReviewCard} from '../../Components/ReviewCard';
+import {NavBar } from '../../Components/Navbar';
 import 'bootstrap/dist/css/bootstrap.css';
-import '../../containers/Movie/index.css';
+import './index.css';
 const url = process.env.REACT_APP_BACKEND_URL+'movie/'
 
 export const Movie = (props) => {
@@ -16,6 +17,7 @@ export const Movie = (props) => {
   const [review, setReview] = useState(null);
   const [rating, setRating] = useState(null);
   const [modal, setModal] = useState(false);
+  const [casts, setCasts] = useState(null);
   var user = JSON.parse(window.localStorage.getItem('user'));
 
   const isAdmin = (user && user.role=='ADMIN')?true:false;
@@ -36,10 +38,10 @@ export const Movie = (props) => {
     e.preventDefault();
     const formData = new FormData();
     if ((review && review.trim != '') || (rating && rating >= 0 && rating <= 5)) {
-      formData.append("reviewText", review);
+      formData.append("reviewNote", review);
       formData.append("rating", rating);
       formData.append("movieId", movieId);
-      const token = window.localStorage.getItem('token');
+      const token = window.localStorage.getItem('Token');
       axios.post(process.env.REACT_APP_BACKEND_URL+'review', formData, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -63,11 +65,29 @@ export const Movie = (props) => {
   useEffect(() => {
     movieId = movieId.trim();
     if (movieId) {
-      axios.get(process.env.REACT_APP_BACKEND_URL + movieId).then((response) => {
-        setMovie(response.data);
+      axios.get(process.env.REACT_APP_BACKEND_URL+'movie?id=' + movieId).then((response) => {
+        if(response.status==200){setMovie(...response.data);}
+        else{
+          console.log("Could not load movie");
+        }
+      }).catch((err)=>{
+        console.log("Error: Could not fetch movie");
       })
-      axios.get(process.env.REACT_APP_BACKEND_URL + 'review/' + movieId).then((response) => {
-        setReviews(response.data);
+      axios.get(process.env.REACT_APP_BACKEND_URL + 'review/movie?id=' + movieId).then((response) => {
+        if(response.status == 200){setReviews(response.data);}
+        else{
+          console.log("Could not fetch reviews");
+        }
+      }).catch((err)=>{
+        console.log("Error: Could not fetch reviews");
+      })
+      axios.get(process.env.REACT_APP_BACKEND_URL + 'cast/movie?id=' + movieId).then((response) => {
+        if(response.status == 200){setCasts(response.data);}
+        else{
+          console.log("Could not fetch casts");
+        }
+      }).catch((err)=>{
+        console.log("Error: Could not fetch casts");
       })
     }
   }, []);
@@ -75,6 +95,8 @@ export const Movie = (props) => {
   return (
 
     <div className='MovieApp'>
+
+      <NavBar/>
 
       {(movie)?
         (
@@ -88,8 +110,8 @@ export const Movie = (props) => {
               <h1 className="filmTitle">{movie.title}</h1>
               <div className="description">
                 <div className="details-of-the-film">
-                  <p>Genre</p>
-                  <p>Runtime</p>
+                  <p>Genre : {movie.genre}</p>
+                  {/* <p>Runtime</p> */}
                   <p>Rating : {movie.rating}</p>
                 </div>
                 <p className="summary">{movie.plotSummary}</p>
@@ -111,10 +133,10 @@ export const Movie = (props) => {
             
             <h3 className='cast-heading'>Cast</h3>
             {
-              movie.cast ? (
+              (casts && casts.length > 0) ? (
                 <div>
                   <div className='cast-grid'>
-                    {movie.cast.map((item, index) => (
+                    {casts.map((item, index) => (
                       <CastCard key={index} cast={item} isAdmin={isAdmin} />
                     ))}
                   </div>
@@ -123,7 +145,7 @@ export const Movie = (props) => {
                       id="upload-btn"
                       className="large-button"
                       onClick={(e) => {
-                        window.location.href = process.env.REACT_APP_FRONTEND_URL+'addCast/'+movieId;
+                        window.location.href = process.env.REACT_APP_FRONTEND_URL+'updateCast/'+movieId;
                       }}
                     >
                       Update Cast
@@ -139,7 +161,7 @@ export const Movie = (props) => {
             {/* Review display */}
             <h3 className="reviewHeading">Reviews</h3>
             {
-              (reviews)?
+              (reviews && reviews.length > 0)?
                 (
                   reviews.map((item,index) =>(
                     <ReviewCard eachReview={item} isAdmin={isAdmin} key={index}></ReviewCard>
@@ -156,8 +178,8 @@ export const Movie = (props) => {
                 <button
                     className="large-button" 
                     onClick={(e) => {
-                      const token = window.localStorage.getItem('token');
-                      user = JSON.parse(window.localStorage.getItem('user'));
+                      const token = window.localStorage.getItem('Token');
+                      // user = JSON.parse(window.localStorage.getItem('user'));
                       if (token && user && user['email']) {
                         const formdata = new FormData();
                         formdata.append('email', user['email']);
@@ -179,13 +201,14 @@ export const Movie = (props) => {
                   >Add your Review</button>
               )
             }
-          </div>):
+          </div>
+        ):
         (<h3 className='statement'>Movie has not fetched yet.</h3>)
         }
 
       {/* Modal */}
       <Modal size="lg" isOpen={modal} toggle={toggleModal} className='pop-up-modal'>
-        <ModalHeader closeClassName={toggleModal}>
+        <ModalHeader /*closeClassName={toggleModal}*/>
           <div className='header-elements'>
             <div className='pop-up-heading'><h4>Add your review</h4></div>
             <div className='close-btn-div'>

@@ -649,4 +649,19 @@ public class MovieController {
 		}
 	}
 
+
+	@GetMapping("/cast/movie")
+	public ResponseEntity<List<Cast>> getCastsForMovie(@RequestParam(name = "id") String movieId){
+		try{
+			Movie movie = movieService.getMovie(Long.parseLong(movieId));
+			if(movie != null){
+				List<Cast> casts = workedOnService.getCastsForMovie(movie);
+				return ResponseEntity.status(HttpStatus.OK).body(casts);
+			}
+		}catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
+	}
+
 }

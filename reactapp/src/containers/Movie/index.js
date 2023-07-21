@@ -116,7 +116,7 @@ export const Movie = (props) => {
                 {
                   user && user['isAdmin'] && (
                     <button onClick={(e) => {
-                      window.location.href = process.env.REACT_APP_FRONTEND_URL+'addCast/' + movieId;
+                      window.location.href = process.env.REACT_APP_FRONTEND_URL+'updateCast/' + movieId;
                     }}>Add Cast</button>
                   )
                 }

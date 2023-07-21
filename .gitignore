@@ -1,3 +1,5 @@
 .project
+.class
+.lst
 node_modules/
 done

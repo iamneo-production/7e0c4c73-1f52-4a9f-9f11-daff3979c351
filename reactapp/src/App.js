@@ -9,7 +9,8 @@ import { UpdateMovie } from './containers/UpdateMovie';
 import { UpdateReview } from './containers/UpdateReview';
 import { CreateMovie } from './containers/CreateMovie';
 import { UpdateCastList } from './containers/UpdateCastList';
-import Profile  from './containers/UserProfile/index';
+import { Profile } from './containers/UserProfile';
+import {CreateCast} from './containers/CreateCast'
 
 function App() {
   return (

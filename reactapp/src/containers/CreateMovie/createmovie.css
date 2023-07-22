@@ -74,9 +74,12 @@
     cursor: pointer;
   }
   
+<<<<<<< HEAD
+  movie-form button:hover 
+=======
   .movie-form button:hover 
+>>>>>>> 01cdb11595869652bf292714ddf4c94976f8b1d7
   {
     background-color: #0056b3;
     transform: scale(1.05);
   }
-  

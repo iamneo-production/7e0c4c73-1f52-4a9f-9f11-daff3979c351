@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import './index.css';
 
 
 export const NavBar = (props) => {
@@ -19,7 +20,7 @@ export const NavBar = (props) => {
 
   
   return (
-    <div className='navbar'>
+    <div className='navBar'>
       <Navbar className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="/">MovieReviewAggregator</Navbar.Brand>
@@ -63,7 +64,7 @@ export const NavBar = (props) => {
             }
             {
               (user == null || user.name == null) && (
-                <Navbar.Text href="/signin"><a href='/signin' >SignIn</a></Navbar.Text>
+                <Navbar.Text href="/signin"><a className='navbarTextColorBlack' href='/signin' >SignIn</a></Navbar.Text>
               )
             }
 

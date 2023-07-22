@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { NavBar } from '../../Components/Navbar';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './index.css';
@@ -83,6 +84,7 @@ export const UpdateMovie = (props) => {
 
   return (
     <div className='updateMovieApp'>
+      <NavBar />
       <h2 className='updateMovieH2' >Update Movie Page {movie.title}</h2>
       <form onSubmit={handleSubmit} className='updateMovieForm'>
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { NavBar } from '../../Components/Navbar';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './createmovie.css';
@@ -67,6 +68,7 @@ export const CreateMovie = () => {
 
   return (
     <div>
+      <NavBar />
       <h2>Create Movie Page</h2>
       <form onSubmit={handleSubmit} className="movie-form">
         <div className="form-field">

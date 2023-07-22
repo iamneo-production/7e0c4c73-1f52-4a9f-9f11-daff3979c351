@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { NavBar } from '../../Components/Navbar';
 
 export const CreateCast = (props) => {
 
@@ -31,6 +32,7 @@ export const CreateCast = (props) => {
 
   return (
     <div>
+      <NavBar />
       <h2>Create Cast</h2>
       <form onSubmit={handleSubmit}>
         <label>Cast Name</label>

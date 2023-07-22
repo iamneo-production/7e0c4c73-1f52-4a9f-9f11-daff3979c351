@@ -125,6 +125,7 @@
 // }
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { NavBar } from '../../Components/Navbar';
 import { useParams } from 'react-router-dom';
 import './index.css';
 
@@ -220,7 +221,8 @@ export const UpdateReview = () => {
   }
 
   return (
-    <div className="container">
+    <div className="updateReviewContainer">
+      <NavBar />
       <h3 className="title">Update Review Of {review?.userId}</h3>
       <div className="review-item">
         {/* <div className='image-container'>

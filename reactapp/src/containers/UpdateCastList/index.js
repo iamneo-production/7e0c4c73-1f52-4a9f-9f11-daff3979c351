@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { CastCard } from '../../Components/CastCard';
+import { NavBar } from '../../Components/Navbar';
+import './index.css';
 
 
 export const UpdateCastList = (props) => {
@@ -132,7 +134,8 @@ export const UpdateCastList = (props) => {
     }
 
     return (
-        <div>
+        <div className='updateCastListContainer'>
+            <NavBar />
             <h3>Movie Casts</h3>
             <div className='castsContainer'>
                 {
@@ -150,11 +153,10 @@ export const UpdateCastList = (props) => {
                 message && <h3>{message}</h3>
             }
             <h3>Add Cast for {movie.title}</h3>
-            <input type='text' onChange={(e)=>{
+            <input type='text' placeholder='Search Cast' onChange={(e)=>{
                 setSearchWord(e.target.value);
             }} />
-            <div>
-                casts
+            <div className='castsContainer'>
             {
                 casts && casts.length > 0 && (
                     casts.map((cast, i) => <div key={i} onClick={(e) => {

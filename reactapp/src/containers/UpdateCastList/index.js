@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { CastCard } from '../../Components/CastCard';
-
+import { CastCard } from '../../Components/CastCard/index';
+import {Card} from '../../Components/CastCard/index2'
 
 export const UpdateCastList = (props) => {
 
@@ -59,7 +59,7 @@ export const UpdateCastList = (props) => {
     },[searchWord])
 
     useEffect(()=>{
-        handleSubmit(cast);
+        handleAdd(cast);
     },[cast])
 
     const handleSearch = (e) => { 
@@ -74,7 +74,7 @@ export const UpdateCastList = (props) => {
 
 
 
-    const handleSubmit = (cast) => {
+    const handleAdd = (cast) => {
         if (cast != null && cast.castId != null && movieId != null) {
             if (window.confirm('Are you sure You want to add ' + cast.name + ' to ' + movie.title)) {
                 const formdata = new FormData();
@@ -139,8 +139,8 @@ export const UpdateCastList = (props) => {
                     movieCasts && movieCasts.map((cast,index)=>{
                         return(
                             <div className='castCard' key={index}>
-                                <CastCard cast={cast} />
-                                <button onClick={(e)=>handleDelete(cast.castId)}>Remove</button>
+                                <CastCard cast={cast} handleDelete={handleDelete} />
+                                
                             </div>
                         );
                     })
@@ -159,7 +159,7 @@ export const UpdateCastList = (props) => {
                 casts && casts.length > 0 && (
                     casts.map((cast, i) => <div key={i} onClick={(e) => {
                         setCast(cast);
-                    }} ><CastCard cast={cast} /> </div>)
+                    }} ><Card cast={cast} handleAdd={handleAdd}/> </div>)
                 )
             }
             </div>

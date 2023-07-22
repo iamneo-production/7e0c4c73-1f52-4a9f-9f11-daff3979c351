@@ -12,9 +12,11 @@
     text-align: center;
 }
 .cast-item img {
-    width: 100%;
-    height: auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
 }
-.cast-item .cast-name {
+.cast-name {
     margin-top: 10px;
+    font-weight: bold;
 }

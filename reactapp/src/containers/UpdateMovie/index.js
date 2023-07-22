@@ -57,7 +57,7 @@ export const UpdateMovie = (props) => {
     else {
       axios.put(url, formdata, {
         headers: {
-          'Authorization': `Bearer ${window.localStorage.getItem('Token')}`
+          'Authorization': `Bearer ${window.localStorage.getItem('token')}`
         }
       }).then((response) => {
         if (response.status === 200) {

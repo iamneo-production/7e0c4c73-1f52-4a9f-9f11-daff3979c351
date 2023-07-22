@@ -3,9 +3,9 @@ import './index.css';
 
 export const CastCard = ({cast}) => {
   return (
-    <div className='cardContainer'>
+    <div className='cast-item'>
       <img src={process.env.REACT_APP_BACKEND_URL+'image/' + cast.poster} className='image' />
-      <h3 className='name' >{cast.name}</h3>
+      <p className='cast-name' >{cast.name}</p>
     </div>
   );
 };

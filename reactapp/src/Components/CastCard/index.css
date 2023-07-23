@@ -1,20 +1,22 @@
-
+/* 
 .cardContainer{
     margin: 3em;
     padding: 2px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 .image{
     max-width: 12em;
     max-height: 12em;
-    position: relative;
+} */
+.cast-item {
+    text-align: center;
 }
-.btn{
-    position: absolute;
+.cast-item img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+.cast-name {
+    margin-top: 10px;
     font-weight: bold;
-    color: black;
 }
-

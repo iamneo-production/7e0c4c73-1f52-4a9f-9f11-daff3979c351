@@ -14,7 +14,7 @@ export const CreateCast = (props) => {
     formdata.append('poster',poster);
     axios.post(process.env.REACT_APP_BACKEND_URL + 'cast', formdata, {
       headers : {
-        'Authorization' : `Bearer ${window.localStorage.getItem("Token")}`
+        'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
       }
     }).then((response) => {
       if(response.status == 200){

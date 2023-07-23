@@ -117,7 +117,7 @@
 }
 
 
-@keyframes pulse {
+/* @keyframes pulse {
   0% {
     background-color: #fbab33; 
   }
@@ -127,7 +127,7 @@
   100% {
     background-color: #fbaa31; 
   }
-}
+} */
 
 
 .register-form .btn-register:focus {

@@ -110,7 +110,7 @@
   box-shadow: 0 0 5px rgba(3, 40, 176, 0.8);
 }
 
-@keyframes shiningBackground {
+/* @keyframes shiningBackground {
   0% {
     background-position: 0% 50%;
   }
@@ -132,5 +132,5 @@
   100% {
     background-color: #fbaa31; 
   }
-}
+} */
 

@@ -6,7 +6,7 @@ export const CastCard = ({cast,handleDelete}) => {
     <div className='cast-item'>
       <img src={process.env.REACT_APP_BACKEND_URL+'image/' + cast.poster} className='imge' />
       <p className='cast-name' >{cast.name}</p>
-      <button className='del-btn' onClick={(e) => handleDelete(cast)}>X</button>
+      <button className='del-btn' onClick={(e) => handleDelete(cast.castId)}>X</button>
     </div>
   );
 };

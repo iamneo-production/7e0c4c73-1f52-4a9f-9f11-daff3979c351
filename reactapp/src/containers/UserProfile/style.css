@@ -11,9 +11,7 @@
 }
 
 .userProfileContainer {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 60px;
+  min-height: 100vh;
   background-color: #050505;
   border-radius: 8px;
   /* box-shadow: 0 4px 8px rgb(255, 0, 0); */

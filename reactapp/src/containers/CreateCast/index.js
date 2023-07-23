@@ -1,62 +1,47 @@
 import React, { useState } from 'react';
-import './index.css';
+import axios from 'axios';
 
-const CastForm = ({ onAddCast }) => {
-  const [actorName, setActorName] = useState('');
-  const [actorImage, setActorImage] = useState(null);
+export const CreateCast = (props) => {
 
-  const handleActorNameChange = (event) => {
-    setActorName(event.target.value);
-  };
+  const [castName,setCastName] = useState('');
+  const [poster,setPoster] = useState(null);
+  const [message,setMessage] = useState(null);
 
-  const handleActorImageChange = (event) => {
-    setActorImage(event.target.files[0]);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onAddCast({ name: actorName, image: actorImage });
-    setActorName('');
-    setActorImage(null);
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Actor Name:
-        <input type="text" value={actorName} onChange={handleActorNameChange} />
-      </label>
-      <br />
-      <label>
-        Actor Image:
-        <input type="file" onChange={handleActorImageChange} />
-      </label>
-      <br />
-      <button type="submit">Add Cast</button>
-    </form>
-  );
-};
-
-const CreateCast = () => {
-  const [castList, setCastList] = useState([]);
-
-  const handleAddCast = (cast) => {
-    setCastList([...castList, cast]);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append('name',castName);
+    formdata.append('poster',poster);
+    axios.post(process.env.REACT_APP_BACKEND_URL + 'cast', formdata, {
+      headers : {
+        'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
+      }
+    }).then((response) => {
+      if(response.status == 200){
+        setMessage("Cast created Successfully");
+      }
+      else{
+        window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+      }
+    }).catch((err)=>{
+      setMessage("Could not create Cast");
+    })
+    
+  }
 
   return (
     <div>
-      <h2>Movie Review System</h2>
-      <CastForm onAddCast={handleAddCast} />
-      <h3>Cast List:</h3>
-      {castList.map((cast, index) => (
-        <div key={index}>
-          <p>Actor Name: {cast.name}</p>
-          <img src={URL.createObjectURL(cast.image)} alt="Actor" />
-        </div>
-      ))}
+      <h2>Create Cast</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Cast Name</label>
+        <input type='text' placeholder='Enter Cast Name' required value={castName} onChange={(e)=>{setCastName(e.target.value)}}/>
+        <label>Poster</label>
+        <input type='file' placeholder='Cast Image' onChange={(e) => setPoster(e.target.files[0])} />
+        <button type='submit'>Submit</button>
+      </form>
+      {
+        message && <h3>{message}</h3>
+      }
     </div>
-  );
-};
-
-export default CreateCast;
+  )
+}

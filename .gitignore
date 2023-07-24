@@ -1,3 +1,6 @@
-.project
+*.project
+*.class
+*.lst
 node_modules/
+target/
 done

@@ -153,6 +153,35 @@ public class MovieController {
 		}
 	}
 
+	//check if a token is valid for a particular user
+	@PostMapping("/user/detail")
+	public ResponseEntity<Map<String, Object>> getUserDetails(@RequestHeader(required=false, name = "Authorization") String token,
+			@RequestParam("userId") String userId) {
+		try {
+			Map<String, Object> responseBody = new HashMap<>();
+			User user = userService.getUserByUserId(Long.parseLong(userId));
+			if (token != null && token.startsWith("Bearer ")) {
+				token = token.substring(7);
+				if (!jwtTokenUtil.isTokenExpired(token)) {
+					if (user.getEmail().equals(jwtTokenUtil.getUsernameFromToken(token))) {
+						responseBody.put("userId", user.getUserId());
+						responseBody.put("email", user.getEmail());
+						responseBody.put("name", user.getName());
+						responseBody.put("role", user.getRole());
+						return ResponseEntity.ok(responseBody);
+					}
+				}
+			}
+			responseBody.put("userId", user.getUserId());
+			responseBody.put("name", user.getName());
+			return ResponseEntity.ok(responseBody);
+		} catch (ExpiredJwtException e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	// tasks related to movie Service starts
 
 	// retrieves all the movies that are present in the database
@@ -620,4 +649,21 @@ public class MovieController {
 		}
 	}
 
+
+	@GetMapping("/cast/movie")
+	public ResponseEntity<List<Cast>> getCastsForMovie(@RequestParam(name = "id") String movieId){
+		try{
+			Movie movie = movieService.getMovie(Long.parseLong(movieId));
+			if(movie != null){
+				List<Cast> casts = workedOnService.getCastsForMovie(movie);
+				return ResponseEntity.status(HttpStatus.OK).body(casts);
+			}
+		}catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
+	}
+
 }
+
+

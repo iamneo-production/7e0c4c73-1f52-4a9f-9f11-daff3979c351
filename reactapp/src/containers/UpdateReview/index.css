@@ -1,3 +1,8 @@
+.app{
+  height: 100%;
+  width: 100%;
+  background: black;
+}
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -9,7 +14,7 @@
     font-size: 24px;
     margin-bottom: 20px;
     font-family: 'Georgia', serif;
-    color: #333;
+    color:orange;
   }
   
   .review-item {
@@ -17,7 +22,7 @@
     border-radius: 4px;
     padding: 20px;
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: black;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
   
@@ -25,7 +30,7 @@
     font-size: 20px;
     margin-bottom: 10px;
     font-family: 'Georgia', serif;
-    color: #333;
+    color: orange;
   }
   
   .username {
@@ -33,7 +38,7 @@
     font-weight: bold;
     margin-bottom: 10px;
     font-family: 'Georgia', serif;
-    color: #666;
+    color: orange;
   }
   
   .review-text {
@@ -45,7 +50,7 @@
     margin-bottom: 10px;
     font-size: 20px;
     font-family: 'Garamond', serif;
-    color: #333;
+    color: white;
   }
   
   .rating-container {
@@ -58,7 +63,7 @@
   .rating-label {
     margin-right: 10px;
     font-family: 'Georgia', serif;
-    color: #333;
+    color: white;
   }
   
   .star-rating {
@@ -84,8 +89,8 @@
   
   .update-btn {
     padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: orange;
+    color: black;
     border: none;
     border-radius: 4px;
     font-size: 16px;
@@ -95,7 +100,7 @@
   }
   
   .update-btn:hover {
-    background-color: #0056b3;
+    background-color:#f1be7f;
   }
   
   .image-container {

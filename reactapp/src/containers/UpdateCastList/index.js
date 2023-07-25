@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { CastCard } from '../../Components/CastCard/index';
-import {Card} from '../../Components/CastCard/index2'
+import { CastCard } from '../../Components/CastCard';
+
 
 export const UpdateCastList = (props) => {
 
     var { movieId } = useParams();
 
     const [movie, setMovie] = useState({'title':''});
-    const [cast, setCast] = useState('');
+    const [cast, setCast] = useState(null);
     const [movieCasts, setMovieCasts] = useState([]);
     const [searchWord, setSearchWord] = useState('');
     const [casts, setCasts] = useState([]);
@@ -59,7 +59,7 @@ export const UpdateCastList = (props) => {
     },[searchWord])
 
     useEffect(()=>{
-        handleAdd(cast);
+        handleSubmit(cast);
     },[cast])
 
     const handleSearch = (e) => { 
@@ -74,7 +74,7 @@ export const UpdateCastList = (props) => {
 
 
 
-    const handleAdd = (cast) => {
+    const handleSubmit = (cast) => {
         if (cast != null && cast.castId != null && movieId != null) {
             if (window.confirm('Are you sure You want to add ' + cast.name + ' to ' + movie.title)) {
                 const formdata = new FormData();
@@ -90,7 +90,7 @@ export const UpdateCastList = (props) => {
                     setMessage("Cast Added successfully");
                     setInterval(()=>{
                         window.location.reload();
-                    },1000);
+                    },2000);
                 }).catch((err) => {
                     if(err.response.status == 400){
                         alert(err + ' : Cast already added to movie!')
@@ -117,7 +117,7 @@ export const UpdateCastList = (props) => {
                 setMessage("Cast removed from movie Successsfully");
                 setInterval(()=>{
                     window.location.reload();
-                },1000);
+                },2000);
             }
             else if(response.status == 401){
                 setMessage("Authentication Failed Please Sign in again");
@@ -139,8 +139,8 @@ export const UpdateCastList = (props) => {
                     movieCasts && movieCasts.map((cast,index)=>{
                         return(
                             <div className='castCard' key={index}>
-                                <CastCard cast={cast} handleDelete={handleDelete} />
-                                
+                                <CastCard cast={cast} />
+                                <button onClick={(e)=>handleDelete(cast.castId)}>Remove</button>
                             </div>
                         );
                     })
@@ -159,7 +159,7 @@ export const UpdateCastList = (props) => {
                 casts && casts.length > 0 && (
                     casts.map((cast, i) => <div key={i} onClick={(e) => {
                         setCast(cast);
-                    }} ><Card cast={cast} handleAdd={handleAdd}/> </div>)
+                    }} ><CastCard cast={cast} /> </div>)
                 )
             }
             </div>

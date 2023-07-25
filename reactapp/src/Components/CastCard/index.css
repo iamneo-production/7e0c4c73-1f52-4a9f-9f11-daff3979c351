@@ -9,44 +9,14 @@
     max-height: 12em;
 } */
 .cast-item {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    
+    text-align: center;
 }
-.imge {
-    width: 12em;
-    height:12em;
+.cast-item img {
+    width: 200px;
+    height: 200px;
     border-radius: 10px;
-    position: relative;
 }
 .cast-name {
+    margin-top: 10px;
     font-weight: bold;
-    position: absolute;
-    margin-top: 11em;
-    color: whitesmoke;
-    margin-left: 5em;
-    background-color: black;
-    
-}
-.del-btn{
-    position: absolute;
-    font-weight: bold;
-    background: transparent;
-    color: red;
-    left: 9em;
-    font-size: large;
-    margin-bottom: 8em;
-
-}
-.add-btn{
-    position: absolute;
-    font-weight: bold;
-    background: transparent;
-    color: red;
-    left: 9em;
-    font-size: large;
-    margin-bottom: 8em;
-
 }

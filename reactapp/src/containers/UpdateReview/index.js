@@ -99,11 +99,11 @@ export const UpdateReview = () => {
     <div className="container">
       <h3 className="title">Update Review Of {review?.userId}</h3>
       <div className="review-item">
-        {/* <div className='image-container'>
+        <div className='image-container'>
            <img src={process.env.REACT_APP_BACKEND_URL+'image/'+movie.poster} />
-         </div> */}
+         </div> 
         <h2 className="movie-title">{review?.movie?.title}</h2>
-        <p className="username">Username: {review?.userId}</p>
+        <p className="username">UserId: {review?.userId}</p>
         <textarea
           className="review-text"
           value={reviewText}
@@ -113,7 +113,7 @@ export const UpdateReview = () => {
             width: '700px',
             resize: 'none',
           }}
-        />
+        />` `
         <div className="rating-container">
           <p className="rating-label">Rating:</p>
           <div className="star-rating">

@@ -1,7 +1,7 @@
 .app{
   height: 100%;
   width: 100%;
-  background: black;
+  background-color: black;
 }
 .container {
     max-width: 800px;
@@ -50,7 +50,7 @@
     margin-bottom: 10px;
     font-size: 20px;
     font-family: 'Garamond', serif;
-    color: white;
+    color: black;
   }
   
   .rating-container {
@@ -63,7 +63,7 @@
   .rating-label {
     margin-right: 10px;
     font-family: 'Georgia', serif;
-    color: white;
+    color: orange;
   }
   
   .star-rating {
@@ -118,6 +118,7 @@
     background-color: #f44336;
     color: #fff;
     border: none;
+    border-radius: 4px;
     padding: 8px 16px;
     font-size: 14px;
     cursor: pointer;

@@ -1,0 +1,145 @@
+.MovieApp{
+  height: 100%;
+  width: 100%;
+  background: black;
+  color: white;
+}
+/*film poster description and stuff*/
+.filmTitle{
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 50px;
+  margin-left: 10px;
+}
+.details-of-the-film{
+  display: flex;
+}
+.film-poster{
+  background-size: cover;
+  /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)); */
+  /* background-color: brown; */
+  width: 100%;
+  /* box-shadow: 0 0 30px rgb(102, 6, 6); */
+  height: 90vh;
+  color: white;
+}
+.summary{
+  text-align: left;
+  margin: 0 auto;
+  max-width: 800px;
+}
+.description p{
+  font-size: 20px;
+  margin: 10px 20px 20px 20px;
+}
+.reviewHeading, .cast-heading{
+  font-size: 30px;
+  margin: 30px 20px 20px 20px;
+  color: orange;
+}
+.statement{
+  margin: 30px;
+  text-align: center;
+}
+
+/* Modal stuff */
+.modal-header{
+  background-color: black;
+  color: orange;
+  border-radius: 4px;
+  border: 1px solid orange;
+}
+
+.modal-body{
+  background: black;
+  border-radius: 4px;
+  border: 1px solid orange;
+}
+
+.header-elements{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-close-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  /* Add any additional styles as needed */
+}
+
+.reviewBox{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviewInput {
+  width: 500px;
+  border: 1px solid orange;
+  margin: 20px;
+  resize: vertical;
+  max-height: 200px;
+  overflow: auto;
+  color: white;
+  padding: 8px;
+  background: none;
+}
+
+.ratingInput{
+  color: white;
+  border: 1px solid orange;
+  width: 200px;
+  padding: 8px;
+  display: flex;
+  text-align: center;
+  background: none;
+}
+#submitButton{
+  background-color: orange;
+  color:black;
+  margin-bottom: 20px;
+}
+#submitButton:hover, #submitButton:focus, #submitButton:active{
+  box-shadow: 0 0 5px white;
+}
+
+.large-button{
+  display: flex;
+  text-align: center;
+  padding: 10px 40px;
+  outline: orange;
+  font-size: 20px;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  border: 1px solid orange;
+  border-radius: 5px;
+  background: none;
+  color: orange;
+  /* box-shadow: 0 0 3px rgb(208, 133, 30); */
+  cursor: pointer;
+  -webkit-transition-duration:0.3s;
+  -webkit-transition-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+  transition-duration: 0.3s;
+}
+.large-button:hover, .large-button:focus, .large-button:active{
+  box-shadow: 0 0 5px rgb(208, 133, 30);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.cast-view, .reviews-view{
+  margin: 10px;
+}
+.cast-grid {
+  margin-top:10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}

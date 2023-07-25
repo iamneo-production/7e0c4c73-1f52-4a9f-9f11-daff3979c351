@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/CastRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/MovieRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Review.java
@@ -38,16 +39,20 @@
 =======
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/CastService.java
 >>>>>>> 715c37d4f4af450aa08dc8a0fd846d2668da5e57
+=======
+/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/MovieRepository.java
+/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/CastRepository.java
+/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/User.java
+/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/WorkedOnRepository.java
+/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/SpringappApplication.java
+>>>>>>> 3def089c0b9ce9a867e948d663b1e9443e57bef9
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/UserRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/WorkedOn.java
-/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/ReviewService.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/JwtTokenUtil.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/ReviewRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/CorsConfig.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Cast.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/controller/MovieController.java
-/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/models/MovieModel.java
-/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/MovieService.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Movie.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/SecurityConfig.java
 >>>>>>> 7c4aa19cfd5bdc52df6d376f582480f32d5c01ec

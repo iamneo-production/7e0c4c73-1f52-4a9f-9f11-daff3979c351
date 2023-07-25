@@ -6,26 +6,29 @@ import "./MovieCard.css";
 export const MovieCard = ({ movie }) => {
 
 
-  const { title, plotSummary, genre, releaseDate, poster, rating } = movie;
+  const { title, plotSummary, genre, releaseDate, poster, rating, movieId } = movie;
   
-  const [isHovered, setIsHovered] = useState(false);
+   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
+   const handleMouseEnter = () => {
+     setIsHovered(true);
+   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+   const handleMouseLeave = () => {
+     setIsHovered(false);
+   };
 
-  return (
-    // division to check hover
-    // shows only image until user hover over the image
-    <div
-      className={`card-container ${isHovered ? "hovered" : ""}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+   return (
+     // division to check hover
+     // shows only image until user hover over the image
+     <div
+       className={`card-container ${isHovered ? "hovered" : ""}`}
+       onMouseEnter={handleMouseEnter}
+       onMouseLeave={handleMouseLeave}
+       onClick={(e)=>{
+        window.location.href=process.env.REACT_APP_FRONTEND_URL + 'movie/'+ movieId;
+       }}
+     >
 
       <div className="card-img-container">
         <img className="card-img" src={process.env.REACT_APP_BACKEND_URL + 'image/'+ poster } alt="movie-card" />
@@ -37,7 +40,7 @@ export const MovieCard = ({ movie }) => {
           </div>
           <div>
             <span className="release-date">Release Date :</span>
-            <span className="value">{releaseDate}</span>
+            <span className="value">{new Date(releaseDate).toDateString()}</span>
           </div>
           <div>
             <span className="genre">Genre :</span>

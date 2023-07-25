@@ -1,4 +1,4 @@
-
+/* 
 .cardContainer{
     margin: 3em;
     padding: 2px;
@@ -7,4 +7,16 @@
 .image{
     max-width: 12em;
     max-height: 12em;
+} */
+.cast-item {
+    text-align: center;
+}
+.cast-item img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+.cast-name {
+    margin-top: 10px;
+    font-weight: bold;
 }

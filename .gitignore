@@ -1,6 +1,8 @@
 *.project
 *.class
 *.lst
+*.jfif
+*.webp
 node_modules/
 target/
 done

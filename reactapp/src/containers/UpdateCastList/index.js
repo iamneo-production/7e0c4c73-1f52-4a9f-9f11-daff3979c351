@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { CastCard } from '../../Components/CastCard';
+import { CastCard } from '../../Components/CastCard2';
 import './updatecast.css'
 
 export const UpdateCastList = (props) => {

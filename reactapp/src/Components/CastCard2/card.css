@@ -15,8 +15,14 @@
     width: 200px;
     height: 200px;
     border-radius: 10px;
+    position: relative;
 }
 .cast-name {
-    margin-top: 10px;
     font-weight: bold;
+    position: absolute;
+    margin-top: -1.5em;
+    
+    color: whitesmoke;
+    background-color: black;
+    width: 200px;
 }

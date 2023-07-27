@@ -239,7 +239,7 @@ export const Movie = (props) => {
                 step="0.1"
                 value={rating}
                 onChange={(event) => setRating(event.target.value)}/>
-            <button className='submitBtn' id="submitButton" onClick={handleReviewPost}>
+            <button className='large-button' id="submitButton" onClick={handleReviewPost}>
                 Submit
               </button>
           </div>

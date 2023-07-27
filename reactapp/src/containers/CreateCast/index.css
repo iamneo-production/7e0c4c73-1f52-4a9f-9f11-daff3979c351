@@ -1,4 +1,5 @@
 div {
+<<<<<<< HEAD
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -53,3 +54,60 @@ h3 {
   margin-top: 15px;
   color: #007bff;
 }
+=======
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Heading styles */
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form styles */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  input[type="text"],
+  input[type="file"] {
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  button[type="submit"] {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Message styles */
+  h3 {
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+  }
+  
+>>>>>>> 7c31abc8b84d5fe02171c779e302ee961732e900

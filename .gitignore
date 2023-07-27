@@ -4,3 +4,9 @@
 node_modules/
 target/
 done
+*.jpg
+*.jpeg
+*.png
+*.avif
+*.jfif
+*.webp

@@ -18,7 +18,7 @@ export const CreateCast = (props) => {
         'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
       }
     }).then((response) => {
-      if(response.status == 200){
+      if(response.status === 200){
         setMessage("Cast created Successfully");
       }
       else{

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
+=======
+import "./cast.css";
+>>>>>>> 4dda25f21db2cecb858a232a88d4caba2339f495
 
 export const CreateCast = (props) => {
 

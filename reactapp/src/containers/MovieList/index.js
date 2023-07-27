@@ -31,7 +31,7 @@ const [found,setFound] = useState(true);
 
     useEffect(()=> {
         getMovies();
-      },[])
+      },[]);
   
       const handleSearch = (e) => {
         setSearchTerm(e.target.value);

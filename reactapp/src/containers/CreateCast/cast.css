@@ -1,32 +1,32 @@
-div {
+/* div {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-  }
+  } */
   
   /* Heading styles */
-  h2 {
+  /* h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
-  }
+  } */
   
   /* Form styles */
-  form {
+  /* form {
     display: flex;
     flex-direction: column;
-  }
+  } */
   
-  label {
+  /* label {
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
-  }
+  } */
   
-  input[type="text"],
+  /* input[type="text"],
   input[type="file"] {
     padding: 8px;
     margin-bottom: 15px;
@@ -46,11 +46,11 @@ div {
   button[type="submit"]:hover {
     background-color: #0056b3;
   }
-  
+   */
   /* Message styles */
-  h3 {
+  /* h3 {
     text-align: center;
     margin-top: 15px;
     color: #007bff;
-  }
+  } */
   

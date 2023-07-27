@@ -273,7 +273,7 @@ public class MovieController {
 	// updates the movie having movieId as the primary key in the database after
 	// authenticating the user as admin
 	@PutMapping("/movie")
-	public ResponseEntity<Movie> updateMovie( @RequestHeader(name = "Authorization") String token,
+	public ResponseEntity<Movie> updateMovie(@RequestHeader(name = "Authorization") String token,
 			@RequestParam(name = "movieId") String movieId,
 			@RequestParam(name = "title", required = false) String title,
 			@RequestParam(name = "genre", required = false) String genre,
@@ -652,5 +652,3 @@ public class MovieController {
 	}
 
 }
-
-

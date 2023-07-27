@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { NavBar } from '../../Components/Navbar';
+import "./cast.css";
 
 export const CreateCast = (props) => {
 

@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+.castsContainer, .cast-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    height: 35vh;
+    width: 100vw;
+    margin-top: 1em;
+}
+.remove-btn{
+    text-align: center;
+    margin-left: 4em;
+    margin-top: 5px;
+}
+.info{
+    margin-top: 5px;
+}
+.message{
+    margin-top: 5px;
+}
+

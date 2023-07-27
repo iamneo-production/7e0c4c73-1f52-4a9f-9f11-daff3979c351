@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { CastCard } from '../../Components/CastCard';
 import { NavBar } from '../../Components/Navbar';
-import './index.css';
-
+import './updateCast.css';
 
 export const UpdateCastList = (props) => {
 
@@ -92,7 +91,7 @@ export const UpdateCastList = (props) => {
                     setMessage("Cast Added successfully");
                     setInterval(()=>{
                         window.location.reload();
-                    },2000);
+                    },1000);
                 }).catch((err) => {
                     if(err.response.status == 400){
                         alert(err + ' : Cast already added to movie!')
@@ -119,7 +118,7 @@ export const UpdateCastList = (props) => {
                 setMessage("Cast removed from movie Successsfully");
                 setInterval(()=>{
                     window.location.reload();
-                },2000);
+                },1000);
             }
             else if(response.status == 401){
                 setMessage("Authentication Failed Please Sign in again");
@@ -134,29 +133,29 @@ export const UpdateCastList = (props) => {
     }
 
     return (
-        <div className='updateCastListContainer'>
+        <div>
             <NavBar />
-            <h3>Movie Casts</h3>
+            <h3>Movie Casts for {movie.title}</h3>
             <div className='castsContainer'>
                 {
                     movieCasts && movieCasts.map((cast,index)=>{
                         return(
                             <div className='castCard' key={index}>
                                 <CastCard cast={cast} />
-                                <button onClick={(e)=>handleDelete(cast.castId)}>Remove</button>
+                                <button onClick={(e)=>handleDelete(cast.castId)} className='remove-btn'>Remove</button>
                             </div>
                         );
                     })
                 }
             </div>
             {
-                message && <h3>{message}</h3>
+                message && <h3 className='message'>{message}</h3>
             }
-            <h3>Add Cast for {movie.title}</h3>
-            <input type='text' placeholder='Search Cast' onChange={(e)=>{
+            <h3 className='info'>Add Cast for {movie.title}</h3>
+            <input type='text' onChange={(e)=>{
                 setSearchWord(e.target.value);
             }} />
-            <div className='castsContainer'>
+            <div className='cast-box'>
             {
                 casts && casts.length > 0 && (
                     casts.map((cast, i) => <div key={i} onClick={(e) => {

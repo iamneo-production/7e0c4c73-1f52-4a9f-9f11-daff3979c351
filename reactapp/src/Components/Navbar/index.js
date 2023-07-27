@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import axios from 'axios';
 import './index.css';
 
 
@@ -20,7 +21,7 @@ export const NavBar = (props) => {
 
   
   return (
-    <div className='navBar'>
+    <div className='navbar'>
       <Navbar className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="/">MovieReviewAggregator</Navbar.Brand>
@@ -54,8 +55,19 @@ export const NavBar = (props) => {
 
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#" onClick={(e) => {
-                    localStorage.clear();
-                    window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+                    const formdata = new FormData();
+                    formdata.append('email',user.email);
+                    axios.post(process.env.REACT_APP_BACKEND_URL+'signout',formdata,{
+                      headers : {
+                        'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
+                      }
+                    }).then((response)=>{
+                      localStorage.clear();
+                      window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+                    }).catch((err)=>{
+                      alert('could not logout');
+                    })
+                    
                   }}>
                     LogOut
                   </NavDropdown.Item>
@@ -64,7 +76,7 @@ export const NavBar = (props) => {
             }
             {
               (user == null || user.name == null) && (
-                <Navbar.Text href="/signin"><a className='navbarTextColorBlack' href='/signin' >SignIn</a></Navbar.Text>
+                <Navbar.Text href="/signin"><a href='/signin' >SignIn</a></Navbar.Text>
               )
             }
 

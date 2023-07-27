@@ -23,7 +23,18 @@ public class UserService {
 		if(users.size() > 0) {
 			User u = users.get(0);
 			if(u.getPassword().equals(password)){
-				u.setPassword(null);
+//				u.setPassword(null);
+				return u;
+			}
+		}
+		return null;
+	}
+	
+	public User authenticateToken(String email, String token) {
+		List<User> users = userDao.findByEmail(email);
+		if(users.size() > 0) {
+			User u = users.get(0);
+			if(u.getJwtToken().equals(token)){
 				return u;
 			}
 		}
@@ -94,6 +105,24 @@ public class UserService {
 		User user =  userDao.findById(userId).get();
         user.setPassword(null);
         return user;
+	}
+	
+	public User saveToken(User user, String token) {
+		List<User> users = userDao.findByEmail(user.getEmail());
+		if(users.size() > 0) {
+			User u =  users.get(0);
+			u.setJwtToken(token);
+			userDao.save(u);
+            return u;
+		}
+		return null;
+	}
+
+	public void replaceToken(String token, String token2){
+		List<User> users = userDao.findByJwtToken(token);
+		User user = users.get(0);
+		user.setJwtToken(token2);
+		userDao.save(user);
 	}
 
 

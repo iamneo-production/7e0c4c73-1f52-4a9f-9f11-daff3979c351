@@ -69,8 +69,12 @@ export function SignIn() {
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
+        setError('User already active in another session');
+      } 
+      else if(error.response && error.response.status === 400){
         setError('Invalid email or password');
-      } else {
+      }
+      else {
         setError('Something went wrong. Please try again later.');
       }
     }

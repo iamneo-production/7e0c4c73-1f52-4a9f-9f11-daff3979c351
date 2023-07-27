@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "./index.css";
+import "./cast.css";
 
 export const CreateCast = (props) => {
 

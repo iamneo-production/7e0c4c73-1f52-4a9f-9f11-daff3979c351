@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./cast.css";
 
 export const CreateCast = (props) => {
 
@@ -14,7 +15,7 @@ export const CreateCast = (props) => {
     formdata.append('poster',poster);
     axios.post(process.env.REACT_APP_BACKEND_URL + 'cast', formdata, {
       headers : {
-        'Authorization' : `Bearer ${window.localStorage.getItem("token")}`
+        'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
       }
     }).then((response) => {
       if(response.status == 200){

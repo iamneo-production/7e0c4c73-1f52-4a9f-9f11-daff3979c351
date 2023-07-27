@@ -15,4 +15,5 @@ com/example/springapp/repository/ReviewRepository.class
 com/example/springapp/model/User.class
 com/example/springapp/model/WorkedOn.class
 com/example/springapp/service/WorkedOnService.class
+com/example/springapp/security/CorsConfig.class
 com/example/springapp/service/ReviewService.class

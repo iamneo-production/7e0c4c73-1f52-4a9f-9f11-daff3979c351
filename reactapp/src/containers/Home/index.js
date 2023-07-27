@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { NavBar } from '../../Components/Navbar';
+import SearchBar from '../../Components/SearchBar/SearchBar'
+import SearchResultsList from '../../Components/SearchResultsList/SearchResultsList'
 import './home.css';
-import NBar from '../../Components/NavigationBar/NBar';
 
 export const Home = (props) => {
 
   const [key, setKey] = useState('');
+  const [results,setResults]= useState([]);
 
 
   const handleSearch = (e) => {
@@ -19,12 +21,15 @@ export const Home = (props) => {
   return (
     <div className='home-body'>
       <NavBar removeSearchBar={true} />
-      <NBar/>
       <div className='homeContainer'>
-        <form onSubmit={handleSearch} className='searchForm' >
+        {/* <form onSubmit={handleSearch} className='searchForm' >
           <input type='text' value={key} onChange={(e) => setKey(e.target.value)} required />
           <button type='submit' >Search</button>
-        </form>
+        </form> */}
+        <span className="searchForm">
+                <SearchBar setResults={setResults}/>
+                {results.length > 0 && <SearchResultsList results={results} />}
+            </span>
       </div>
     </div>
   )

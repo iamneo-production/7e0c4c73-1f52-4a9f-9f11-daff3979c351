@@ -80,6 +80,24 @@ export const UpdateMovie = (props) => {
   }
 
 
+  const handleDelete = () => {
+    if(window.confirm('Are you sure you want to delete this movie')){
+      axios.delete(process.env.REACT_APP_BACKEND_URL + 'movie?movieId='+movieId,{
+        headers: {
+          'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+        }
+      }).then((response)=>{
+        alert('Successfully Deleted Movie');
+        window.location.href = process.env.REACT_APP_FRONTEND_URL;
+      }).catch((err)=>{
+        if(err.response.status == 401){
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
+        }
+        else alert('Could not delete Movie');
+      })
+    }
+  }
+
 
 
   return (
@@ -118,6 +136,7 @@ export const UpdateMovie = (props) => {
         <br />
         <button type='submit'>Submit</button>
       </form>
+      <button onClick={handleDelete} >Delete Movie</button>
     </div>
   )
 

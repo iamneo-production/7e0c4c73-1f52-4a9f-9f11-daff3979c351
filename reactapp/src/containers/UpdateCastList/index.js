@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { CastCard } from '../../Components/CastCard';
 import { NavBar } from '../../Components/Navbar';
-import './updateCast.css';
+import './updatecast.css';
 
 export const UpdateCastList = (props) => {
 

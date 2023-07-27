@@ -31,12 +31,14 @@ import com.example.springapp.model.Review;
 import com.example.springapp.model.User;
 import com.example.springapp.model.WorkedOn;
 import com.example.springapp.service.CastService;
+import com.example.springapp.service.ImageService;
 import com.example.springapp.service.MovieService;
 import com.example.springapp.service.ReviewService;
 import com.example.springapp.service.UserService;
 import com.example.springapp.service.WorkedOnService;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 
 
 @RestController
@@ -59,6 +61,9 @@ public class MovieController {
 	@Autowired
 	private WorkedOnService workedOnService;// Object to connect to workedOn service of service layer
 
+	@Autowired
+	ImageService imageService;
+
 	
 	// object to connect to JWT configuration
 	@Autowired
@@ -79,9 +84,9 @@ public class MovieController {
 			}
 		}
 		filename = name + timestamp.getTime() + ext;// creating the unique file name by adding the current timestamp
-		poster.transferTo(new File(
-				"/home/coder/project/workspace/springapp/src/main/resources/static/"
-						+ filename));// storing the image to the public folder
+		// poster.transferTo(new File(
+		// 		"/home/coder/project/workspace/springapp/src/main/resources/static/"
+		// 				+ filename));// storing the image to the public folder
 		return filename;
 	}
 
@@ -137,14 +142,14 @@ public class MovieController {
 	@PostMapping("/signout")
 	public ResponseEntity<HttpStatus> signOut(@RequestHeader(name = "Authorization") String token,@RequestParam("email") String emai){
 		token = token.substring(7);
-		String email;
 		try {
-			email = jwtTokenUtil.getUsernameFromToken(token);
+			String email = jwtTokenUtil.getUsernameFromToken(token);
 			User user = userService.getUserByEmail(email);
 			userService.saveToken(user, null);
 			return new ResponseEntity<>(HttpStatus.OK);
-		}catch (ExpiredJwtException e) {
-			userService.replaceToken(token, null);
+		}catch (JwtException e) {
+			User user = userService.getUserByEmail(emai);
+			userService.saveToken(user, null);
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		}catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -251,11 +256,12 @@ public class MovieController {
 						Date releaseDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(releaseDate);
 						movie.setReleaseDate(releaseDate1);
 						movie.setPlotSummary(plotSummary);
+						String filename = null;
 						if(poster != null){
-							String filename = handleFile(poster);
+							filename = handleFile(poster);
 							movie.setPoster(filename);
 						}
-						movie = this.movieService.addMovie(movie);
+						movie = this.movieService.addMovie(movie,filename,poster);
 						// List<WorkedOn> wl = workedOnService.getList(movie);
 						return ResponseEntity.status(HttpStatus.OK).body(movie);
 					}
@@ -298,7 +304,7 @@ public class MovieController {
 						movie.setPlotSummary(plotSummary);
 						String filename = (poster != null) ? handleFile(poster) : null;
 						movie.setPoster(filename);
-						movie = this.movieService.updateMovie(Long.parseLong(movieId), movie);
+						movie = this.movieService.updateMovie(Long.parseLong(movieId), movie,filename,poster);
 						// List<WorkedOn> wl = workedOnService.getList(movie);
 						return ResponseEntity.status(HttpStatus.OK).body(movie);
 					}
@@ -333,6 +339,7 @@ public class MovieController {
 		} catch (ExpiredJwtException e) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
@@ -530,7 +537,7 @@ public class MovieController {
 					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 
 						String filename = (poster != null) ? handleFile(poster) : null;
-						if (castService.addCast(name, filename) != null) {
+						if (castService.addCast(name, filename,poster) != null) {
 							return new ResponseEntity<>(HttpStatus.OK);
 						}
 
@@ -649,6 +656,16 @@ public class MovieController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return null;
+	}
+
+	@GetMapping("/image/{filename}")
+	public ResponseEntity<byte[]> getImage(@PathVariable String filename){
+		try{
+			return ResponseEntity.status(HttpStatus.OK).body(imageService.getImage(filename));
+		}catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 }

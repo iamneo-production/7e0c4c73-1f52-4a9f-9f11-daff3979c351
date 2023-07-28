@@ -3,6 +3,7 @@ package com.example.springapp.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Image {
@@ -12,6 +13,7 @@ public class Image {
     private long id;
 
     private String filename;
+    @Lob
     private byte[] image;
     public Image(long id, String filename, byte[] image) {
         this.id = id;

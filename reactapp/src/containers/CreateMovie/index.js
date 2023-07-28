@@ -33,7 +33,7 @@ export const CreateMovie = () => {
         }
       }).then((response)=>{
         if(response.status==200){
-          console.log('Movie data saved successfully');
+          alert('Movie data saved successfully');
         // Reset the form fields
         setMovieTitle('');
         setReleaseDate('');
@@ -49,7 +49,14 @@ export const CreateMovie = () => {
         console.log('Error saving movie data');
       }
         }
-      );
+      ).catch((err)=>{
+        if(err.response.status == 401){
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
+        }
+        else{
+          alert('Error saving movie data');
+        }
+      });
       console.log(response);
         
         

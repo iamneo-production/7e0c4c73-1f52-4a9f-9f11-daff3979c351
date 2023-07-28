@@ -105,13 +105,19 @@ export const Movie = (props) => {
             <div className="film-poster" 
               style={{
                 background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("${process.env.REACT_APP_BACKEND_URL+'image/'+movie.poster}")`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center center',
+                width: '100%',
+                marginTop: '0px',
+                height: '90vh',
+                color: 'white',
               }}
               >
               <h1 className="filmTitle">{movie.title}</h1>
               <div className="description">
                 <div className="details-of-the-film">
                   <p>Genre : {movie.genre}</p>
-                  {/* <p>Runtime</p> */}
                   <p>Rating : {movie.rating}</p>
                 </div>
                 <p className="summary">{movie.plotSummary}</p>

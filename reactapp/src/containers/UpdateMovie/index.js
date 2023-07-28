@@ -82,6 +82,7 @@ export const UpdateMovie = (props) => {
 
 
   return (
+    <div className='updatemovie'>
     <div className='updateMovieApp'>
       <h2 className='updateMovieH2' >Update Movie Page {movie.title}</h2>
       <form onSubmit={handleSubmit} className='updateMovieForm'>
@@ -114,8 +115,11 @@ export const UpdateMovie = (props) => {
           setPoster(e.target.files[0]);
         }} />
         <br />
+        <div className='link-btn'>
         <button type='submit'>Submit</button>
+        </div>
       </form>
+    </div>
     </div>
   )
 

@@ -4,6 +4,9 @@
     padding: 20px;
     border-radius: 4px;
   }
+  .updatemovie{
+    background: black;
+  }
   .updateMovieApp {
     margin: auto;
     text-align: center;
@@ -12,7 +15,7 @@
     width: 70%;
     /* align-items: center;
     justify-content: center; */
-    background-image:white;
+    
   
   }
   
@@ -33,9 +36,9 @@
   }
   .link-btn{
    
-      background-color: #4caf50;
-      color: #fff;
-      border: none;
+   
+    
+      background: orange;
       padding: 10px 20px;
       font-size: 16px;
       border-radius: 4px;

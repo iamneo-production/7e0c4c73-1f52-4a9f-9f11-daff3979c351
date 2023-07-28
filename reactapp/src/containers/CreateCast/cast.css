@@ -1,1 +1,58 @@
-
+.casting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    background-image:url( "https://img.freepik.com/free-vector/film-strip-background-with-clapper-board_1017-33456.jpg?w=1060&t=st=1690527017~exp=1690527617~hmac=769946eda74f0d61f280828c98c94b09865008e4702a4e8bc77e37023144b9cb");
+   
+  }
+  
+  .casting h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #f8fcfe;
+  }
+  
+  .casting form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .casting label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ffffff;
+  }
+  
+  .casting input[type='text'],
+  .casting input[type='file'] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: hsl(0, 0%, 100%);
+  }
+  
+  .casting button[type='submit'] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .casting button[type='submit']:hover {
+    background-color: #0056b3;
+  }
+  
+  .casting h3 {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #f3f5f6;
+  }
+  

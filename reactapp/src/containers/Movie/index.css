@@ -1,3 +1,9 @@
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
 .MovieApp{
   height: 100%;
   width: 100%;
@@ -81,12 +87,14 @@
 .reviewInput {
   width: 500px;
   border: 1px solid orange;
-  margin: 20px;
+  margin: 20px 20px;
   resize: vertical;
+  font-size: 18px;
   max-height: 200px;
   overflow: auto;
   color: white;
-  padding: 8px;
+  padding: 10px;
+  padding-bottom: 10px;
   background: none;
 }
 
@@ -102,7 +110,6 @@
 #submitButton{
   background-color: orange;
   color:black;
-  margin-bottom: 20px;
 }
 #submitButton:hover, #submitButton:focus, #submitButton:active{
   box-shadow: 0 0 5px white;

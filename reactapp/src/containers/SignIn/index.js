@@ -36,7 +36,7 @@ export function SignIn() {
             'role': role,
             'name': name
           }));
-          console.log('token: ' +localStorage.getItem('Token'));
+          console.log('token: ' +localStorage.getItem('token'));
           const userData = localStorage.getItem('user');
           console.log(JSON.parse(userData));
 
@@ -49,7 +49,7 @@ export function SignIn() {
         //If any values are required please use this format localStorage.setItem('Token',token) to store it in local storage and can access those values from any folder in this project
           console.log('User login successful');
           
-          localStorage.setItem('Token',token);
+          localStorage.setItem('token',token);
           localStorage.setItem('loggedIn', true);
           localStorage.setItem('adminIn', false);
           localStorage.setItem('user',JSON.stringify({
@@ -58,7 +58,7 @@ export function SignIn() {
             'role': role,
             'name': name
           }));
-          console.log('token: ' +localStorage.getItem('Token'));
+          console.log('token: ' +localStorage.getItem('token'));
           const userData = localStorage.getItem('user');
           console.log(JSON.parse(userData));
 
@@ -118,4 +118,3 @@ export function SignIn() {
     </div>
   );
 }
-

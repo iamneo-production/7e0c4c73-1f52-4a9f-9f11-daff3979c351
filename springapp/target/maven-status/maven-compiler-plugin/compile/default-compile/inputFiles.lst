@@ -15,7 +15,10 @@
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/CorsConfig.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Cast.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/controller/MovieController.java
+<<<<<<< HEAD
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/models/MovieModel.java
+=======
+>>>>>>> dede7c1af585b04fff3517e155f612e7ade47872
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/MovieService.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Movie.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/SecurityConfig.java

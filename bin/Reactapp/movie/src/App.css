@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --background-color:#0f172a;
+  --primary-text-color:#e2e8f0;
+  --card-bg-color:#475569;
+}
+
+body {
+  background-color: #0f172a;
+  overflow-x: hidden;
+}
+
+.main {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}

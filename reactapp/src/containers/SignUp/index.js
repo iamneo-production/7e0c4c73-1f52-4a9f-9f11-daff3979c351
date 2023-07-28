@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate ,Link } from 'react-router-dom';
 import './index.css'
+const url = process.env.REACT_APP_BACKEND_URL+'signup'
 
 export const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -46,7 +47,7 @@ export const SignUp = () => {
 
     try {
       const response = await axios.post(
-        `https://8080-cffceecfebadebddaccdaedadeeaffeddeafeaeaadbdbabf.project.examly.io/signup`,
+        url,
         formData,
         {
           headers: {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { NavBar } from '../../Components/Navbar';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './createmovie.css';
@@ -11,14 +12,14 @@ export const CreateMovie = () => {
   const [plotSummary, setPlotSummary] = useState('');
   const [poster, setPoster] = useState(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
 
     // Convert the release date to dd/mm/yyyy format
     const formattedReleaseDate = formatDate(releaseDate);
 
     const formData = new FormData();
-    formData.append('movieTitle', movieTitle);
+    formData.append('title', movieTitle);
     formData.append('releaseDate', formattedReleaseDate);
     formData.append('genre', genre);
     formData.append('plotSummary', plotSummary);
@@ -26,23 +27,39 @@ export const CreateMovie = () => {
 
     try {
       // Sending data to backend API endpoint
-      const response = await axios.post('/movie', formData);
-
-      if (response.status === 200) {
-        
-        console.log('Movie data saved successfully');
+      const response =  axios.post(process.env.REACT_APP_BACKEND_URL+'movie', formData,{
+        headers : {
+          'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
+        }
+      }).then((response)=>{
+        if(response.status==200){
+          alert('Movie data saved successfully');
         // Reset the form fields
         setMovieTitle('');
         setReleaseDate('');
         setGenre('');
         setPlotSummary('');
         setPoster(null);
+        const movieId = response.data.movieId;
+        window.location.href= process.env.REACT_APP_FRONTEND_URL + 'movie/'+movieId;
       } 
       else 
       {
         // Handle error
         console.log('Error saving movie data');
       }
+        }
+      ).catch((err)=>{
+        if(err.response.status == 401){
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
+        }
+        else{
+          alert('Error saving movie data');
+        }
+      });
+      console.log(response);
+        
+        
     } catch (error) {
       console.error('Error:', error);
     }
@@ -58,6 +75,7 @@ export const CreateMovie = () => {
 
   return (
     <div>
+      <NavBar />
       <h2>Create Movie Page</h2>
       <form onSubmit={handleSubmit} className="movie-form">
         <div className="form-field">
@@ -121,5 +139,3 @@ export const CreateMovie = () => {
     
   );
 };
-
- 

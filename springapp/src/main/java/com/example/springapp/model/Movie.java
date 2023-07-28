@@ -25,14 +25,12 @@ public class Movie {
 	private String title;
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
-	// @Column(columnDefinition = "FLOAT(2,1) CHECK(rating>=0 AND rating <=5)")
 	private String rating;
 	private String cast;
 	private String genre;//stores the different genres separated by space
 	private String plotSummary;
 	private String poster;//stores the url of the poster of the movie
 	@OneToMany
-	// @JoinColumn(name="id",nullable = false)
     private List<Review> reviews;
 	
 	

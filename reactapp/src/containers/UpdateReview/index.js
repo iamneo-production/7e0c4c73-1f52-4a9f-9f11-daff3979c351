@@ -1,93 +1,156 @@
 import axios from 'axios';
-import React,{ useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { NavBar } from '../../Components/Navbar';
 import { useParams } from 'react-router-dom';
+import './index.css';
 
-const url = process.env.REACT_APP_BACKEND_URL+'reviews/'
+const url = process.env.REACT_APP_BACKEND_URL + 'review/';
 
-export const UpdateReview = (props) => {
-
-  var { reviewId } = useParams();
-
+export const UpdateReview = () => {
+  
+  const { reviewId } = useParams();
+  const [movie,setMovie]=useState(null);
   const [review, setReview] = useState(null);
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState('');
 
   useEffect(() => {
-    reviewId = reviewId.trim();
+    const fetchReview = async () => {
+      try {
+        const response = await axios.get(`${url}?id=${reviewId}`);
+        console.log(response.data[0]);
+        setReview(response.data[0]);
+        setReviewText(response.data[0].reviewNote);
+        setRating(response.data[0].rating);
+        setMovie(response.data[0].movie);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     if (reviewId) {
-      axios.get(url + reviewId).then((response) => {
-        setReview(response.data);
-        setReviewText(response.data.reviewText);
-        setRating(response.data.rating);
-      })
+      fetchReview();
     }
-  }, []);
+  }, [reviewId]);
 
-  const handleDelete = (e) => {
-    if (window.confirm("Are you sure you want to delete the Post by " + review.userId.name)) {
-      axios.delete(url + reviewId, {
-        headers: {
-          'Authorization': `Bearer ${window.localStorage.getItem('token')}`
-        }
-      }).then((response) => {
-        if (response.status == 200) {
-          alert("Successfully Deleted the Post");
-          window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/' + review.movieId.movieId;
-        } else {
-          alert("unable to Successfully delete the Post");
-        }
-      }).catch((err) => {
-        alert(err + " unable to Successfully delete the Post");
-        if (err.response.status == 401) {
-          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
-        }
-      })
-    }
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formdata = new FormData();
-    if (reviewText && reviewText.trim() != '') formdata.append('reviewText', reviewText);
-    if (rating && rating != '') formdata.append('rating', rating);
-    if (reviewText == review.reviewText && rating == review.rating) {
-      alert("Nothing to update");
-    }
-    else {
-      if (window.confirm("Are you sure you want to Update the Post by " + review.userId.name)) {
-        axios.put(url + reviewId, formdata, {
+  const handleDelete =  async() => {
+    try {
+      const confirmation = window.confirm(
+        `Are you sure you want to delete the Post by ${review?.userId}`
+      );
+      if (confirmation) {
+       await axios.delete(`${url}?id=${reviewId}`, {
           headers: {
-            'Authorization': `Bearer ${window.localStorage.getItem('token')}`
-          }
-        }).then((response) => {
-          alert("Review post updated successfully");
-          window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/' + review.movieId.movieId;
-        }).catch((err) => {
-          alert("Unable to Update the Review Post")
-          if (err.response.status == 401) {
-            window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
-          }
-        })
+            'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
+          },
+        });
+        alert('Successfully Deleted the Post');
+        window.location.href = process.env.REACT_APP_FRONTEND_URL;
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Unable to Successfully delete the Post');
+      if (error.response && error.response.status === 401) {
+        window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
       }
     }
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append('reviewId',reviewId);
+    if (reviewText && reviewText.trim() !== '') {formdata.append('reviewNote', reviewText);
+  console.log(reviewText);}
+  
+    if (rating && rating !== '') {formdata.append('rating', rating); console.log(rating);}
+    if (reviewText === review?.reviewNote && rating === review?.rating) {
+      alert('Nothing to update');
+    } else {
+      try {
+        const confirmation = window.confirm(
+          `Are you sure you want to Update the Post by ${review?.userId}`
+        );
+        if (confirmation) {
+          console.log(formdata.get('reviewNote'));
+          const response = await  axios.put(process.env.REACT_APP_BACKEND_URL+'review', formdata,{
+            headers : {
+              'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
+            }
+          });
+          if(response.status == 200 || response.status == 201){
+            alert('Review post updated successfully');
+            window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/'+movie.movieId;
+          }else if(response.status == 401){
+            window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
+          }
+          else{
+            alert('Review post could not be updated');
+          }
+          
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Unable to Update the Review Post');
+        if (error.response && error.response.status === 401) {
+          window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+        }
+      }
+    }
+  };
+
+  if (!review) {
+    return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <h3>Update Review Of {review && review.userId && review.userId.name}</h3>
-      <button onClick={handleDelete} >Delete Post</button>
-      <form onSubmit={handleSubmit}>
-        <input type='text' value={reviewText} onChange={(e) => {
-          setReviewText(e.target.value);
-        }} />
-
-        <input type='range' min={0} max={5} value={rating} onChange={(e) => {
-          setRating(e.target.value);
-        }} />
-        <button type='submit' >Submit</button>
-      </form>
+    <>
+    <NavBar />
+    <div className="updateapp">
+    <div className="container-review">
+      <h3 className="title">Update Review Of {movie?.title}</h3>
+      <div className="review-item">
+        <div className='image-container'>
+           <img src={process.env.REACT_APP_BACKEND_URL+'image/'+movie.poster} />
+         </div> 
+        <h2 className="movie-title">{review?.movie?.title}</h2>
+        <p className="username">UserId: {review?.userId}</p>
+        <textarea
+          className="review-text"
+          value={reviewText}
+          onChange={(e) => setReviewText(e.target.value)}
+          style={{
+            height: `100px`,
+            width: '700px',
+            resize: 'none',
+          }}
+        />` `
+        <div className="rating-container">
+          <p className="rating-label">Rating:</p>
+          <div className="star-rating">
+            {[...Array(5)].map((_, index) => (
+              <span
+                key={index}
+                className={`star ${index < rating ? 'filled' : 'empty'}`}
+                onClick={() => setRating(index + 1)}
+                style={{ cursor: 'pointer' }}
+              >
+                &#9733;
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="button-container">
+          <button className="update-btn" onClick={handleSubmit}>
+            Submit
+          </button>
+          <button className="delete-btn" onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
+      </div>
     </div>
-  )
-
-}
+  </div>
+  </>
+  );
+};

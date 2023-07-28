@@ -136,7 +136,7 @@ export const UpdateMovie = (props) => {
         <br />
         <button type='submit'>Submit</button>
       </form>
-      <button onClick={handleDelete} >Delete Movie</button>
+      <button onClick={handleDelete} className='updateMovieDeleteButton' >Delete Movie</button>
     </div>
   )
 

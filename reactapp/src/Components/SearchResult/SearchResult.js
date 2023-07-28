@@ -13,9 +13,9 @@ const SearchResult = ({ result }) => {
            }}
         // onClick={handleResultClick}
         >
-            <span><img src={process.env.REACT_APP_BACKEND_URL + 'image/'+ result.poster} alt={result.title} /></span>
+            {/* <span><img src={process.env.REACT_APP_BACKEND_URL + 'image/'+ result.poster} alt={result.title} /></span> */}
             <span><p>{result.title}</p></span>
-            <span><p>{new Date(result.releaseDate).toDateString()}</p></span>
+            {/* <span><p>{new Date(result.releaseDate).toDateString()}</p></span> */}
         </div>
     );
 }

@@ -41,3 +41,13 @@
     border-radius: 4px;
     cursor: pointer;
   }
+
+  .updateMovieForm input{
+    width: 100%;
+  }
+
+  .updateMovieDeleteButton{
+    margin-top: 10px;
+    width: 100%;
+    background-color: red;
+  }

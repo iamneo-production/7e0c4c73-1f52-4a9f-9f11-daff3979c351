@@ -20,7 +20,6 @@ public class User {
 	private String email;
 	private String password;
 	private String name;
-	// @Column(nullable = false)
 	private String role;
 	private String jwtToken;
 	@CreationTimestamp

@@ -84,9 +84,6 @@ public class MovieController {
 			}
 		}
 		filename = name + timestamp.getTime() + ext;// creating the unique file name by adding the current timestamp
-		// poster.transferTo(new File(
-		// 		"/home/coder/project/workspace/springapp/src/main/resources/static/"
-		// 				+ filename));// storing the image to the public folder
 		return filename;
 	}
 
@@ -262,7 +259,6 @@ public class MovieController {
 							movie.setPoster(filename);
 						}
 						movie = this.movieService.addMovie(movie,filename,poster);
-						// List<WorkedOn> wl = workedOnService.getList(movie);
 						return ResponseEntity.status(HttpStatus.OK).body(movie);
 					}
 				}
@@ -305,7 +301,6 @@ public class MovieController {
 						String filename = (poster != null) ? handleFile(poster) : null;
 						movie.setPoster(filename);
 						movie = this.movieService.updateMovie(Long.parseLong(movieId), movie,filename,poster);
-						// List<WorkedOn> wl = workedOnService.getList(movie);
 						return ResponseEntity.status(HttpStatus.OK).body(movie);
 					}
 				}

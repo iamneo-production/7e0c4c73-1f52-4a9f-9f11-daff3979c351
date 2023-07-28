@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavBar } from '../../Components/Navbar';
-import './index.css';
-
+import './home.css';
+import NBar from '../../Components/NavigationBar/NBar';
 
 export const Home = (props) => {
 
@@ -19,6 +19,7 @@ export const Home = (props) => {
   return (
     <div className='home-body'>
       <NavBar removeSearchBar={true} />
+      <NBar/>
       <div className='homeContainer'>
         <form onSubmit={handleSearch} className='searchForm' >
           <input type='text' value={key} onChange={(e) => setKey(e.target.value)} required />

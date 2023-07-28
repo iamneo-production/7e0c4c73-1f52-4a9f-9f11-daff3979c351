@@ -20,7 +20,7 @@ export const Profile = () => {
           'Authorization': `Bearer ${window.localStorage.getItem("token")}`
         }
       }).then((response) => {
-        if(response.status == 200){
+        if(response.status == 200 || response.status == 201){
           setUserDetail(response.data);
         }
         else{

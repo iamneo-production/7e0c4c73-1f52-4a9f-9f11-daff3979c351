@@ -8,21 +8,28 @@
     max-width: 12em;
     max-height: 12em;
 } */
-.cast-item {
-    text-align: center;
+.c-item {
+    
+    position: relative;
 }
-.cast-item img {
-    width: 200px;
+.imge {
+    
+    width: 150px;
     height: 200px;
     border-radius: 10px;
     position: relative;
+    margin-top: 5em;
+    
 }
-.cast-name {
+.c-name {
+    text-align: center;
     font-weight: bold;
     position: absolute;
     margin-top: -1.5em;
-    
     color: whitesmoke;
     background-color: black;
-    width: 200px;
+    width: 150px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
 }

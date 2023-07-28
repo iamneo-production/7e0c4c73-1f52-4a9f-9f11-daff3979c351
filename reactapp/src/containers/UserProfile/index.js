@@ -20,12 +20,12 @@ export const Profile = () => {
           'Authorization': `Bearer ${window.localStorage.getItem("token")}`
         }
       }).then((response) => {
-        if(response.status == 200 || response.status == 201){
+        if(response.status == 200 || response.status==201){
           setUserDetail(response.data);
         }
-        else{
-          window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
-        }
+        // else{
+        //   window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+        // }
       }).catch((err)=>{
         window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
       })
@@ -44,7 +44,7 @@ export const Profile = () => {
   return (
     <div className='userProfileContainer'>
       <NavBar/>
-      <h1 className='prifile-h1'>Movie Reviews</h1>
+      <h1 className='profile-h1'>Movie Reviews</h1>
       {
         userDetail && 
         <ProfilePage
@@ -54,7 +54,7 @@ export const Profile = () => {
       />
       }
       
-      <h2 className='prifile-h2'>Reviews</h2>
+      <h2 className='profile-h2'>Reviews</h2>
       { reviews && reviews.length > 0 && reviews.map((review, index) => (
         <Review
           key={index}

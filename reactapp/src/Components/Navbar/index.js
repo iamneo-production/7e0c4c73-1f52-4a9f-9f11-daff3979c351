@@ -8,6 +8,7 @@ import SearchResultsList from "../SearchResultsList/SearchResultsList";
 import './index.css';
 
 
+
 export const NavBar = (props) => {
 
   const [key,setKey] = useState('');

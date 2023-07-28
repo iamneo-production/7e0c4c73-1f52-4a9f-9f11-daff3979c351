@@ -3,6 +3,7 @@ import { NavBar } from '../../Components/Navbar';
 import SearchBar from '../../Components/SearchBar/SearchBar'
 import SearchResultsList from '../../Components/SearchResultsList/SearchResultsList'
 import './home.css';
+import { MovieList } from '../MovieList';
 
 export const Home = (props) => {
 
@@ -22,15 +23,12 @@ export const Home = (props) => {
     <div className='home-body'>
       <NavBar removeSearchBar={true} />
       <div className='homeContainer'>
-        {/* <form onSubmit={handleSearch} className='searchForm' >
-          <input type='text' value={key} onChange={(e) => setKey(e.target.value)} required />
-          <button type='submit' >Search</button>
-        </form> */}
         <span className="searchForm">
                 <SearchBar setResults={setResults}/>
                 {results.length > 0 && <SearchResultsList results={results} />}
             </span>
       </div>
+      <MovieList dontShowNavbar={true}/>
     </div>
   )
 

@@ -23,7 +23,6 @@ public class UserService {
 		if(users.size() > 0) {
 			User u = users.get(0);
 			if(u.getPassword().equals(password)){
-//				u.setPassword(null);
 				return u;
 			}
 		}
@@ -92,7 +91,6 @@ public class UserService {
 		List<User> users = userDao.findByEmail(email);
 		if(users.size() > 0) {
 			User user =  users.get(0);
-            // user.setPassword(null);
             return user;
 		}
 		return null;

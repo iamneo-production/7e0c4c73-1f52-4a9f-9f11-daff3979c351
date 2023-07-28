@@ -64,6 +64,7 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 8px;
+    background-color: white;
   }
   
   .release-date {
@@ -101,37 +102,37 @@
   
 
 /* .card-container {
-    width: 18rem;
-    background-color: var(--card-bg-color); */
-    /* box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.8); */
-    /* border-radius: 10px; */
+  width: 18rem;
+  background-color: var(--card-bg-color); */
+  /* box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.8); */
+  /* border-radius: 10px; */
 /* } */
 
 /* .card-img-container {
-    width: 100%;
-    height: 20rem;
+  width: 100%;
+  height: 20rem;
 } */
 
 .card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    position: center center;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: center center;
 }
 
 .card-details {
-    color: var(--primary-text-color);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 8px;
+  color: var(--primary-text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
 }
 
 .title {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .ratings{
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }

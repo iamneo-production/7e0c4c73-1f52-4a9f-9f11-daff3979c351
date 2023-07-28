@@ -1,12 +1,17 @@
 package com.example.springapp.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.springapp.repository.CastRepository;
 import com.example.springapp.model.Cast;
+
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CastService {
@@ -14,16 +19,20 @@ public class CastService {
 	//Cast Data access object from Dao layer
     @Autowired
 	CastRepository castDao;
+
+	@Autowired
+	ImageService imageService;
 	
 	
 
 
 	//creates a cast object and adds it into the database
-	public Cast addCast(String name, String poster) {
+	public Cast addCast(String name, String filename,MultipartFile poster) throws IOException {
 		Cast c = new Cast();
 		c.setName(name);
-		c.setPoster(poster);
+		c.setPoster(filename);
 		castDao.save(c);
+		if(filename != null) imageService.storeImage(filename, poster);
 		
 		return c;
 	}
@@ -36,7 +45,9 @@ public class CastService {
 	}
 
 	//deletes the particular cast from the database
+	@Transactional
 	public void deleteCast(Cast cast) {
+		imageService.deleteImage(cast.getPoster());
 		castDao.delete(cast);
 	}
 

@@ -1,0 +1,35 @@
+/* 
+.cardContainer{
+    margin: 3em;
+    padding: 2px;
+}
+
+.image{
+    max-width: 12em;
+    max-height: 12em;
+} */
+.c-item {
+    
+    position: relative;
+}
+.imge {
+    
+    width: 150px;
+    height: 200px;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 5em;
+    
+}
+.c-name {
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    margin-top: -1.5em;
+    color: whitesmoke;
+    background-color: black;
+    width: 150px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}

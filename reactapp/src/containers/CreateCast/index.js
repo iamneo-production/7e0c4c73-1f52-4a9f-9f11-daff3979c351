@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "./cast.css";
+import './cast.css';
 
 export const CreateCast = (props) => {
 
@@ -31,7 +31,7 @@ export const CreateCast = (props) => {
   }
 
   return (
-    <div>
+    <div className='casting'>
       <h2>Create Cast</h2>
       <form onSubmit={handleSubmit}>
         <label>Cast Name</label>

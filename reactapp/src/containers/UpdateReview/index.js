@@ -95,8 +95,8 @@ export const UpdateReview = () => {
   }
 
   return (
-    <div className="app">
-    <div className="container">
+    <div className="updateapp">
+    <div className="container-review">
       <h3 className="title">Update Review Of {review?.userId}</h3>
       <div className="review-item">
         <div className='image-container'>

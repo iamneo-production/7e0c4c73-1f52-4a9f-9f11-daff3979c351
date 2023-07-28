@@ -20,12 +20,12 @@ export const Profile = () => {
           'Authorization': `Bearer ${window.localStorage.getItem("token")}`
         }
       }).then((response) => {
-        if(response.status == 200){
+        if(response.status == 200 || response.status==201){
           setUserDetail(response.data);
         }
-        else{
-          window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
-        }
+        // else{
+        //   window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+        // }
       }).catch((err)=>{
         window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
       })

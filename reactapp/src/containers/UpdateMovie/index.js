@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { NavBar } from '../../Components/Navbar';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './index.css';
@@ -79,10 +80,29 @@ export const UpdateMovie = (props) => {
   }
 
 
+  const handleDelete = () => {
+    if(window.confirm('Are you sure you want to delete this movie')){
+      axios.delete(process.env.REACT_APP_BACKEND_URL + 'movie?movieId='+movieId,{
+        headers: {
+          'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+        }
+      }).then((response)=>{
+        alert('Successfully Deleted Movie');
+        window.location.href = process.env.REACT_APP_FRONTEND_URL;
+      }).catch((err)=>{
+        if(err.response.status == 401){
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
+        }
+        else alert('Could not delete Movie');
+      })
+    }
+  }
+
 
 
   return (
     <div className='updateMovieApp'>
+      <NavBar />
       <h2 className='updateMovieH2' >Update Movie Page {movie.title}</h2>
       <form onSubmit={handleSubmit} className='updateMovieForm'>
 
@@ -96,9 +116,6 @@ export const UpdateMovie = (props) => {
           setGenre(e.target.value);
         }} />
         <label htmlFor="Releasedate">Release Date:</label>
-        {/* <input type='date' placeholder='releasedate' value={releaseDate} onChange={(e) => {
-          setReleaseDate(e.target.value);
-        }} /> */}
         <DatePicker
             id="releaseDate"
             selected={releaseDate}
@@ -116,6 +133,7 @@ export const UpdateMovie = (props) => {
         <br />
         <button type='submit'>Submit</button>
       </form>
+      <button onClick={handleDelete} className='updateMovieDeleteButton' >Delete Movie</button>
     </div>
   )
 

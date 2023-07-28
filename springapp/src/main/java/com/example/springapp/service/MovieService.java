@@ -1,5 +1,6 @@
 package com.example.springapp.service;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,10 +8,14 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.springapp.repository.MovieRepository;
 import com.example.springapp.model.Cast;
 import com.example.springapp.model.Movie;
 import com.example.springapp.model.WorkedOn;
+
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -30,6 +35,9 @@ public class MovieService {
 	
 	@Autowired
 	private WorkedOnService workedOnService; 
+
+	@Autowired
+	private ImageService imageService;
 	
 	
 	
@@ -54,13 +62,16 @@ public class MovieService {
 
 	
 	//adds the movie object received into the database
-	public Movie addMovie(Movie movie) {
+	@Transactional
+	public Movie addMovie(Movie movie,String filename,MultipartFile poster) throws IOException {
 		movieDao.save(movie);
+		if(filename != null) imageService.storeImage(filename, poster);
 		return movie;
 	}
 
 	//updates the data for the movie in the database with movieId as primary key with the data in the movie object
-	public Movie updateMovie(long movieId, Movie movie) {
+	@Transactional
+	public Movie updateMovie(long movieId, Movie movie,String filename,MultipartFile poster) throws IOException {
 		Movie m = movieDao.findById(movie.getMovieId()).get();
 		
 		if(movie.getTitle() == null) {
@@ -76,6 +87,10 @@ public class MovieService {
 		if(movie.getCast()==null)movie.setCast(m.getCast());
 		movie.setCreateDate(m.getCreateDate());
 		
+		if(filename != null){
+			imageService.deleteImage(m.getPoster());
+			imageService.storeImage(filename, poster);
+		}
 		movieDao.save(movie);
 		return movie;
 	}
@@ -87,6 +102,7 @@ public class MovieService {
 		Movie m = movieDao.findById(movieId).get();
 		reviewService.deleteReviewByMovie(m);
 		workedOnService.deleteByMovie(m);
+		imageService.deleteImage(m.getPoster());
 		movieDao.delete(m);
 		if(m!=null) success=true;
 		return success;

@@ -1,0 +1,65 @@
+.profile-p {
+  color: rgb(255, 255, 255);
+  background-color: #000000;
+  font-size: large;
+  text-align: center;
+}
+
+.profile-body {
+  font-family: inherit, inherit;
+  background-color: #000000;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+.userProfileContainer {
+  min-height: 100vh;
+  background-color: #050505;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 8px rgb(255, 0, 0); */
+}
+
+.profile-h1 {
+  color: #ffea00;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  
+}
+
+.profile-h2 {
+  background-color: black;
+  color: #fbff00;
+  padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-h3 { 
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.profile-h4 {
+  color: #fbff00;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.profile-hr {
+  border-top: 5px solid #ffffff;
+  margin: 5px 0;
+}
+
+/* Added background effect for Profile */
+.profile {
+  background-color: #000000;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}

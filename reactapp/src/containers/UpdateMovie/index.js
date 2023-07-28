@@ -87,15 +87,19 @@ export const UpdateMovie = (props) => {
       <h2 className='updateMovieH2' >Update Movie Page {movie.title}</h2>
       <form onSubmit={handleSubmit} className='updateMovieForm'>
 
-
+        <div className='Movietitle'>
         <label htmlFor="title">Movie Title:</label>
         <input type='text' placeholder='Title' value={title} onChange={(e) => {
           setTitle(e.target.value);
         }} />
+        </div>
+        <div className='genre'>
         <label htmlFor="Genre">Genre:</label>
         <input type='text' placeholder='genre' value={genre} onChange={(e) => {
           setGenre(e.target.value);
         }} />
+        </div>
+        <div className='releasedate'>
         <label htmlFor="Releasedate">Release Date:</label>
         {/* <input type='date' placeholder='releasedate' value={releaseDate} onChange={(e) => {
           setReleaseDate(e.target.value);
@@ -106,14 +110,19 @@ export const UpdateMovie = (props) => {
             onChange={(date) => setReleaseDate(date)}
             dateFormat="dd/MM/yyyy"
           />
+          </div>
+          <div className='plotsummary'>
         <label htmlFor="PlotSummary">PlotSummary:</label>
         <textarea id='plotSummary' placeholder='plotSummary' value={description} onChange={(e) => {
           setDescription(e.target.value);
         }} />
+        </div>
+        <div className='setposter'>
         <label htmlFor="Setposter:">Set Poster:</label>
         <input type='file' onChange={(e) => {
           setPoster(e.target.files[0]);
         }} />
+        </div>
         <br />
         <div className='link-btn'>
         <button type='submit'>Submit</button>

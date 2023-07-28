@@ -5,7 +5,7 @@
     border-radius: 4px;
   }
   .updatemovie{
-    background: black;
+    background: rgb(232, 229, 229);
   }
   .updateMovieApp {
     margin: auto;
@@ -38,7 +38,7 @@
    
    
     
-      background: orange;
+      background: rgb(245, 244, 243);
       padding: 10px 20px;
       font-size: 16px;
       border-radius: 4px;

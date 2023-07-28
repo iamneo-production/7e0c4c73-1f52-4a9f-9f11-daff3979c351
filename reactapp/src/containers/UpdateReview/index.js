@@ -77,8 +77,12 @@ export const UpdateReview = () => {
               'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
             }
           });
-          alert('Review post updated successfully');
-          window.location.href = process.env.REACT_APP_FRONTEND_URL;
+         
+            alert('Review post updated successfully');
+            window.location.href = process.env.REACT_APP_FRONTEND_URL;
+
+          
+        
         }
       } catch (error) {
         console.error(error);
@@ -141,4 +145,4 @@ export const UpdateReview = () => {
     </div>
   </div>
   );
-};
+}; 

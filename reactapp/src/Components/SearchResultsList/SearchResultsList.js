@@ -6,7 +6,9 @@ const SearchResultsList = ({ results }) => {
     return (
         <div className="results-div">
             {results.map((result, index) => (
+                <>
                 <SearchResult className="result" result={result} key={index} />
+                </>
             ))}
         </div>
     );

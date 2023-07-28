@@ -41,7 +41,7 @@ export const Movie = (props) => {
       formData.append("reviewNote", review);
       formData.append("rating", rating);
       formData.append("movieId", movieId);
-      const token = window.localStorage.getItem('Token');
+      const token = window.localStorage.getItem('token');
       axios.post(process.env.REACT_APP_BACKEND_URL+'review', formData, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -111,7 +111,6 @@ export const Movie = (props) => {
               <div className="description">
                 <div className="details-of-the-film">
                   <p>Genre : {movie.genre}</p>
-                  {/* <p>Runtime</p> */}
                   <p>Rating : {movie.rating}</p>
                 </div>
                 <p className="summary">{movie.plotSummary}</p>
@@ -178,9 +177,7 @@ export const Movie = (props) => {
               <button
                 className="large-button" 
                 onClick={(e) => {
-                  const token = window.localStorage.getItem('Token');
-                  // const user = JSON.parse(window.localStorage.getItem('user'));
-                  // console.log(token,user);
+                  const token = window.localStorage.getItem('token');
                   if (token && user && user.email) {
                     const formdata = new FormData();
                     formdata.append('email', user['email']);
@@ -209,7 +206,7 @@ export const Movie = (props) => {
 
       {/* Modal */}
       <Modal size="lg" isOpen={modal} toggle={toggleModal} className='pop-up-modal'>
-        <ModalHeader /*closeClassName={toggleModal}*/>
+        <ModalHeader>
           <div className='header-elements'>
             <div className='pop-up-heading'><h4>Add your review</h4></div>
             <div className='close-btn-div'>

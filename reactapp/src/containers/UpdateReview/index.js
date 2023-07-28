@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { NavBar } from '../../Components/Navbar';
 import { useParams } from 'react-router-dom';
 import './index.css';
 
@@ -55,7 +56,7 @@ export const UpdateReview = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formdata = new FormData();
     formdata.append('reviewId',reviewId);
@@ -72,7 +73,7 @@ export const UpdateReview = () => {
         );
         if (confirmation) {
           console.log(formdata.get('reviewNote'));
-          const response =  axios.put(process.env.REACT_APP_BACKEND_URL+'review', formdata,{
+          const response = await  axios.put(process.env.REACT_APP_BACKEND_URL+'review', formdata,{
             headers : {
               'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
             }
@@ -99,9 +100,11 @@ export const UpdateReview = () => {
   }
 
   return (
+    <>
+    <NavBar />
     <div className="updateapp">
     <div className="container-review">
-      <h3 className="title">Update Review Of {review?.userId}</h3>
+      <h3 className="title">Update Review Of {movie?.title}</h3>
       <div className="review-item">
         <div className='image-container'>
            <img src={process.env.REACT_APP_BACKEND_URL+'image/'+movie.poster} />
@@ -144,5 +147,6 @@ export const UpdateReview = () => {
       </div>
     </div>
   </div>
+  </>
   );
 }; 

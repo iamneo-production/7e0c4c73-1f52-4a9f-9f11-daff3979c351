@@ -6,7 +6,8 @@ import './Moviels.css';
 import { NavBar } from '../../Components/Navbar';
 
 
-const url = process.env.REACT_APP_BACKEND_URL+'search/movie/'
+const url1 = process.env.REACT_APP_BACKEND_URL+'search/movie/'
+const url2 = process.env.REACT_APP_BACKEND_URL+'movie'
 
 export const MovieList = (props) => {
 
@@ -17,21 +18,24 @@ const [searchTerm,setSearchTerm] = useState('');
 const [found,setFound] = useState(true);
 
     const getMovies = async () => {
-      try{
-        const { data } = await axios.get(url+key);
+      try {
+        const apiUrl = key ? url1 + key : url2; // Use the key parameter to determine the API endpoint
+        const { data } = await axios.get(apiUrl);
         setMovies(data);
-        if(data.length ==0){
+        if (data.length === 0) {
           setFound(false);
+        } else {
+          setFound(true);
         }
-      }catch(err){
+      } catch (err) {
         setFound(false);
         console.log(err);
       }
-    }
+    };
 
     useEffect(()=> {
         getMovies();
-      },[])
+      },[key])
   
       const handleSearch = (e) => {
         setSearchTerm(e.target.value);
@@ -59,7 +63,7 @@ const [found,setFound] = useState(true);
             <input type="text" placeholder="Search..." value={searchTerm} onChange={handleSearch} />
             <button onClick={handleSubmit} style={{ float: 'right' }}>Search</button>
           </div> */}
-          <NavBar/>
+          {(props.dontShowNavbar==true)?(null):(<NavBar/>)}
           {/* </header> */}
 
 

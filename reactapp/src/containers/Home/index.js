@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavBar } from '../../Components/Navbar';
 import './index.css';
-
+import { MovieList } from '../MovieList';
 
 export const Home = (props) => {
 
@@ -25,6 +25,7 @@ export const Home = (props) => {
           <button type='submit' >Search</button>
         </form>
       </div>
+      <MovieList dontShowNavbar={true}/>
     </div>
   )
 

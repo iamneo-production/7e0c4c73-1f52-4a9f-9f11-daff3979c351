@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavBar } from '../../Components/Navbar';
-import './index.css';
+import './home.css';
 import { MovieList } from '../MovieList';
 
 export const Home = (props) => {

@@ -22,10 +22,7 @@ public class Review {
 	@ManyToOne
 	@JoinColumn(name="movieId")
 	private Movie movie;
-	// @ManyToOne
-	// @JoinColumn(name = "userId")
 	private long userId;
-	// @Column(columnDefinition = "FLOAT(2,1) default 0.0 CHECK (rating>=0.0 AND rating <=5.0)")
 	private String rating;
 	private String reviewNote;
 	private String source;

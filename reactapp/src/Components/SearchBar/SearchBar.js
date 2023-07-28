@@ -41,14 +41,14 @@ const SearchBar=({setResults})=>{
     }
 
     return (
-        <div className="container">
+          <form className="container" onSubmit={handleSearch}>
             <input 
               className="search-input" 
               placeholder="Search the movies..." 
               value={input} 
               onChange={(event)=>handleTheValue(event.target.value)}/>
             <button className="search-btn" onClick={handleSearch}>Search</button>
-        </div>
+          </form>
     );
 }
 

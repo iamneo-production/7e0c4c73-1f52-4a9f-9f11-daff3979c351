@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { CastCard } from '../../Components/CastCard2';
+import { Card } from '../../Components/CastCard2';
 import './updatecast.css'
+import { NavBar } from '../../Components/Navbar';
 
 export const UpdateCastList = (props) => {
 
@@ -13,7 +14,7 @@ export const UpdateCastList = (props) => {
     const [movieCasts, setMovieCasts] = useState([]);
     const [searchWord, setSearchWord] = useState('');
     const [casts, setCasts] = useState([]);
-    const [message, setMessage] = useState(null);
+    
 
     
 
@@ -36,7 +37,7 @@ export const UpdateCastList = (props) => {
                     axios.get(process.env.REACT_APP_BACKEND_URL+'movie?id=' + movieId).then((response) => {
                         setMovie(...response.data);
                     }).catch((err)=>{
-                        setMessage("Could not fetch movie details");
+                        alert("Could not fetch movie details");
                     })
                     axios.get(process.env.REACT_APP_BACKEND_URL+'cast/movie?id='+movieId).then((response)=>{
                         if(response.status==200){
@@ -86,11 +87,10 @@ export const UpdateCastList = (props) => {
                         'Authorization': `Bearer ${token}`
                     }
                 }).then((e) => {
-                    // window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/' + movieId;
-                    setMessage("Cast Added successfully");
+                    alert("Cast Added successfully");
                     setInterval(()=>{
                         window.location.reload();
-                    },1000);
+                    },500);
                 }).catch((err) => {
                     if(err.response.status == 400){
                         alert(err + ' : Cast already added to movie!')
@@ -114,55 +114,62 @@ export const UpdateCastList = (props) => {
             }
         }).then((response)=>{
             if(response.status == 200){
-                setMessage("Cast removed from movie Successsfully");
+                alert("Cast removed from movie Successsfully");
                 setInterval(()=>{
                     window.location.reload();
-                },1000);
+                },500);
             }
             else if(response.status == 401){
-                setMessage("Authentication Failed Please Sign in again");
+                alert("Authentication Failed Please Sign in again");
             }
             else{
-                setMessage("Could not remove Cast from movie! Please try again later");
+                alert("Could not remove Cast from movie! Please try again later");
             }
         }).catch((err)=>{
             console.log(err);
-            setMessage("Could not remove Cast from movie! Please try again later");
+            alert("Could not remove Cast from movie! Please try again later");
         })
     }
 
     return (
-        <div>
-            <h3>Movie Casts for {movie.title}</h3>
-            <div className='castsContainer'>
+        <>
+        <NavBar/>
+        <div className='ctn'>
+            
+            <div className='left-ctn'>
+            <h3 className='m-title'>Movie Casts for {movie.title}</h3>
+            <div className='c-box'>
                 {
-                    movieCasts && movieCasts.map((cast,index)=>{
+                    (movieCasts && movieCasts.length > 0) ? <> {movieCasts.map((cast,index)=>{
                         return(
                             <div className='castCard' key={index}>
-                                <CastCard cast={cast} />
+                                <Card cast={cast} />
                                 <button onClick={(e)=>handleDelete(cast.castId)} className='remove-btn'>Remove</button>
                             </div>
                         );
-                    })
+                    }) }</> : <div className='msg' >No Casts were added to the Movie {movie.title}</div>
                 }
+                </div>
             </div>
-            {
-                message && <h3 className='message'>{message}</h3>
-            }
+            
+            <div className='mid'></div>
+            <div className='right-ctn'>
             <h3 className='info'>Add Cast for {movie.title}</h3>
-            <input type='text' onChange={(e)=>{
+            <input className = "search" type='text'  placeholder = "Enter Cast Name"onChange={(e)=>{
                 setSearchWord(e.target.value);
             }} />
-            <div className='cast-box'>
+            <div className='c-names'>
             {
                 casts && casts.length > 0 && (
                     casts.map((cast, i) => <div key={i} onClick={(e) => {
                         setCast(cast);
-                    }} ><CastCard cast={cast} /> </div>)
+                    }} ><Card cast={cast} /> </div>)
                 )
             }
             </div>
+            </div>
         </div>
+        </>
     )
 
 }

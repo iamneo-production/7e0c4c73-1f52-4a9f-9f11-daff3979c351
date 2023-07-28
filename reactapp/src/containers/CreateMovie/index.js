@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { NavBar } from '../../Components/Navbar';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './createmovie.css';
@@ -32,7 +33,7 @@ export const CreateMovie = () => {
         }
       }).then((response)=>{
         if(response.status==200){
-          console.log('Movie data saved successfully');
+          alert('Movie data saved successfully');
         // Reset the form fields
         setMovieTitle('');
         setReleaseDate('');
@@ -48,7 +49,14 @@ export const CreateMovie = () => {
         console.log('Error saving movie data');
       }
         }
-      );
+      ).catch((err)=>{
+        if(err.response.status == 401){
+          window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
+        }
+        else{
+          alert('Error saving movie data');
+        }
+      });
       console.log(response);
         
         
@@ -67,6 +75,7 @@ export const CreateMovie = () => {
 
   return (
     <div>
+      <NavBar />
       <h2>Create Movie Page</h2>
       <form onSubmit={handleSubmit} className="movie-form">
         <div className="form-field">

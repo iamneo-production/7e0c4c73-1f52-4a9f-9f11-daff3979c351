@@ -1,11 +1,11 @@
 import React from 'react'
 import './card.css';
 
-export const CastCard = ({cast}) => {
+export const Card = ({cast}) => {
   return (
-    <div className='cast-item'>
-      <img src={process.env.REACT_APP_BACKEND_URL+'image/' + cast.poster} className='image' />
-      <p className='cast-name' >{cast.name}</p>
+    <div className='c-item'>
+      <img src={process.env.REACT_APP_BACKEND_URL+'image/' + cast.poster} className='imge' />
+      <div className='c-name' >{cast.name}</div>
     </div>
   );
 };

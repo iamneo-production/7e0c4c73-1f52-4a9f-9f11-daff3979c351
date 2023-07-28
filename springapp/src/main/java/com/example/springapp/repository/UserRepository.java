@@ -11,4 +11,5 @@ import com.example.springapp.model.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 
 	List<User> findByEmail(String email);//selects the rows that have email in the Email column
+	List<User> findByJwtToken(String token);
 }

@@ -2,6 +2,7 @@
     padding: 10px;
     border: 1px solid #ddd; /* Add border style */
     font-weight: bold;
+    color: black;
   }
   
   .result-wrapper:hover {

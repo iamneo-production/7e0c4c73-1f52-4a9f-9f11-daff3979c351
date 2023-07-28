@@ -25,7 +25,7 @@ export function SignIn() {
       if (response.status === 200) {
         if (role==='ADMIN' ) {
         //Admin user login--setting adminIn value as true and loggedIn value as false 
-        //If any value required please use this format localStorage.setItem('Token',token) to store it in local storage and can access throughout the project
+        //If any value required please use this format localStorage.setItem('token',token) to store it in local storage and can access throughout the project
           console.log('Admin login successful');
           localStorage.setItem('token',token);
           localStorage.setItem('loggedIn', false);
@@ -46,7 +46,7 @@ export function SignIn() {
         } 
         else {
         //Normal user login--setting adminIn value as fasle and loggedIn value as true
-        //If any values are required please use this format localStorage.setItem('Token',token) to store it in local storage and can access those values from any folder in this project
+        //If any values are required please use this format localStorage.setItem('token',token) to store it in local storage and can access those values from any folder in this project
           console.log('User login successful');
           
           localStorage.setItem('token',token);
@@ -69,8 +69,12 @@ export function SignIn() {
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
+        setError('User already active in another session');
+      } 
+      else if(error.response && error.response.status === 400){
         setError('Invalid email or password');
-      } else {
+      }
+      else {
         setError('Something went wrong. Please try again later.');
       }
     }

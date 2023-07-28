@@ -8,7 +8,6 @@ const SearchResultsList = ({ results }) => {
             {results.map((result, index) => (
                 <>
                 <SearchResult className="result" result={result} key={index} />
-                {/* <p key={index}>{result?.title}</p> */}
                 </>
             ))}
         </div>

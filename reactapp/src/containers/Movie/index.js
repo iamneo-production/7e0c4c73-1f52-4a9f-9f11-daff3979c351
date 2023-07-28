@@ -111,7 +111,6 @@ export const Movie = (props) => {
               <div className="description">
                 <div className="details-of-the-film">
                   <p>Genre : {movie.genre}</p>
-                  {/* <p>Runtime</p> */}
                   <p>Rating : {movie.rating}</p>
                 </div>
                 <p className="summary">{movie.plotSummary}</p>
@@ -179,8 +178,6 @@ export const Movie = (props) => {
                 className="large-button" 
                 onClick={(e) => {
                   const token = window.localStorage.getItem('token');
-                  // const user = JSON.parse(window.localStorage.getItem('user'));
-                  // console.log(token,user);
                   if (token && user && user.email) {
                     const formdata = new FormData();
                     formdata.append('email', user['email']);
@@ -209,7 +206,7 @@ export const Movie = (props) => {
 
       {/* Modal */}
       <Modal size="lg" isOpen={modal} toggle={toggleModal} className='pop-up-modal'>
-        <ModalHeader /*closeClassName={toggleModal}*/>
+        <ModalHeader>
           <div className='header-elements'>
             <div className='pop-up-heading'><h4>Add your review</h4></div>
             <div className='close-btn-div'>

@@ -116,9 +116,6 @@ export const UpdateMovie = (props) => {
           setGenre(e.target.value);
         }} />
         <label htmlFor="Releasedate">Release Date:</label>
-        {/* <input type='date' placeholder='releasedate' value={releaseDate} onChange={(e) => {
-          setReleaseDate(e.target.value);
-        }} /> */}
         <DatePicker
             id="releaseDate"
             selected={releaseDate}

@@ -32,12 +32,6 @@ export const NavBar = (props) => {
 
           {
             props.removeSearchBar == null && (
-              // <>
-              // <form onSubmit={handleSearch} className={'d-flex'} >
-              //   <input type='text' placeholder='Search Movies' value={key} onChange={(e)=>setKey(e.target.value)} required />
-              //   <button type='submit' >Search</button>
-              // </form>
-              // </>
               <span className="search-bar-span">
                 <SearchBar setResults={setResults}/>
                 {results.length > 0 && <SearchResultsList results={results} />}

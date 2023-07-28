@@ -57,14 +57,7 @@ const [found,setFound] = useState(true);
   return(
 
         <div className="app">
-          {/* <header className='header'> */}
-          {/* <h1 className='heading'>Movie Reviews</h1>
-          <div className="search-container">
-            <input type="text" placeholder="Search..." value={searchTerm} onChange={handleSearch} />
-            <button onClick={handleSubmit} style={{ float: 'right' }}>Search</button>
-          </div> */}
           {(props.dontShowNavbar==true)?(null):(<NavBar/>)}
-          {/* </header> */}
 
 
         <main className='main'>

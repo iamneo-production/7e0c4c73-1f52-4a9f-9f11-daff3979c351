@@ -87,7 +87,6 @@ export const UpdateCastList = (props) => {
                         'Authorization': `Bearer ${token}`
                     }
                 }).then((e) => {
-                    // window.location.href = process.env.REACT_APP_FRONTEND_URL+'movie/' + movieId;
                     alert("Cast Added successfully");
                     setInterval(()=>{
                         window.location.reload();

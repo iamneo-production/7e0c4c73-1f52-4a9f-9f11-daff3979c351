@@ -1,4 +1,4 @@
-.navbar  label 
+.navBar  label 
 {
   margin-right: 8px;
   min-width: 80px;
@@ -6,12 +6,24 @@
   color: #333;
 }
 
-.navbar-brand{
-  background-color: orange;
+.navbarTextColorBlack{
   color: black;
 }
 
-.navbar  input
+#navbarScrollingDropdown{
+  color: black;
+}
+
+.navbar-brand{
+  color: black;
+}
+
+.bg-body-tertiary{
+  width: 100%;
+}
+
+
+.navBar  input
 {
   padding: 8px;
   border: 1px solid #ddd;
@@ -21,18 +33,18 @@
   width: 100%;
 }
 
-.navbar  input:focus{
+.navBar  input:focus{
   outline: none;
   border-color: #007bff;
 }
 
 
-.navbar  input[type="file"] 
+.navBar  input[type="file"] 
 {
   cursor: pointer;
 }
 
-.navbar  button 
+.navBar  button 
 {
   padding: 8px 16px;
   background-color: #007bff;
@@ -45,7 +57,7 @@
   cursor: pointer;
 }
 
-.navbar button:hover 
+.navBar button:hover 
 {
   background-color: #0056b3;
   transform: scale(1.05);

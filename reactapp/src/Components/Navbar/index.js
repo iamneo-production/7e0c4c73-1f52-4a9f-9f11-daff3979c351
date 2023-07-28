@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import axios from 'axios';
+import SearchBar from "../SearchBar/SearchBar";
+import SearchResultsList from "../SearchResultsList/SearchResultsList";
+import './index.css';
 
 
 
 export const NavBar = (props) => {
 
   const [key,setKey] = useState('');
+  const [results,setResults] = useState([]);
 
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -27,14 +32,13 @@ export const NavBar = (props) => {
 
           {
             props.removeSearchBar == null && (
-              <>
-              <form onSubmit={handleSearch} className={'d-flex'} >
-                <input type='text' placeholder='Search Movies' value={key} onChange={(e)=>setKey(e.target.value)} required />
-                <button type='submit' >Search</button>
-              </form>
-              </>
+              <span className="search-bar-span">
+                <SearchBar setResults={setResults}/>
+                {results.length > 0 && <SearchResultsList results={results} />}
+              </span>
             )
           }
+          
 
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
@@ -54,8 +58,19 @@ export const NavBar = (props) => {
 
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#" onClick={(e) => {
-                    localStorage.clear();
-                    window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+                    const formdata = new FormData();
+                    formdata.append('email',user.email);
+                    axios.post(process.env.REACT_APP_BACKEND_URL+'signout',formdata,{
+                      headers : {
+                        'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
+                      }
+                    }).then((response)=>{
+                      localStorage.clear();
+                      window.location.href = process.env.REACT_APP_FRONTEND_URL + 'signin';
+                    }).catch((err)=>{
+                      alert('could not logout');
+                    })
+                    
                   }}>
                     LogOut
                   </NavDropdown.Item>

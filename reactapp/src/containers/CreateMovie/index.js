@@ -54,7 +54,7 @@ export const CreateMovie = () => {
           window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
         }
         else if(err.response.status == 500){
-          alert('Image size should be less that 1MB and plotsummary should be less than 2000 word');
+          alert('Image size should be less that 1MB and plotsummary should be less than 2000 character');
         }
         else{
           alert('Error saving movie data');

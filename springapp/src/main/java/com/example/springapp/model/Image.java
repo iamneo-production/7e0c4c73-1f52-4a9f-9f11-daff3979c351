@@ -4,14 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import javax.persistence.Lob;
+
 @Entity
 public class Image {
     
     @Id
     @GeneratedValue
     private long id;
-
+    
     private String filename;
+    @Lob
     private byte[] image;
     public Image(long id, String filename, byte[] image) {
         this.id = id;

@@ -1,5 +1,6 @@
 package com.example.springapp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,13 @@ public class WorkedOnService {
 	}
 
 	//adds the realtion between the movie and the cast
-	public WorkedOn addCastToMovie(Movie movie, Cast cast) {
+	public WorkedOn addCastToMovie(Movie movie, Cast cast) throws Exception {
+		List<WorkedOn> wl = workedOnDao.findByMovie(movie);
+		for(WorkedOn w:wl){
+			if(w.getCast().getCastId() == cast.getCastId()){
+				throw new Exception("Cast already added");
+			}
+		}
 		WorkedOn w = new WorkedOn();
 		w.setCast(cast);
 		w.setMovie(movie);
@@ -59,6 +66,15 @@ public class WorkedOnService {
 				workedOnDao.delete(w);
 			}
 		}
+	}
+
+	public List<Cast> getCastsForMovie(Movie movie){
+		List<WorkedOn> ws = workedOnDao.findByMovie(movie);
+		List<Cast> casts = new ArrayList<>();
+		for(WorkedOn w: ws){
+			casts.add(w.getCast());
+		}
+		return casts;
 	}
 
 

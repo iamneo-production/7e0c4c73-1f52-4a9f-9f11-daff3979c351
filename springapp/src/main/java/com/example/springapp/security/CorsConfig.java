@@ -13,13 +13,14 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**").allowedMethods("PUT", "DELETE","GET","POST");
+        
     }
     
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-          .addResourceHandler("/image/**")
-          .addResourceLocations("file:/home/coder/project/workspace/springapp/src/main/resources/static/");	
-    }
+    // @Override
+    // public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    //     registry
+    //       .addResourceHandler("/image/**")
+    //       .addResourceLocations("file:/home/coder/project/workspace/springapp/src/main/resources/static/");	
+    // }
 }

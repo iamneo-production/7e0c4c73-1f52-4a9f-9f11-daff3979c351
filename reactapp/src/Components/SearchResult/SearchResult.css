@@ -1,6 +1,4 @@
 .result-wrapper {
-    padding: 10px;
-    border: 1px solid #ddd; /* Add border style */
     font-weight: bold;
     color: black;
   }
@@ -10,13 +8,8 @@
     cursor: pointer;
   }
   
-  .result-wrapper img {
-    max-width: 150px; /* Set the maximum width */
-    max-height: 200px; /* Set the maximum height */
-    margin-bottom: 10px;
-  }
   
   .result-wrapper p {
-    margin-top: 10px;
+    padding: 10px;
   }
   

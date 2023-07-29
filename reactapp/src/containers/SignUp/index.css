@@ -107,7 +107,7 @@
 
 .register-form .btn-register {
   padding: 10px 20px;
-  background-color: #FFB74D; /* Update with desired color */
+  background-color: #FFB74D; 
   color: #FFFFFF;
   border: none;
   border-radius: 3px;
@@ -117,17 +117,17 @@
 }
 
 
-@keyframes pulse {
+/* @keyframes pulse {
   0% {
-    background-color: #fbab33; /* Update with desired color */
+    background-color: #fbab33; 
   }
   50% {
-    background-color: #b48026; /* Update with desired color */
+    background-color: #b48026; 
   }
   100% {
-    background-color: #fbaa31; /* Update with desired color */
+    background-color: #fbaa31; 
   }
-}
+} */
 
 
 .register-form .btn-register:focus {

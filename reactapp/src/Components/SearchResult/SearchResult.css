@@ -1,0 +1,15 @@
+.result-wrapper {
+    font-weight: bold;
+    color: black;
+  }
+  
+  .result-wrapper:hover {
+    background-color: #ddd;
+    cursor: pointer;
+  }
+  
+  
+  .result-wrapper p {
+    padding: 10px;
+  }
+  

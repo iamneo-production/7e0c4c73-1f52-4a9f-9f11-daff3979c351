@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { NavBar } from '../../Components/Navbar';
+import "./cast.css";
 
 export const CreateCast = (props) => {
 
@@ -17,7 +19,7 @@ export const CreateCast = (props) => {
         'Authorization' : `Bearer ${window.localStorage.getItem('token')}`
       }
     }).then((response) => {
-      if(response.status == 200){
+      if(response.status === 200){
         setMessage("Cast created Successfully");
       }
       else{
@@ -30,7 +32,9 @@ export const CreateCast = (props) => {
   }
 
   return (
-    <div>
+    <>
+    <NavBar/>
+    <div className='casting'>
       <h2>Create Cast</h2>
       <form onSubmit={handleSubmit}>
         <label>Cast Name</label>
@@ -43,5 +47,6 @@ export const CreateCast = (props) => {
         message && <h3>{message}</h3>
       }
     </div>
+    </>
   )
 }

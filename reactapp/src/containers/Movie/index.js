@@ -41,7 +41,7 @@ export const Movie = (props) => {
       formData.append("reviewNote", review);
       formData.append("rating", rating);
       formData.append("movieId", movieId);
-      const token = window.localStorage.getItem('Token');
+      const token = window.localStorage.getItem('token');
       axios.post(process.env.REACT_APP_BACKEND_URL+'review', formData, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -105,13 +105,19 @@ export const Movie = (props) => {
             <div className="film-poster" 
               style={{
                 background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("${process.env.REACT_APP_BACKEND_URL+'image/'+movie.poster}")`,
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center center',
+                width: '100%',
+                marginTop: '0px',
+                height: '90vh',
+                color: 'white',
               }}
               >
               <h1 className="filmTitle">{movie.title}</h1>
               <div className="description">
                 <div className="details-of-the-film">
                   <p>Genre : {movie.genre}</p>
-                  {/* <p>Runtime</p> */}
                   <p>Rating : {movie.rating}</p>
                 </div>
                 <p className="summary">{movie.plotSummary}</p>
@@ -178,9 +184,7 @@ export const Movie = (props) => {
               <button
                 className="large-button" 
                 onClick={(e) => {
-                  const token = window.localStorage.getItem('Token');
-                  // const user = JSON.parse(window.localStorage.getItem('user'));
-                  // console.log(token,user);
+                  const token = window.localStorage.getItem('token');
                   if (token && user && user.email) {
                     const formdata = new FormData();
                     formdata.append('email', user['email']);
@@ -209,7 +213,7 @@ export const Movie = (props) => {
 
       {/* Modal */}
       <Modal size="lg" isOpen={modal} toggle={toggleModal} className='pop-up-modal'>
-        <ModalHeader /*closeClassName={toggleModal}*/>
+        <ModalHeader>
           <div className='header-elements'>
             <div className='pop-up-heading'><h4>Add your review</h4></div>
             <div className='close-btn-div'>
@@ -239,7 +243,7 @@ export const Movie = (props) => {
                 step="0.1"
                 value={rating}
                 onChange={(event) => setRating(event.target.value)}/>
-            <button className='submitBtn' id="submitButton" onClick={handleReviewPost}>
+            <button className='large-button' id="submitButton" onClick={handleReviewPost}>
                 Submit
               </button>
           </div>

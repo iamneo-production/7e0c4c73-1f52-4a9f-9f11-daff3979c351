@@ -50,11 +50,7 @@ body {
   margin: 10px auto;
 }
 
-input[type="text"] {
-  width: 100%;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
+
 
 button {
   background-color: #000;
@@ -105,4 +101,3 @@ h2 {
   width: 300px; 
   height: auto; 
 }
-

@@ -20,15 +20,18 @@ public class User {
 	private String email;
 	private String password;
 	private String name;
-	// @Column(nullable = false)
 	private String role;
+	private String jwtToken;
 	@CreationTimestamp
 	private Date createDate;
 	@UpdateTimestamp
 	private Date updateDate;
 	
 	
-	public User(long userId, String email, String password, String name, String role, Date createDate,
+	
+	
+	
+	public User(long userId, String email, String password, String name, String role, String jwtToken, Date createDate,
 			Date updateDate) {
 		super();
 		this.userId = userId;
@@ -36,11 +39,12 @@ public class User {
 		this.password = password;
 		this.name = name;
 		this.role = role;
+		this.jwtToken = jwtToken;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
-	
-	
+
+
 	public User() {
 		super();
 	}
@@ -120,6 +124,18 @@ public class User {
 		return false;
 	}
 	
+	
+	
+	public String getJwtToken() {
+		return jwtToken;
+	}
+
+
+	public void setJwtToken(String jwtToken) {
+		this.jwtToken = jwtToken;
+	}
+
+
 	public User hideDetails() {
 		this.setEmail(null);
 		this.setPassword(null);

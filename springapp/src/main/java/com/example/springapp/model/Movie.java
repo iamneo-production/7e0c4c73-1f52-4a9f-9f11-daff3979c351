@@ -28,7 +28,10 @@ public class Movie {
 	private String rating;
 	private String cast;
 	private String genre;//stores the different genres separated by space
+
+    @Column(length = 2000)
 	private String plotSummary;
+
 	private String poster;//stores the url of the poster of the movie
 	@OneToMany
     private List<Review> reviews;

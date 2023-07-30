@@ -105,7 +105,4 @@ public class ReviewService {
 		}
 		return ""+0.0f;
 	}
-
-
-	
 }

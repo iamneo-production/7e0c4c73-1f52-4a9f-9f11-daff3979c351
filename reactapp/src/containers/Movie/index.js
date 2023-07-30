@@ -54,7 +54,6 @@ export const Movie = (props) => {
           window.location.href = process.env.REACT_APP_FRONTEND_URL+'signin';
         }
       })
-
     }
   }
 
@@ -143,7 +142,7 @@ export const Movie = (props) => {
                 <div>
                   <div className='cast-grid'>
                     {casts.map((item, index) => (
-                      <CastCard key={index} cast={item} isAdmin={isAdmin} />
+                      <CastCard key={index} cast={item}/>
                     ))}
                   </div>
                 </div>
@@ -245,11 +244,10 @@ export const Movie = (props) => {
                 onChange={(event) => setRating(event.target.value)}/>
             <button className='large-button' id="submitButton" onClick={handleReviewPost}>
                 Submit
-              </button>
+            </button>
           </div>
         </ModalBody>
       </Modal>
-
     </div>
   )
 }

@@ -31,12 +31,14 @@ import com.example.springapp.model.Review;
 import com.example.springapp.model.User;
 import com.example.springapp.model.WorkedOn;
 import com.example.springapp.service.CastService;
+import com.example.springapp.service.ImageService;
 import com.example.springapp.service.MovieService;
 import com.example.springapp.service.ReviewService;
 import com.example.springapp.service.UserService;
 import com.example.springapp.service.WorkedOnService;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 
 
 @RestController
@@ -59,6 +61,10 @@ public class MovieController {
 	@Autowired
 	private WorkedOnService workedOnService;// Object to connect to workedOn service of service layer
 
+	@Autowired
+	ImageService imageService;
+
+	
 	// object to connect to JWT configuration
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
@@ -78,9 +84,6 @@ public class MovieController {
 			}
 		}
 		filename = name + timestamp.getTime() + ext;// creating the unique file name by adding the current timestamp
-		poster.transferTo(new File(
-				"/home/coder/project/workspace/springapp/src/main/resources/static/"
-						+ filename));// storing the image to the public folder
 		return filename;
 	}
 
@@ -110,20 +113,44 @@ public class MovieController {
 		try {
 			User user = this.userService.AuthenticateUser(email, password);
 			if (user != null) {
-				String token = jwtTokenUtil.generateToken(user);
+				String token = user.getJwtToken();
+				if(token != null && !jwtTokenUtil.isTokenExpired(token)) {
+					return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+				}else {
+					userService.saveToken(user, null);
+				}
+				token = jwtTokenUtil.generateToken(user);
 				Map<String, Object> responseBody = new HashMap<>();
 				responseBody.put("token", token);
 				responseBody.put("userId", user.getUserId());
 				responseBody.put("email", user.getEmail());
 				responseBody.put("name", user.getName());
 				responseBody.put("role", user.getRole());
+				userService.saveToken(user, token);
 				return ResponseEntity.ok(responseBody);
 			}
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+	
+	@PostMapping("/signout")
+	public ResponseEntity<HttpStatus> signOut(@RequestHeader(name = "Authorization") String token,@RequestParam("email") String emai){
+		token = token.substring(7);
+		try {
+			String email = jwtTokenUtil.getUsernameFromToken(token);
+			User user = userService.getUserByEmail(email);
+			userService.saveToken(user, null);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}catch (JwtException e) {
+			User user = userService.getUserByEmail(emai);
+			userService.saveToken(user, null);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	//check if a token is valid for a particular user
@@ -143,6 +170,36 @@ public class MovieController {
 				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (ExpiredJwtException e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	//check if a token is valid for a particular user
+	@PostMapping("/user/detail")
+	public ResponseEntity<Map<String, Object>> getUserDetails(@RequestHeader(required=false, name = "Authorization") String token,
+			@RequestParam("userId") String userId) {
+		try {
+			Map<String, Object> responseBody = new HashMap<>();
+			User user = userService.getUserByUserId(Long.parseLong(userId));
+			if (token != null && token.startsWith("Bearer ")) {
+				token = token.substring(7);
+				if (!jwtTokenUtil.isTokenExpired(token)) {
+					String email = jwtTokenUtil.getUsernameFromToken(token);
+					if (user.getEmail().equals(email) && userService.authenticateToken(email, token)!= null) {
+						responseBody.put("userId", user.getUserId());
+						responseBody.put("email", user.getEmail());
+						responseBody.put("name", user.getName());
+						responseBody.put("role", user.getRole());
+						return ResponseEntity.ok(responseBody);
+					}
+				}
+			}
+			responseBody.put("userId", user.getUserId());
+			responseBody.put("name", user.getName());
+			return ResponseEntity.ok(responseBody);
 		} catch (ExpiredJwtException e) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
@@ -173,43 +230,7 @@ public class MovieController {
 	}
 
 	
-	// @GetMapping("/movies/highestrated")
-	// public ResponseEntity<List<Movie>> getHighestRatedMovies(){
-	// 	try{
-	// 		List<Movie> movies = this.movieService.getHighestRatedMovies();
-	// 		return ResponseEntity.status(HttpStatus.OK).body(movies);
-	// 	}catch(Exception e){
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
 
-
-	// @GetMapping("/movies/recent")
-	// public ResponseEntity<List<Movie>> getRecentMovies(){
-	// 	try{
-	// 		List<Movie> movies = this.movieService.getRecentMovies();
-	// 		return ResponseEntity.status(HttpStatus.OK).body(movies);
-	// 	}catch(Exception e){
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
-	
-
-	// retrieves the particular movie data that has primary key as movieId
-	// @GetMapping("/movies/{movieId}")
-	// public ResponseEntity<MovieModel> getMovie(@PathVariable String movieId) {
-	// 	try {
-	// 		Movie m = this.movieService.getMovie(Long.parseLong(movieId));
-	// 		if (m != null) {
-	// 			List<WorkedOn> wl = workedOnService.getList(m);
-	// 			return ResponseEntity.status(HttpStatus.OK).body(new MovieModel(m, wl));
-	// 		} else {
-	// 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	// 		}
-	// 	} catch (Exception e) {
-	// 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	// 	}
-	// }
 
 	// creates a new movie object and stores the data in the database after
 	// authenticating the user as admin
@@ -225,19 +246,19 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 						Movie movie = new Movie();
 						movie.setTitle(title);
 						movie.setGenre(genre);
 						Date releaseDate1 = new SimpleDateFormat("dd/MM/yyyy").parse(releaseDate);
 						movie.setReleaseDate(releaseDate1);
 						movie.setPlotSummary(plotSummary);
+						String filename = null;
 						if(poster != null){
-							String filename = handleFile(poster);
+							filename = handleFile(poster);
 							movie.setPoster(filename);
 						}
-						movie = this.movieService.addMovie(movie);
-						// List<WorkedOn> wl = workedOnService.getList(movie);
+						movie = this.movieService.addMovie(movie,filename,poster);
 						return ResponseEntity.status(HttpStatus.OK).body(movie);
 					}
 				}
@@ -254,7 +275,7 @@ public class MovieController {
 	// updates the movie having movieId as the primary key in the database after
 	// authenticating the user as admin
 	@PutMapping("/movie")
-	public ResponseEntity<Movie> updateMovie( @RequestHeader(name = "Authorization") String token,
+	public ResponseEntity<Movie> updateMovie(@RequestHeader(name = "Authorization") String token,
 			@RequestParam(name = "movieId") String movieId,
 			@RequestParam(name = "title", required = false) String title,
 			@RequestParam(name = "genre", required = false) String genre,
@@ -268,7 +289,7 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 						Movie movie = new Movie();
 						movie.setMovieId(Long.parseLong(movieId));
 						movie.setTitle(title);
@@ -279,8 +300,7 @@ public class MovieController {
 						movie.setPlotSummary(plotSummary);
 						String filename = (poster != null) ? handleFile(poster) : null;
 						movie.setPoster(filename);
-						movie = this.movieService.updateMovie(Long.parseLong(movieId), movie);
-						// List<WorkedOn> wl = workedOnService.getList(movie);
+						movie = this.movieService.updateMovie(Long.parseLong(movieId), movie,filename,poster);
 						return ResponseEntity.status(HttpStatus.OK).body(movie);
 					}
 				}
@@ -303,7 +323,7 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 						this.movieService.deleteMovie(Long.parseLong(movieId));
 						return new ResponseEntity<>(HttpStatus.OK);
 					}
@@ -314,6 +334,7 @@ public class MovieController {
 		} catch (ExpiredJwtException e) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
@@ -363,7 +384,7 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null) {
 						Review review = new Review();
 						review.setReviewNote(reviewNote);
 						review.setRating(rating);
@@ -408,7 +429,7 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 						Review review = reviewService.updateReview(Long.parseLong(reviewId), reviewNote, rating, source);
 						if (review != null) {
 							Movie movie = review.getMovie();
@@ -442,7 +463,7 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 						Movie movie = reviewService.deleteReview(Long.parseLong(reviewId));
 						if (movie != null) {
 							String rating = reviewService.getRating(movie);
@@ -508,10 +529,10 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 
 						String filename = (poster != null) ? handleFile(poster) : null;
-						if (castService.addCast(name, filename) != null) {
+						if (castService.addCast(name, filename,poster) != null) {
 							return new ResponseEntity<>(HttpStatus.OK);
 						}
 
@@ -536,7 +557,7 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 
 						Cast cast = castService.getCast(castId);
 						Movie movie = movieService.getMovie(movieId);
@@ -568,7 +589,7 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 						Cast cast = castService.getCast(Long.parseLong(castId));
 						if (cast != null) {
 							workedOnService.deleteByCast(cast);
@@ -598,7 +619,7 @@ public class MovieController {
 				token = token.substring(7);
 				if (!jwtTokenUtil.isTokenExpired(token)) {
 					String email = jwtTokenUtil.getUsernameFromToken(token);
-					if (userService.isEmailExist(email) && userService.isUserAdmin(email)) {
+					if (userService.isEmailExist(email) && userService.authenticateToken(email, token)!= null && userService.isUserAdmin(email)) {
 						Cast cast = castService.getCast(Long.parseLong(castId));
 						Movie movie = movieService.getMovie(Long.parseLong(movieId));
 						if (cast != null && movie != null) {
@@ -615,6 +636,31 @@ public class MovieController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+
+	@GetMapping("/cast/movie")
+	public ResponseEntity<List<Cast>> getCastsForMovie(@RequestParam(name = "id") String movieId){
+		try{
+			Movie movie = movieService.getMovie(Long.parseLong(movieId));
+			if(movie != null){
+				List<Cast> casts = workedOnService.getCastsForMovie(movie);
+				return ResponseEntity.status(HttpStatus.OK).body(casts);
+			}
+		}catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
+	}
+
+	@GetMapping("/image/{filename}")
+	public ResponseEntity<byte[]> getImage(@PathVariable String filename){
+		try{
+			return ResponseEntity.status(HttpStatus.OK).body(imageService.getImage(filename));
+		}catch(Exception e){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 }

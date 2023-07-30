@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 7c4aa19cfd5bdc52df6d376f582480f32d5c01ec
+>>>>>>> f3d96e479f5e1d9330123001b16d3cd47da31047
+=======
+>>>>>>> 3def089c0b9ce9a867e948d663b1e9443e57bef9
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>iamneo-production_7e0c4c73-1f52-4a9f-9f11-daff3979c351</name>
@@ -22,17 +33,27 @@
 	</natures>
 	<filteredResources>
 		<filter>
-<<<<<<< HEAD
-			<id>1682936983265</id>
-=======
-			<id>1683003215273</id>
->>>>>>> 8dcb582fc6e1b7a42d0bdc19157e1fb01787879c
+
+			<id>1690469258443</id>
+
 			<name></name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.core.resources.regexFilterMatcher</id>
+
 				<arguments>node_modules|.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
+>>>>>>> b46dc08b8b3da8183926cb951ee494484e2ccb20
 			</matcher>
 		</filter>
 	</filteredResources>
 </projectDescription>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> fbda2b38da210547dd81d0516a3f4f18c9f7cc7e
+>>>>>>> 7c4aa19cfd5bdc52df6d376f582480f32d5c01ec
+>>>>>>> f3d96e479f5e1d9330123001b16d3cd47da31047
+=======
+>>>>>>> 3def089c0b9ce9a867e948d663b1e9443e57bef9

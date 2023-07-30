@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { CastCard } from '../../Components/CastCard'
+import { CastCard } from '../../Components/CastCard/CardD'
 import { Modals } from '../../Components/Modals';
 import 'bootstrap/dist/css/bootstrap.css';
 

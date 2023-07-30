@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import { CastCard } from '../../Components/CastCard/index';
-import {Card} from '../../Components/CastCard/index1'
+import { CastCard } from '../../Components/CastCard/CardD';
+import {Card} from '../../Components/CastCard/CardA'
 import './UpdateCast.css'
 
-export const AddCast = (props) => {
+export const UpdateCast = (props) => {
 
     var { movieId } = useParams();
     var searchWord1='';
@@ -135,3 +135,5 @@ export const AddCast = (props) => {
     )
 
 }
+
+export default UpdateCast;

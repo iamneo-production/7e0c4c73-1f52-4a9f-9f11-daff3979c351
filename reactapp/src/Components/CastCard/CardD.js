@@ -2,7 +2,7 @@ import React from 'react'
 import './index.css';
 
 
-export const CastCard = (props) => {
+const CardD = (props) => {
   const { cast, handleDelete} = props;
   return (
     <div className='cardContainer'>
@@ -13,3 +13,4 @@ export const CastCard = (props) => {
   )
 
 }
+export default CardD;

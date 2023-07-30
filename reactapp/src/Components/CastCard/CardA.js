@@ -2,7 +2,7 @@ import React from 'react'
 import './index.css';
 
 
-export const CastCard = (props) => {
+export const CardA = (props) => {
   const { cast, handleAdd} = props;
   return (
     <div className='cardContainer'>
@@ -12,3 +12,4 @@ export const CastCard = (props) => {
     </div>
   )
 }
+
